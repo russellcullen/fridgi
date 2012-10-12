@@ -3,15 +3,27 @@ fridgi
 
 Objects
 ---------
-**Ingredient**
-
+## Ingredient
 upc : long  
-quantity : int  
+name : string
+quantity : float  
 unit : string  
 shelf\_life : long  
 insert\_time : long  
-recipes : ObjectId[]  
 price : int  
 calories : int  
 count : int  
-tag : string[]  
+tags : string[]  
+
+## Compact Ingredient
+ingredient : Ingredient  
+quantity : float  
+unit : string 
+
+## Recipe
+name : string  
+ingredients : CompactIngredient[]  
+rating : float  
+tags : string[]  
+last\_used : long  
+serving\_size : float 
