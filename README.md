@@ -22,14 +22,14 @@ JSON Object
 
 "Partial Recipe"  
 {  
-  name : string 
-  recipe : ObjectID 
+  name : string  
+  recipe : ObjectID  
   ingredients\_needed : "Recipe Ingredient"[]  
 } 
 
-Documents
----------
-## Ingredient
+##Documents
+
+#### Ingredient
 upc : long  
 name : string
 unit : string  
@@ -38,7 +38,7 @@ price : int
 calories : int  
 default_tags : string[]  
 
-## Recipe
+#### Recipe
 name : string  
 ingredients : "Recipe Ingredient"[]  
 rating : float  
@@ -46,18 +46,18 @@ tags : string[]
 last\_used : long  
 serving\_size : float  
 
-## Fridge
+#### Fridge
 name : string  
 ingredients : "Fridge Ingredient"[]  
-favorite\_recipes : Recipe[]
-current\_recipes : Recipe[]
+favorite\_recipes : Recipe[]  
+current\_recipes : Recipe[]  
 partial\_recipes : "Partial Recipes"[]  
 
 Collection Names
 ----------------
-Ingredients
-Recipes
-Fridges 
+Ingredients  
+Recipes  
+Fridges  
 
 
 
