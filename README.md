@@ -31,7 +31,7 @@ JSON Object
 
 #### Ingredient
 upc : long  
-name : string
+name : string  
 unit : string  
 shelf\_life : long  
 price : int  
