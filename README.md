@@ -34,6 +34,7 @@ default_tags : string[]
 #### Recipe
 name : string  
 ingredients : "Recipe Ingredient"[]  
+instructions : string[]  
 rating : float  
 tags : string[]  
 last\_used : long  
