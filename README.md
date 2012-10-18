@@ -20,19 +20,12 @@ JSON Object
   quantity : float  
 }  
 
-"Partial Recipe"  
-{  
-  name : string  
-  recipe : ObjectID  
-  ingredients\_needed : "Recipe Ingredient"[]  
-} 
-
 ##Documents
 
 #### Ingredient
 upc : long  
 name : string  
-unit : string  
+unit : string   
 shelf\_life : long  
 price : int  
 calories : int  
@@ -50,8 +43,6 @@ serving\_size : float
 name : string  
 ingredients : "Fridge Ingredient"[]  
 favorite\_recipes : Recipe[]  
-current\_recipes : Recipe[]  
-partial\_recipes : "Partial Recipes"[]  
 
 Collection Names
 ----------------
