@@ -3,8 +3,13 @@ import pymongo
 
 class DatabaseApi:
 	def __init__(self, db = 'db'):
-		connection = pymongo.Connection()
-		self.db = connection[db]
+		self.connection = pymongo.Connection()
+		self.db = self.connection[db]
+
+	# DELETES ALL DATA IN DB
+	# Really only for tesing purposes.
+	def clear_db(self):
+		self.connection.drop_database(self.db)
 
 	# input  : ingredient dict
 	def add_ingredient(self, ingredient):
