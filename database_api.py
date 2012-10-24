@@ -21,7 +21,7 @@ class DatabaseApi:
 	# input  : recipe dict
 	def add_recipe(self, recipe):
 		""" Adds recipe to Recipes collection """
-		recipes = db.recipes
+		recipes = self.db.recipes
 		recipes.insert(recipe)
 
 

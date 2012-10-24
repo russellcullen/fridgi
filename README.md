@@ -25,6 +25,7 @@ JSON Object
 #### Ingredient
 upc : long  
 name : string  
+quantity : float  
 unit : string   
 shelf\_life : long  
 price : int  
