@@ -20,13 +20,15 @@ class DatabaseApi:
 		ingredients = self.db.ingredients
 		ingredients.insert(ingredient)
 	  
-
 	# input  : recipe dict
 	def add_recipe(self, recipe):
 		""" Adds recipe to Recipes collection """
 		recipes = self.db.recipes
 		recipes.insert(recipe)
 
+	def add_fridge(self, name):
+		fridges = self.db.fridges
+		fridges.insert({'name': name, 'ingredients' : [], 'favorite_recipes' : []})
 
 	# input  : name of ingredient (as string)
 	# return : Ingredient Object
@@ -80,7 +82,12 @@ class DatabaseApi:
 
 	# input  : ingredient name, quantity, fridge name
 	def update_ingredient(self, ingredient, quantity, fridge):
-		pass
+		ingredients = self.get_current_ingredients(fridge)
+		for i in ingredients:
+			if (i['name'] == ingredient):
+				i['quantity'] = quantity
+		fridges = self.db.fridges
+		fridges.update({'name' : fridge}, {'ingredients' : ingredients})
 
 	# input  : recipe name as string
 	# return : boolean representing if fridge has necessary ingredients
