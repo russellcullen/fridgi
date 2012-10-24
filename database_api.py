@@ -61,23 +61,29 @@ class DatabaseApi:
 		return list(recipes.find({'ingredients.name' : ingredient}))
 
 	# input  : fridge name
-	# return : array of current Ingredients
-	def get_current_ingredients(self, fridge):
+	# return : fridge dictionary
+	def get_fridge(self, fridge):
 		fridges = self.db.fridges
 		fridge = fridges.find_one({'name' : fridge})
+		return fridge
+
+	# input  : fridge name
+	# return : array of current Ingredients
+	def get_current_ingredients(self, fridge):
+		fridge = self.get_fridge(fridge)
 		return fridge['ingredients']
 
 	# input  : ingredient name, fridge name
 	def insert_ingredient(self, ingredient, fridge):
 		fridges = self.db.fridges
-		f = fridges.fine_one({'ingredients.name' : ingredient})
+		f = fridges.find_one({'ingredients.name' : ingredient})
 		if (f != None):
 			for ins in f['ingredients']:
 				if (ins['name'] == ingredient):
 					self.update_ingredient(ingredient, ins['quantity']+1, fridge)
 		else:
-			i = get_ingredient_info_from_name(ingredient)
-			fridge_ingredient = self.creator.create_fridge_ingredient(i['_id'], i['name'], i['quantity'], time.time(), 0, i['deafult_tags'])
+			i = self.get_ingredient_info_from_name(ingredient)
+			fridge_ingredient = self.creator.create_fridge_ingredient(i['_id'], i['name'], i['quantity'], time.time(), 0, i['default_tags'])
 			fridges.update({'name' : fridge}, {'$push' : {'ingredients' : fridge_ingredient}})
 
 	# input  : ingredient name, quantity, fridge name
@@ -93,10 +99,24 @@ class DatabaseApi:
 	# return : boolean representing if fridge has necessary ingredients
 	def can_cook(self, recipe, fridge):
 		# check if recipe in recipes collection
+		r = self.get_recipe_info(recipe)
+		if r is None:
+			return False
+		r_ingredients = r['ingredients']
+		
+		# get fridge ingredients
+		f_ingredients = self.get_current_ingredients(fridge)
+
 		# look through Recipe Ingredient objects, compare to Fridge Ingredients
-		# if all Recipe Ingredients are accounted for, return true
-		# else, return false
-		pass
+		hasIngredients = True
+		for r_i in r_ingredients:
+			hasIngredient = False
+			for f_i in f_ingredients:
+				if (r_i['name'] == f_i['name']) and (f_i['quantity'] >= r_i['quantity']):
+					hasIngredient = True
+			hasIngredients = hasIngredients and hasIngredient
+
+		return hasIngredients
 
 
 	#######     Should never need to use these.    #######
