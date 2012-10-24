@@ -18,7 +18,7 @@ def add_ingredient(ingredient):
 def add_recipe(recipe):
 	""" Adds recipe to Recipes collection """
 	recipes = db.recipes
-	recipes.insert(recipes)
+	recipes.insert(recipe)
 
 
 # input  : name of ingredient (as string)
@@ -42,27 +42,21 @@ def get_recipe_info(recipe):
 # input  : name of recipe (as string)
 # return : array of required Ingredients
 def get_ingredients_by_recipe(recipe):
-	recipe = get_recipe_info(recipe)
-	return recipe['ingredients']
+	r = get_recipe_info(recipe)
+	return r['ingredients']
 
 # input  : name of ingredient (as string)
 # return : array of Recipes that use ingredient input
 def get_recipes_by_ingredients(ingredient):
-	pass
+	recipes = db.recipes
+	return list(recipes.find({'ingredients.name' : ingredient}))
 
-# return : entire Ingredients collection
-def get_all_ingredients():
-	pass
-
-# return : entire Recipes collection
-def get_all_recipes():
-	pass
-
-# input  : fridge ID or name
+# input  : fridge name
 # return : array of current Ingredients
 def get_current_ingredients(fridge):
-	pass
-
+	fridges = db.fridges
+	fridge = fridges.find_one({'name' : fridge})
+	return fridge['ingredients']
 
 # input  : ingredient name, fridge name
 def insert_ingredient(ingredient, fridge):
@@ -80,3 +74,17 @@ def can_cook(recipe, fridge):
 	# if all Recipe Ingredients are accounted for, return true
 	# else, return false
 	pass
+
+
+#######     Should never need to use these.    #######
+#### Any searching can be done faster within mongo ###
+
+# return : entire Ingredients collection
+def get_all_ingredients():
+	ingredients = db.ingredients
+	return list(ingredients.find())
+
+# return : entire Recipes collection
+def get_all_recipes():
+	recipes = db.recipes
+	return list(recipes.find())
