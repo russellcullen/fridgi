@@ -68,9 +68,9 @@ class DatabaseApi:
 	# input  : ingredient name, fridge name
 	def insert_ingredient(self, ingredient, fridge):
 		fridges = self.db.fridges
-		fridge = fridges.fine_one({'ingredients.name' : ingredient})
-		if (fridge != None):
-			for ins in fridge['ingredients']:
+		f = fridges.fine_one({'ingredients.name' : ingredient})
+		if (f != None):
+			for ins in f['ingredients']:
 				if (ins['name'] == ingredient):
 					self.update_ingredient(ingredient, ins['quantity']+1, fridge)
 		else:
