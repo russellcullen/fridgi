@@ -1,8 +1,11 @@
 ## Updating the global ingredients and recipes database
 import pymongo
+import creator
+import time
 
 class DatabaseApi:
 	def __init__(self, db = 'db'):
+		self.creator = creator.ObjectCreator()
 		self.connection = pymongo.Connection()
 		self.db = self.connection[db]
 
@@ -64,7 +67,16 @@ class DatabaseApi:
 
 	# input  : ingredient name, fridge name
 	def insert_ingredient(self, ingredient, fridge):
-		pass
+		fridges = self.db.fridges
+		fridge = fridges.fine_one({'ingredients.name' : ingredient})
+		if (fridge != None):
+			for ins in fridge['ingredients']:
+				if (ins['name'] == ingredient):
+					self.update_ingredient(ingredient, ins['quantity']+1, fridge)
+		else:
+			i = get_ingredient_info_from_name(ingredient)
+			fridge_ingredient = self.creator.create_fridge_ingredient(i['_id'], i['name'], i['quantity'], time.time(), 0, i['deafult_tags'])
+			fridges.update({'name' : fridge}, {'$push' : {'ingredients' : fridge_ingredient}})
 
 	# input  : ingredient name, quantity, fridge name
 	def update_ingredient(self, ingredient, quantity, fridge):
