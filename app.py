@@ -21,7 +21,7 @@ class RecipeHandler(tornado.web.RequestHandler):
 application = tornado.web.Application([
 	(r"/", MainHandler),
     (r"/ingredients", IngredientHandler),
-    (r"/recipies", RecipeHandler)
+    (r"/recipes", RecipeHandler)
 ])
 
 if __name__ == "__main__":
