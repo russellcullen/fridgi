@@ -13,7 +13,8 @@ class DatabaseApi:
 	# DELETES ALL DATA IN DB
 	# Really only for tesing purposes.
 	def clear_db(self):
-		self.connection.drop_database(self.db)
+		for col in collection_names():
+			self.db.drop_collection(col)
 
 	# input  : ingredient dict
 	def add_ingredient(self, ingredient):
