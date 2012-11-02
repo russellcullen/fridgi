@@ -100,10 +100,14 @@ class DatabaseApi:
 		fridges = self.db.fridges
 		fridges.update({'name' : fridge}, {'ingredients' : ingredients})
 
-	def find_recipe_by_tag(tag):
+	def find_recipe_by_tag(tag_list):
 		pass
 
-	
+	def find_fridge_recipes_by_tag(tag_list):
+		pass
+
+	def get_fridge_recipes():
+		pass
 
 	#######     Should never need to use these.    #######
 	#### Any searching can be done faster within mongo ###
