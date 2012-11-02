@@ -16,7 +16,7 @@ class DatabaseApi:
 		for col in self.db.collection_names():
 			try:
 				self.db.drop_collection(col)
-			except Error:
+			except Exception:
 				pass
 
 	# input  : ingredient dict
