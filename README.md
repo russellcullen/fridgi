@@ -1,6 +1,10 @@
 fridgi
 ======
 
+How to run app locally:
+
+    $ python app.py
+
 JSON Object
 -----------
 "Fridge Ingredient"  
