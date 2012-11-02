@@ -7,9 +7,8 @@ import os
 class DatabaseApi:
 	def __init__(self, db = 'db'):
 		self.creator = creator.ObjectCreator()
-		self.connection = pymongo.Connection(os.environ.get('MONGOLAB_URI', None))
+		self.connection = pymongo.Connection("mongodb://fridgi:test@ds041347.mongolab.com:41347/heroku_app8911714")
 		self.db = self.connection[db]
-		self.db.authenticate("fridgi", "test")
 
 	# DELETES ALL DATA IN DB
 	# Really only for tesing purposes.
