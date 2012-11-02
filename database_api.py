@@ -14,7 +14,10 @@ class DatabaseApi:
 	# Really only for tesing purposes.
 	def clear_db(self):
 		for col in self.db.collection_names():
-			self.db.drop_collection(col)
+			try:
+				self.db.drop_collection(col)
+			except Error:
+				pass
 
 	# input  : ingredient dict
 	def add_ingredient(self, ingredient):
