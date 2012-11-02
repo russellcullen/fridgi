@@ -29,7 +29,7 @@ if __name__ == "__main__":
 	api = database_api.DatabaseApi('test')
 	c = creator.ObjectCreator()
 	# Clear previous test data
-	# api.clear_db()
+	api.clear_db()
 
 	db_test.insert_some_ingredients(api, c)
 	db_test.insert_some_recipes(api, c)

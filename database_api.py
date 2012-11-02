@@ -7,7 +7,7 @@ import os
 class DatabaseApi:
 	def __init__(self, db = 'db'):
 		self.creator = creator.ObjectCreator()
-		self.connection = pymongo.Connection(os.environ.get('MONGOLAB_URI', None))
+		self.connection = pymongo.Connection()
 		self.db = self.connection[db]
 
 	# DELETES ALL DATA IN DB
