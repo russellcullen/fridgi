@@ -26,7 +26,7 @@ application = tornado.web.Application([
 
 if __name__ == "__main__":
 	# Create fake testing db
-	api = database_api.DatabaseApi('test')
+	api = database_api.DatabaseApi('heroku_app8911714')
 	c = creator.ObjectCreator()
 	# Clear previous test data
 	api.clear_db()
