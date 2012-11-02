@@ -9,6 +9,7 @@ class DatabaseApi:
 		self.creator = creator.ObjectCreator()
 		self.connection = pymongo.Connection(os.environ.get('MONGOLAB_URI', None))
 		self.db = self.connection[db]
+		self.db.authenticate("fridgi", "test")
 
 	# DELETES ALL DATA IN DB
 	# Really only for tesing purposes.
