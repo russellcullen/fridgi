@@ -4,7 +4,7 @@ import os
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello, world")
+        self.write("Hello. Welcome to Fridgi. The fridge of the future. ")
 
 application = tornado.web.Application([
     (r"/", MainHandler),
