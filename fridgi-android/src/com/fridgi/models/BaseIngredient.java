@@ -1,6 +1,6 @@
 package com.fridgi.models;
 
-public class Ingredient {
+public class BaseIngredient {
     
     private String mName;
     private String[] mTags;

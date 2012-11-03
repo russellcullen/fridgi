@@ -1,9 +1,10 @@
 package com.fridgi.api;
 
-import com.fridgi.models.Ingredient;
+import com.fridgi.models.BaseIngredient;
+import com.fridgi.util.Parsers;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,7 +17,7 @@ public class Api {
     private static final String INGREDIENTS_URL = BASE_URL + "/ingredients";
     private static final String RECIPES_URL = BASE_URL + "/recipes";
     
-    public static ArrayList<Ingredient> getIngredients(){
+    private static String getHttpResponse(String url) {
         URL serverAddress;
         try {
             serverAddress = new URL(INGREDIENTS_URL);
@@ -32,19 +33,20 @@ public class Api {
               stringBuilder.append(line + "\n");
             }
             reader.close();
-            JSONArray ingredientsJSON = new JSONArray(stringBuilder.toString());
-            ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-            for (int i=0; i < ingredientsJSON.length(); i++) {
-                JSONObject jsonIngredient = ingredientsJSON.getJSONObject(i);
-                Ingredient in = new Ingredient();
-                in.setName(jsonIngredient.getString("name"));
-                in.setQuantity(jsonIngredient.getDouble("quantity"));
-                ingredients.add(in);
-            }
-            return ingredients;
+            return stringBuilder.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public static ArrayList<BaseIngredient> getIngredients(){
+            try {
+                JSONArray ingredientsJSON = new JSONArray(getHttpResponse(INGREDIENTS_URL));
+                return Parsers.parseBaseIngredientArray(ingredientsJSON);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
     }
 }
