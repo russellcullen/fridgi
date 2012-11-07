@@ -3,6 +3,7 @@ package com.fridgi;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,7 @@ public class SearchRecipeFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 startSearch(v.getText().toString());
-                return false;
+                return true;
             }
         });
     }
