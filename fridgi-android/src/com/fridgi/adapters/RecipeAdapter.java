@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.fridgi.models.BaseIngredient;
+import com.fridgi.models.Recipe;
 
 import java.util.ArrayList;
 
 
-public class BaseIngredientAdapter extends BaseAdapter {
+public class RecipeAdapter extends BaseAdapter {
     
-    private ArrayList<BaseIngredient> mIngredients;
+    private ArrayList<Recipe> mRecipes;
     private LayoutInflater mInflater;
     
-    public BaseIngredientAdapter(Context context, ArrayList<BaseIngredient> ingredients) {
+    public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
         mInflater = LayoutInflater.from(context);
-        mIngredients = ingredients;
+        mRecipes = recipes;
     }
 
     @Override
@@ -28,21 +28,21 @@ public class BaseIngredientAdapter extends BaseAdapter {
             convertView = mInflater.inflate(android.R.layout.simple_list_item_2, null);
         }
         
-        BaseIngredient ingredient = mIngredients.get(position);
-        ((TextView) convertView.findViewById(android.R.id.text1)).setText(ingredient.getName());
-        ((TextView) convertView.findViewById(android.R.id.text2)).setText(ingredient.getQuantity() + " " + ingredient.getUnit());
+        Recipe recipe = mRecipes.get(position);
+        ((TextView) convertView.findViewById(android.R.id.text1)).setText(recipe.getName());
+        ((TextView) convertView.findViewById(android.R.id.text2)).setText("" + recipe.getRating());
         
         return convertView;
     }
     
     @Override
     public int getCount() {
-        return mIngredients.size();
+        return mRecipes.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mIngredients.get(position);
+        return mRecipes.get(position);
     }
 
     @Override

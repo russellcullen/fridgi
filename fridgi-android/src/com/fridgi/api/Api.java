@@ -1,10 +1,13 @@
 package com.fridgi.api;
 
 import com.fridgi.models.BaseIngredient;
+import com.fridgi.models.Fridge;
+import com.fridgi.models.Recipe;
 import com.fridgi.util.Parsers;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,11 +19,12 @@ public class Api {
     private static final String BASE_URL = "http://fridgi.herokuapp.com";
     private static final String INGREDIENTS_URL = BASE_URL + "/ingredients";
     private static final String RECIPES_URL = BASE_URL + "/recipes";
+    private static final String FRIDGE_URL = BASE_URL + "/fridge/";
     
     private static String getHttpResponse(String url) {
         URL serverAddress;
         try {
-            serverAddress = new URL(INGREDIENTS_URL);
+            serverAddress = new URL(url);
       
             HttpURLConnection connection = (HttpURLConnection)serverAddress.openConnection();
             connection.setRequestMethod("GET");
@@ -48,5 +52,25 @@ public class Api {
                 e.printStackTrace();
                 return null;
             }
+    }
+    
+    public static ArrayList<Recipe> getRecipes(){
+        try {
+            JSONArray recipesJSON = new JSONArray(getHttpResponse(RECIPES_URL));
+            return Parsers.parseRecipeArray(recipesJSON);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static Fridge getFridge(String name) {
+        try {
+            JSONObject fridgeJSON = new JSONObject(getHttpResponse(FRIDGE_URL + name));
+            return Parsers.parseFridge(fridgeJSON);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

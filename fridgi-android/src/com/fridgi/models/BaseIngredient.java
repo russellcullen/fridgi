@@ -1,63 +1,52 @@
 package com.fridgi.models;
 
-public class BaseIngredient {
+import com.google.gson.annotations.SerializedName;
+
+
+public class BaseIngredient extends Ingredient {
     
-    private String mName;
-    private String[] mTags;
-    private double mPrice;
-    private int mCalories;
-    private long mUpc;
-    private long mShelfLife;
-    private String mUnit;
-    private double mQuantity;
+    @SerializedName("default_tags") private String[] defaultTags;
+    private double price;
+    private int calories;
+    private long upc;
+    private long shelfLife;
+    private String unit;
     
-    public String getName() {
-        return mName;
+    public String[] getDefaultTags() {
+        return defaultTags;
     }
-    public void setName(String mName) {
-        this.mName = mName;
-    }
-    public String[] getTags() {
-        return mTags;
-    }
-    public void setTags(String[] mTags) {
-        this.mTags = mTags;
+    public void setDefaultTags(String[] mTags) {
+        this.defaultTags = mTags;
     }
     public double getPrice() {
-        return mPrice;
+        return price;
     }
     public void setPrice(double mPrice) {
-        this.mPrice = mPrice;
+        this.price = mPrice;
     }
     public int getCalories() {
-        return mCalories;
+        return calories;
     }
     public void setCalories(int mCalories) {
-        this.mCalories = mCalories;
+        this.calories = mCalories;
     }
     public long getUpc() {
-        return mUpc;
+        return upc;
     }
     public void setUpc(long mUpc) {
-        this.mUpc = mUpc;
+        this.upc = mUpc;
     }
     public long getShelfLife() {
-        return mShelfLife;
+        return shelfLife;
     }
     public void setShelfLife(long mShelfLife) {
-        this.mShelfLife = mShelfLife;
+        this.shelfLife = mShelfLife;
     }
     public String getUnit() {
-        return mUnit;
+        return unit;
     }
     public void setUnit(String mUnit) {
-        this.mUnit = mUnit;
-    }
-    public double getQuantity() {
-        return mQuantity;
-    }
-    public void setQuantity(double mQuantity) {
-        this.mQuantity = mQuantity;
+        this.unit = mUnit;
     }
 
 }

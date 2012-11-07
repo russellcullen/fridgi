@@ -1,6 +1,9 @@
 package com.fridgi.util;
 
 import com.fridgi.models.BaseIngredient;
+import com.fridgi.models.Fridge;
+import com.fridgi.models.Recipe;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,21 +14,15 @@ import java.util.ArrayList;
 public abstract class Parsers {
     
     public static BaseIngredient parseBaseIngredient(JSONObject obj) {
-        BaseIngredient ingredient = new BaseIngredient();
-        try {
-            ingredient.setCalories(obj.getInt("calories"));
-            ingredient.setName(obj.getString("name"));
-            ingredient.setPrice(obj.getDouble("price"));
-            ingredient.setQuantity(obj.getDouble("quantity"));
-            ingredient.setShelfLife(obj.getLong("shelf_life"));
-//            ingredient.setTags((String[]) obj.get("default_tags")); Deal with this later
-            ingredient.setUnit(obj.getString("unit"));
-            ingredient.setUpc(obj.getLong("upc"));
-            return ingredient;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return new Gson().fromJson(obj.toString(), BaseIngredient.class);
+    }
+    
+    public static Recipe parseRecipe(JSONObject obj) {
+        return new Gson().fromJson(obj.toString(), Recipe.class);
+    }
+    
+    public static Fridge parseFridge(JSONObject obj) {
+        return new Gson().fromJson(obj.toString(), Fridge.class);
     }
     
     public static ArrayList<BaseIngredient> parseBaseIngredientArray(JSONArray objs) {
@@ -39,6 +36,19 @@ public abstract class Parsers {
             e.printStackTrace();
         }
         return ingredients;
+    }
+    
+    public static ArrayList<Recipe> parseRecipeArray(JSONArray objs) {
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+        try {
+            for (int i=0; i < objs.length(); i++) {
+                JSONObject jsonRecipe = objs.getJSONObject(i);
+                recipes.add(parseRecipe(jsonRecipe));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return recipes;
     }
     
 }

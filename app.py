@@ -20,7 +20,7 @@ class RecipeHandler(tornado.web.RequestHandler):
 
 class FridgeHandler(tornado.web.RequestHandler):
 	def get(self, slug):
-		self.write(dumps(api.get_current_ingredients(slug)))
+		self.write(dumps(api.get_fridge(slug)))
 
 application = tornado.web.Application([
 	(r"/", MainHandler),
