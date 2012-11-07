@@ -1,6 +1,7 @@
 package com.fridgi.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,16 @@ public class RecipeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = mInflater.inflate(android.R.layout.simple_list_item_2, null);
+            ((TextView) convertView.findViewById(android.R.id.text1)).setTypeface(null, Typeface.BOLD);
         }
         
         Recipe recipe = mRecipes.get(position);
         ((TextView) convertView.findViewById(android.R.id.text1)).setText(recipe.getName());
-        ((TextView) convertView.findViewById(android.R.id.text2)).setText("" + recipe.getRating());
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < recipe.getInstructions().length; i++) {
+            sb.append("\t" + recipe.getInstructions()[i] + "\n\n");
+        }
+        ((TextView) convertView.findViewById(android.R.id.text2)).setText(sb.toString());
         
         return convertView;
     }

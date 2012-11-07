@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">fridgi</string>
-    <string name="title_ingredient_detail">Ingredient Detail</string>
-    <string name="title_ingredient_list">Ingredients</string>
+    <string name="title_ingredient_detail">fridgi info</string>
+    <string name="title_ingredient_list">fridgi</string>
 
 </resources>
