@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class FridgeIngredient extends Ingredient {
     
 //    private String ingredient;
-    @SerializedName("insert_time") private long insertTime;
+    @SerializedName("insert_time") private double insertTime;
     private int count;
     private String[] tags;
     
@@ -15,10 +15,10 @@ public class FridgeIngredient extends Ingredient {
 //    public void setIngredient(String ingredient) {
 //        this.ingredient = ingredient;
 //    }
-    public long getInsertTime() {
+    public double getInsertTime() {
         return insertTime;
     }
-    public void setInsertTime(long insertTime) {
+    public void setInsertTime(double insertTime) {
         this.insertTime = insertTime;
     }
     public int getCount() {

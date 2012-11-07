@@ -18,7 +18,7 @@ JSON Object
   name : string  
   ingredient : ObjectID  
   quantity : float  
-  insert\_time : long  
+  insert\_time : double
   count : int  
   tags : string[]  
 }  
