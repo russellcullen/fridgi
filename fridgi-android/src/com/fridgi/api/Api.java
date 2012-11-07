@@ -20,30 +20,9 @@ public class Api {
     private static final String INGREDIENTS_URL = BASE_URL + "/ingredients";
     private static final String RECIPES_URL = BASE_URL + "/recipes";
     private static final String FRIDGE_URL = BASE_URL + "/fridge/";
+    private static final String SEARCH_URL = BASE_URL + "/search?tags=";
     
-    private static String getHttpResponse(String url) {
-        URL serverAddress;
-        try {
-            serverAddress = new URL(url);
-      
-            HttpURLConnection connection = (HttpURLConnection)serverAddress.openConnection();
-            connection.setRequestMethod("GET");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder stringBuilder = new StringBuilder();
 
-            String line = null;
-            while ((line = reader.readLine()) != null)
-            {
-              stringBuilder.append(line + "\n");
-            }
-            reader.close();
-            return stringBuilder.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
     public static ArrayList<BaseIngredient> getIngredients(){
             try {
                 JSONArray ingredientsJSON = new JSONArray(getHttpResponse(INGREDIENTS_URL));
@@ -73,4 +52,39 @@ public class Api {
             return null;
         }
     }
+    
+    public static ArrayList<Recipe> searchRecipes(String query) {
+        String tagsQuery = query.replaceAll(" ", "+");
+        try {
+            JSONArray recipesJSON = new JSONArray(getHttpResponse(SEARCH_URL + tagsQuery));
+            return Parsers.parseRecipeArray(recipesJSON);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private static String getHttpResponse(String url) {
+        URL serverAddress;
+        try {
+            serverAddress = new URL(url);
+      
+            HttpURLConnection connection = (HttpURLConnection)serverAddress.openConnection();
+            connection.setRequestMethod("GET");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String line = null;
+            while ((line = reader.readLine()) != null)
+            {
+              stringBuilder.append(line + "\n");
+            }
+            reader.close();
+            return stringBuilder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
 }

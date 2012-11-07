@@ -18,6 +18,10 @@ class RecipeHandler(tornado.web.RequestHandler):
 	def get(self):
 		self.write(dumps(api.get_all_recipes()))
 
+class SearchRecipeHandler(tornado.web.RequestHandler):
+	def get(self):
+		self.write(dumps(api.search_recipes(str(self.get_argument('tags')))))
+
 class FridgeHandler(tornado.web.RequestHandler):
 	def get(self, slug):
 		self.write(dumps(api.get_fridge(slug)))
@@ -26,7 +30,8 @@ application = tornado.web.Application([
 	(r"/", MainHandler),
     (r"/ingredients", IngredientHandler),
     (r"/recipes", RecipeHandler),
-    (r"/fridge/([^/]+)", FridgeHandler)
+    (r"/fridge/([^/]+)", FridgeHandler),
+    (r"/search", SearchRecipeHandler)
 ])
 
 if __name__ == "__main__":
