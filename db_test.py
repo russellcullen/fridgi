@@ -169,7 +169,7 @@ def test2():
 	fridge_ingredients = api.get_current_ingredients('fridgi')
 
 	tags = raw_input('Search : ')
-	recipelist = fridge.search_recipes(tags)
+	recipelist = api.search_recipes(tags)
 	for i in recipelist:
 		print_recipe(i)
 	tags = raw_input('Search fridge : ')

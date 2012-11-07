@@ -104,15 +104,9 @@ class DatabaseApi:
 		recipes = self.db.recipes
 		return list(recipes.find({'tags' : {'$all' : tag_list}}))
 
-	# incomplete
-	def find_fridge_recipes_by_tag(self, tag_list, fridge):
-		filtered_list = self.find_recipe_by_tag(tag_list)
-		# compare to fridge ingredients see if can cook
-		pass
-
-	# incomplete
-	def get_fridge_recipes():
-		pass
+	def search_recipes(self, query):
+		tag_list = str.split(query)
+		return self.find_recipe_by_tag(tag_list)
 
 	#######     Should never need to use these.    #######
 	#### Any searching can be done faster within mongo ###
