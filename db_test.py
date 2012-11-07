@@ -58,6 +58,12 @@ def insert_some_recipes(api, c):
 	chicken_pasta = c.create_recipe(name = 'chicken penne pasta', ingredients = ingredients, instructions = steps, tags = ['delicious'], serving_size = 4)
 	api.add_recipe(chicken_pasta)
 
+	step1 = "Combine the apple juice, peach, banana, yogurt, and ice in a blender and puree until smooth. Add the honey and flaxseed oil and puree briefly to incorporate."
+	step2 = "Pour into glasses and serve right away."
+	steps = [step1, step2]
+	sweet_peach_smoothie = c.create_recipe(name = 'sweet peach smoothie', instructions = steps, tags = ['delicious'])
+	api.add_recipe(sweet_peach_smoothie)
+
 def print_ingredient(ingredient):
 	name = ingredient['name']
 	q = str(ingredient['quantity'])
@@ -172,10 +178,10 @@ def test2():
 	recipelist = api.search_recipes(tags)
 	for i in recipelist:
 		print_recipe(i)
-	tags = raw_input('Search fridge : ')
-	recipelist2 = fridge.search_fridge_recipes(tags, 'fridgi')
-	for i in recipelist2:
-		print_recipe(i) 
+	#tags = raw_input('Search fridge : ')
+	#recipelist2 = fridge.search_fridge_recipes(tags, 'fridgi')
+	#for i in recipelist2:
+	#	print_recipe(i) 
 
 
 if __name__ == "__main__":
