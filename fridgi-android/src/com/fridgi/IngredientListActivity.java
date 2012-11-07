@@ -2,6 +2,7 @@ package com.fridgi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 public class IngredientListActivity extends FragmentActivity
@@ -27,7 +28,12 @@ public class IngredientListActivity extends FragmentActivity
         if (mTwoPane) {
             Bundle arguments = new Bundle();
             arguments.putString(IngredientDetailFragment.ARG_ITEM_ID, id);
-            IngredientDetailFragment fragment = new IngredientDetailFragment();
+            Fragment fragment;
+            if (id.equals("2")) {
+                fragment = new SearchRecipeFragment();
+            } else {
+                fragment = new IngredientDetailFragment();
+            }
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.ingredient_detail_container, fragment)
