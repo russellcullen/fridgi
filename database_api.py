@@ -100,12 +100,17 @@ class DatabaseApi:
 		fridges = self.db.fridges
 		fridges.update({'name' : fridge}, {'ingredients' : ingredients})
 
-	def find_recipe_by_tag(tag_list):
+	def find_recipe_by_tag(self, tag_list):
+		recipes = self.db.recipes
+		return list(recipes.find({'tags' : {'$all' : tag_list}}))
+
+	# incomplete
+	def find_fridge_recipes_by_tag(self, tag_list, fridge):
+		filtered_list = self.find_recipe_by_tag(tag_list)
+		# compare to fridge ingredients see if can cook
 		pass
 
-	def find_fridge_recipes_by_tag(tag_list):
-		pass
-
+	# incomplete
 	def get_fridge_recipes():
 		pass
 

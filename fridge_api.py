@@ -28,3 +28,17 @@ class FridgeApi:
 
 		return hasIngredients
 
+	def search_recipes(self, query):
+		tag_list = str.split(query)
+		return self.api.find_recipe_by_tag(tag_list)
+
+	def search_fridge_recipes(self, query, fridge):
+		recipe_list = self.search_recipes(query)
+		for r in recipe_list:
+			if not self.can_cook(r['name'], fridge):
+				recipe_list.remove(r)
+				
+		return recipe_list
+
+
+

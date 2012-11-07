@@ -5,9 +5,9 @@ import fridge_api
 def insert_ingredients_into_fridge(api):
 	# change
 	api.add_fridge('fridgi')
-	#api.insert_ingredient('chicken breast', 'fridgi')
-	#api.insert_ingredient('penne', 'fridgi')
-	#api.insert_ingredient('cherry tomato', 'fridgi')
+	api.insert_ingredient('chicken breast', 'fridgi')
+	api.insert_ingredient('penne', 'fridgi')
+	api.insert_ingredient('cherry tomato', 'fridgi')
 	api.insert_ingredient('arugula leaves', 'fridgi')
 	api.insert_ingredient('feta cheese', 'fridgi')
 	api.insert_ingredient('olive oil', 'fridgi')
@@ -55,7 +55,7 @@ def insert_some_recipes(api, c):
 	step3 = "Add tomato mixture, arugula, and reserved 1/4 cup pasta cooking water to pasta; toss over medium heat just until arugula begins to wilt, about 30 seconds. Season to taste with salt and pepper. Transfer pasta to bowl. Sprinkle with feta cheese and serve."
 	steps = [step1, step2, step3]
 
-	chicken_pasta = c.create_recipe(name = 'chicken penne pasta', ingredients = ingredients, instructions = steps, serving_size = 4)
+	chicken_pasta = c.create_recipe(name = 'chicken penne pasta', ingredients = ingredients, instructions = steps, tags = ['delicious'], serving_size = 4)
 	api.add_recipe(chicken_pasta)
 
 def print_ingredient(ingredient):
@@ -79,7 +79,11 @@ def print_recipe(recipe):
 	s2 = ''
 	for a in recipe['instructions']:
 		s2 += a + '\n\n'
-	print name + '\n' + i + '\n' + s2
+	s3 = 'Tags : '
+	for t in recipe['tags']:
+		s3 += t + ' '
+
+	print name + '\n' + i + '\n' + s2 + s3
 
 def print_can_cook(a):
 	if a:
@@ -144,10 +148,38 @@ def test():
 	raw_input('Want the recipe?')
 	print '\nRECIPE\n'
 	print_recipe(all_recipes[0])
+
+
 	return
 
+def test2():
+	# Create fake testing db
+	api = database_api.DatabaseApi('test')
+	c = creator.ObjectCreator()
+	fridge = fridge_api.FridgeApi('test')
+	# Clear previous test data
+	api.clear_db()
+	# Put tests here
+	insert_some_ingredients(api, c)
+	insert_some_recipes(api, c)
+	insert_ingredients_into_fridge(api)
+
+	all_ingredients = api.get_all_ingredients()  	
+	all_recipes = api.get_all_recipes()
+	fridge_ingredients = api.get_current_ingredients('fridgi')
+
+	tags = raw_input('Search : ')
+	recipelist = fridge.search_recipes(tags)
+	for i in recipelist:
+		print_recipe(i)
+	tags = raw_input('Search fridge : ')
+	recipelist2 = fridge.search_fridge_recipes(tags, 'fridgi')
+	for i in recipelist2:
+		print_recipe(i) 
+
+
 if __name__ == "__main__":
-	print test()
+	print test2()
 
 
 

@@ -10,7 +10,7 @@ class ObjectCreator:
         ingredient['shelf_life'] = shelf_life
         ingredient['price'] = price
         ingredient['calories'] = calories
-        ingredient['default_tags'] = default_tags + str.split(name)
+        ingredient['default_tags'] = default_tags
         return ingredient
 
     def create_recipe(self, name = '', ingredients = [], instructions = [], rating = 0, tags = [], last_used = 0, serving_size = 0):
@@ -19,7 +19,7 @@ class ObjectCreator:
         recipe['ingredients'] = ingredients
         recipe['instructions'] = instructions
         recipe['rating'] = rating
-        recipe['tags'] = tags
+        recipe['tags'] = str.split(name) + tags
         recipe['last_used'] = last_used
         recipe['serving_size'] = serving_size
         return recipe
