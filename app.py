@@ -2,7 +2,6 @@ import tornado.ioloop
 import tornado.web
 import os
 import fake_data
-import creator
 import database_api
 from bson.json_util import dumps
 
