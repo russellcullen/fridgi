@@ -3,13 +3,9 @@ fridgi
 
 How to run app locally:
 
-First, in another shell:
+    $ ./run.sh
 
-    $ mongod
-
-Then:
-
-    $ python app.py
+It's that simple!
 
 JSON Object
 -----------

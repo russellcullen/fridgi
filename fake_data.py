@@ -1,7 +1,7 @@
 ### Used to populate our DB ###
 
-import database_api
-import creator
+import api.database_api
+import api.creator
 
 def insert_ingredients_into_fridge(api):
 	# change
@@ -65,13 +65,13 @@ def insert_some_recipes(api, c):
 	sweet_peach_smoothie = c.create_recipe(name = 'sweet peach smoothie', instructions = steps, tags = ['delicious'])
 	api.add_recipe(sweet_peach_smoothie)
 
-def reset_db(api):
-	c = creator.ObjectCreator()
+def reset_db(apiInstance):
+	c = api.creator.ObjectCreator()
 	# Clear previous test data
-	api.clear_db()
+	apiInstance.clear_db()
 	# Put tests here
-	insert_some_ingredients(api, c)
-	insert_some_recipes(api, c)
-	insert_ingredients_into_fridge(api)
+	insert_some_ingredients(apiInstance, c)
+	insert_some_recipes(apiInstance, c)
+	insert_ingredients_into_fridge(apiInstance)
 
 

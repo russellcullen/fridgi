@@ -1,8 +1,8 @@
 ### Various Tests ###
 
-import database_api
-import creator
-import fridge_api
+import api.database_api
+import api.fridge_api
+import fake_data
 
 def insert_ingredients_into_fridge(api):
 	# change
@@ -102,19 +102,14 @@ def print_can_cook(a):
 
 def test():
 	# Create fake testing db
-	api = database_api.DatabaseApi('test')
-	c = creator.ObjectCreator()
-	fridge = fridge_api.FridgeApi('test')
-	# Clear previous test data
-	api.clear_db()
-	# Put tests here
-	insert_some_ingredients(api, c)
-	insert_some_recipes(api, c)
-	insert_ingredients_into_fridge(api)
+	a = api.database_api.DatabaseApi('test')
+	fridge = api.fridge_api.FridgeApi(a)
 
-	all_ingredients = api.get_all_ingredients()  	
-	all_recipes = api.get_all_recipes()
-	fridge_ingredients = api.get_current_ingredients('fridgi')
+	fake_data.reset_db(a)
+
+	all_ingredients = a.get_all_ingredients()  	
+	all_recipes = a.get_all_recipes()
+	fridge_ingredients = a.get_current_ingredients('fridgi')
 
 	raw_input("Lookup Ingredient Database?")
 
@@ -138,13 +133,13 @@ def test():
 	while i < 3:
 		upc = long(raw_input("Enter UPC: "))
 		print upc
-		ingr = api.get_ingredient_info_from_upc(upc)
+		ingr = a.get_ingredient_info_from_upc(upc)
 		if ingr is not None:
-			api.insert_ingredient(ingr['name'], 'fridgi')
+			a.insert_ingredient(ingr['name'], 'fridgi')
 			print 'Inserted ' + ingr['name']
 		i += 1
 
-	f_ingredients = api.get_current_ingredients('fridgi')
+	f_ingredients = a.get_current_ingredients('fridgi')
 	raw_input("Lookup Fridge again?")
 	print '\nFRIDGE\n'
 	for i in f_ingredients:
@@ -162,22 +157,15 @@ def test():
 
 def test2():
 	# Create fake testing db
-	api = database_api.DatabaseApi('test')
-	c = creator.ObjectCreator()
-	fridge = fridge_api.FridgeApi('test')
-	# Clear previous test data
-	api.clear_db()
-	# Put tests here
-	insert_some_ingredients(api, c)
-	insert_some_recipes(api, c)
-	insert_ingredients_into_fridge(api)
+	a = api.database_api.DatabaseApi('test')
+	fake_data.reset_db(a)
 
-	all_ingredients = api.get_all_ingredients()  	
-	all_recipes = api.get_all_recipes()
-	fridge_ingredients = api.get_current_ingredients('fridgi')
+	all_ingredients = a.get_all_ingredients()  	
+	all_recipes = a.get_all_recipes()
+	fridge_ingredients = a.get_current_ingredients('fridgi')
 
 	tags = raw_input('Search : ')
-	recipelist = api.search_recipes(tags)
+	recipelist = a.search_recipes(tags)
 	for i in recipelist:
 		print_recipe(i)
 	#tags = raw_input('Search fridge : ')
@@ -188,6 +176,7 @@ def test2():
 
 if __name__ == "__main__":
 	print test2()
+	print test()
 
 
 

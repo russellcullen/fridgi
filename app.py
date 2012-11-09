@@ -2,7 +2,7 @@ import tornado.ioloop
 import tornado.web
 import os
 import fake_data
-import database_api
+import api.database_api
 from bson.json_util import dumps
 
 class MainHandler(tornado.web.RequestHandler):
@@ -11,19 +11,19 @@ class MainHandler(tornado.web.RequestHandler):
 
 class IngredientHandler(tornado.web.RequestHandler):
 	def get(self):
-		self.write(dumps(api.get_all_ingredients()))
+		self.write(dumps(apiObj.get_all_ingredients()))
 
 class RecipeHandler(tornado.web.RequestHandler):
 	def get(self):
-		self.write(dumps(api.get_all_recipes()))
+		self.write(dumps(apiObj.get_all_recipes()))
 
 class SearchRecipeHandler(tornado.web.RequestHandler):
 	def get(self):
-		self.write(dumps(api.search_recipes(str(self.get_argument('tags')))))
+		self.write(dumps(apiObj.search_recipes(str(self.get_argument('tags')))))
 
 class FridgeHandler(tornado.web.RequestHandler):
 	def get(self, slug):
-		self.write(dumps(api.get_fridge(slug)))
+		self.write(dumps(apiObj.get_fridge(slug)))
 
 application = tornado.web.Application([
 	(r"/", MainHandler),
@@ -35,8 +35,8 @@ application = tornado.web.Application([
 
 if __name__ == "__main__":
 	# Create fake testing db
-	api = database_api.DatabaseApi()
-	fake_data.reset_db(api)
+	apiObj = api.database_api.DatabaseApi()
+	fake_data.reset_db(apiObj)
 	
 	port = int(os.environ.get('PORT', 5000))
 	application.listen(port)
