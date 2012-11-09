@@ -2,8 +2,8 @@ import database_api
 
 
 class FridgeApi:
-	def __init__(self, db = 'heroku_app8911714'):
-		self.api = database_api.DatabaseApi(db)
+	def __init__(self, api):
+		self.api = api
 
 	# input  : recipe name as string
 	# return : boolean representing if fridge has necessary ingredients

@@ -1,8 +1,7 @@
-### Various Tests ###
+### Used to populate our DB ###
 
 import database_api
 import creator
-import fridge_api
 
 def insert_ingredients_into_fridge(api):
 	# change
@@ -66,132 +65,13 @@ def insert_some_recipes(api, c):
 	sweet_peach_smoothie = c.create_recipe(name = 'sweet peach smoothie', instructions = steps, tags = ['delicious'])
 	api.add_recipe(sweet_peach_smoothie)
 
-def print_ingredient(ingredient):
-	name = ingredient['name']
-	q = str(ingredient['quantity'])
-	unit = ingredient['unit']
-	if unit != '':
-		unit += '(s)'
-	print name + ': ' + q + ' ' + unit
-
-def print_f_ingredient(f_ingredient):
-	name = f_ingredient['name']
-	q = str(f_ingredient['quantity'])
-	print name + ': ' + q
-
-def print_recipe(recipe):
-	name = recipe['name']
-	i = ''
-	for s in recipe['ingredients']:
-		i += str(s['quantity']) + ' ' + s['name'] + '\n'
-	s2 = ''
-	for a in recipe['instructions']:
-		s2 += a + '\n\n'
-	s3 = 'Tags : '
-	for t in recipe['tags']:
-		s3 += t + ' '
-
-	print name + '\n' + i + '\n' + s2 + s3
-
-def print_can_cook(a):
-	if a:
-		print 'Fridgi can cook this!'
-	else:
-		print 'Sorry, fridgi can\'t cook that right now'
-
-
-def test():
-	# Create fake testing db
-	api = database_api.DatabaseApi('test')
+def reset_db(api):
 	c = creator.ObjectCreator()
-	fridge = fridge_api.FridgeApi('test')
 	# Clear previous test data
 	api.clear_db()
 	# Put tests here
 	insert_some_ingredients(api, c)
 	insert_some_recipes(api, c)
 	insert_ingredients_into_fridge(api)
-
-	all_ingredients = api.get_all_ingredients()  	
-	all_recipes = api.get_all_recipes()
-	fridge_ingredients = api.get_current_ingredients('fridgi')
-
-	raw_input("Lookup Ingredient Database?")
-
-	print '\nINGREDIENT DATABASE\n'
-	for i in all_ingredients:
-		print_ingredient(i)
-	print '\n'
-
-	raw_input("Lookup Fridge?")
-
-	print '\nFRIDGE\n'
-	for i in fridge_ingredients:
-		print_f_ingredient(i)
-	print '\n'
-
-	recipe = raw_input("Enter Recipe: ")
-
-	print_can_cook(fridge.can_cook(recipe, 'fridgi'))
-
-	i = 0
-	while i < 3:
-		upc = long(raw_input("Enter UPC: "))
-		print upc
-		ingr = api.get_ingredient_info_from_upc(upc)
-		if ingr is not None:
-			api.insert_ingredient(ingr['name'], 'fridgi')
-			print 'Inserted ' + ingr['name']
-		i += 1
-
-	f_ingredients = api.get_current_ingredients('fridgi')
-	raw_input("Lookup Fridge again?")
-	print '\nFRIDGE\n'
-	for i in f_ingredients:
-		print_f_ingredient(i)
-	print '\n'
-
-	recipe = raw_input("Enter Recipe: ")
-	print_can_cook(fridge.can_cook(recipe, 'fridgi'))
-	raw_input('Want the recipe?')
-	print '\nRECIPE\n'
-	print_recipe(all_recipes[0])
-
-
-	return
-
-def test2():
-	# Create fake testing db
-	api = database_api.DatabaseApi('test')
-	c = creator.ObjectCreator()
-	fridge = fridge_api.FridgeApi('test')
-	# Clear previous test data
-	api.clear_db()
-	# Put tests here
-	insert_some_ingredients(api, c)
-	insert_some_recipes(api, c)
-	insert_ingredients_into_fridge(api)
-
-	all_ingredients = api.get_all_ingredients()  	
-	all_recipes = api.get_all_recipes()
-	fridge_ingredients = api.get_current_ingredients('fridgi')
-
-	tags = raw_input('Search : ')
-	recipelist = api.search_recipes(tags)
-	for i in recipelist:
-		print_recipe(i)
-	#tags = raw_input('Search fridge : ')
-	#recipelist2 = fridge.search_fridge_recipes(tags, 'fridgi')
-	#for i in recipelist2:
-	#	print_recipe(i) 
-
-
-if __name__ == "__main__":
-	print test2()
-
-
-
-
-
 
 
