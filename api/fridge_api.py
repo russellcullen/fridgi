@@ -2,23 +2,19 @@ class FridgeApi:
 	def __init__(self, api):
 		self.api = api
 
-	# input  : recipe name as string
-	# return : boolean representing if fridge has necessary ingredients
-	def can_cook(self, recipe, fridge):
-		# check if recipe in recipes collection
-		r = self.api.get_recipe_info(recipe)
+	def can_cook(self, recipe_name, fridge_name):
+
+		r = self.api.get_recipe_info(recipe_name)
 		if r is None:
 			return False
-		r_ingredients = r['ingredients']
-		
-		# get fridge ingredients
-		f_ingredients = self.api.get_current_ingredients(fridge)
 
-		# look through Recipe Ingredient objects, compare to Fridge Ingredients
+		recipe_ingredients = r['ingredients']
+		fridge_ingredients = self.api.get_current_ingredients(fridge_name)
+
 		hasIngredients = True
-		for r_i in r_ingredients:
+		for r_i in recipe_ingredients:
 			hasIngredient = False
-			for f_i in f_ingredients:
+			for f_i in fridge_ingredients:
 				if (r_i['name'] == f_i['name']) and (f_i['quantity'] >= r_i['quantity']):
 					hasIngredient = True
 			hasIngredients = hasIngredients and hasIngredient
@@ -32,6 +28,11 @@ class FridgeApi:
 				recipe_list.remove(r)
 				
 		return recipe_list
+
+	def rank_recipes(query, recipe_list, fridge):
+		pass
+
+	
 
 
 

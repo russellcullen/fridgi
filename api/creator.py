@@ -1,7 +1,6 @@
 class ObjectCreator:
 
     def create_ingredient(self, upc = 0, name = '', quantity = '', unit = '', shelf_life = 0, price = 0, calories = 0, default_tags = []):
-        """ Takes in values and returns an ingredient dictionary """
         ingredient = {}
         ingredient['upc'] = upc
         ingredient['name'] = name

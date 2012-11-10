@@ -4,6 +4,18 @@ from bs4 import BeautifulSoup
 # IGNORE EVERYTHING
 
 
+
+# use punchfork api
+
+
+
+
+
+
+
+
+
+
 url = urllib2.urlopen('http://www.epicurious.com/recipes/food/views/Alsace-Onion-Tart-109199')
 data = url.read()
 
