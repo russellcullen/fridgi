@@ -2,6 +2,7 @@ package com.fridgi.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,11 @@ public class RecipeAdapter extends BaseAdapter {
         for (int i = 0; i < recipe.getInstructions().length; i++) {
             sb.append("\t" + recipe.getInstructions()[i] + "\n\n");
         }
-        ((TextView) convertView.findViewById(android.R.id.text2)).setText(sb.toString());
+        TextView desc = (TextView) convertView.findViewById(android.R.id.text2);
+        desc.setText(sb.toString());
+        desc.setMaxLines(3);
+        desc.setPadding(0, 0, 0, 10);
+        desc.setEllipsize(TextUtils.TruncateAt.END);
         
         return convertView;
     }

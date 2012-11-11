@@ -18,14 +18,14 @@ import com.fridgi.models.Recipe;
 
 import java.util.ArrayList;
 
-public class IngredientDetailFragment extends Fragment {
+public class IngredientFragment extends Fragment {
 
     public static final String ARG_ITEM_ID = "item_id";
 
     DummyContent.DummyItem mItem;
     ListView mList;
 
-    public IngredientDetailFragment() {
+    public IngredientFragment() {
     }
 
     @Override

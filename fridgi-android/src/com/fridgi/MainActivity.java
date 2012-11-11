@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-public class IngredientListActivity extends FragmentActivity
-        implements IngredientListFragment.Callbacks {
+public class MainActivity extends FragmentActivity
+        implements MasterListFragment.Callbacks {
 
     private boolean mTwoPane;
 
@@ -17,7 +17,7 @@ public class IngredientListActivity extends FragmentActivity
 
         if (findViewById(R.id.ingredient_detail_container) != null) {
             mTwoPane = true;
-            ((IngredientListFragment) getSupportFragmentManager()
+            ((MasterListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.ingredient_list))
                     .setActivateOnItemClick(true);
         }
@@ -27,12 +27,12 @@ public class IngredientListActivity extends FragmentActivity
     public void onItemSelected(String id) {
         if (mTwoPane) {
             Bundle arguments = new Bundle();
-            arguments.putString(IngredientDetailFragment.ARG_ITEM_ID, id);
+            arguments.putString(IngredientFragment.ARG_ITEM_ID, id);
             Fragment fragment;
             if (id.equals("2")) {
                 fragment = new SearchRecipeFragment();
             } else {
-                fragment = new IngredientDetailFragment();
+                fragment = new IngredientFragment();
             }
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -40,8 +40,8 @@ public class IngredientListActivity extends FragmentActivity
                     .commit();
 
         } else {
-            Intent detailIntent = new Intent(this, IngredientDetailActivity.class);
-            detailIntent.putExtra(IngredientDetailFragment.ARG_ITEM_ID, id);
+            Intent detailIntent = new Intent(this, DetailActivity.class);
+            detailIntent.putExtra(IngredientFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
     }

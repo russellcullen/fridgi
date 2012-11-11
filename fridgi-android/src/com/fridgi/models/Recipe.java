@@ -13,6 +13,8 @@ public class Recipe {
     private String[] tags;
     @SerializedName("last_used") private long lastUsed;
     @SerializedName("serving_size") private float servingSize;
+    @SerializedName("can_cook") private boolean canCook;
+    private int relevance;
     
     public String getName() {
         return name;
@@ -55,5 +57,17 @@ public class Recipe {
     }
     public void setServingSize(float servingSize) {
         this.servingSize = servingSize;
+    }
+    public boolean isCanCook() {
+        return canCook;
+    }
+    public void setCanCook(boolean canCook) {
+        this.canCook = canCook;
+    }
+    public int getRelevance() {
+        return relevance;
+    }
+    public void setRelevance(int relevance) {
+        this.relevance = relevance;
     }
 }

@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-public class IngredientDetailActivity extends FragmentActivity {
+public class DetailActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +18,13 @@ public class IngredientDetailActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
-            arguments.putString(IngredientDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(IngredientDetailFragment.ARG_ITEM_ID));
+            arguments.putString(IngredientFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(IngredientFragment.ARG_ITEM_ID));
             Fragment fragment;
-            if (getIntent().getStringExtra(IngredientDetailFragment.ARG_ITEM_ID).equals("2")) {
+            if (getIntent().getStringExtra(IngredientFragment.ARG_ITEM_ID).equals("2")) {
                 fragment = new SearchRecipeFragment();
             } else {
-                fragment = new IngredientDetailFragment();
+                fragment = new IngredientFragment();
             }
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -36,7 +36,7 @@ public class IngredientDetailActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            NavUtils.navigateUpTo(this, new Intent(this, IngredientListActivity.class));
+            NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
             return true;
         }
 

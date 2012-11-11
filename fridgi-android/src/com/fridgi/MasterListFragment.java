@@ -1,8 +1,5 @@
 package com.fridgi;
 
-import com.fridgi.dummy.DummyContent;
-
-import android.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -10,7 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class IngredientListFragment extends ListFragment {
+import com.fridgi.dummy.DummyContent;
+
+public class MasterListFragment extends ListFragment {
 
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
@@ -28,15 +27,15 @@ public class IngredientListFragment extends ListFragment {
         }
     };
 
-    public IngredientListFragment() {
+    public MasterListFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                R.layout.simple_list_item_activated_1,
-                R.id.text1,
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
                 DummyContent.ITEMS));
     }
 
