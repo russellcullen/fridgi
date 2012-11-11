@@ -24,15 +24,15 @@ class FridgeApi:
 	def search_fridge_recipes(self, query, fridge):
 		recipe_list = self.search_recipes(query)
 		for r in recipe_list:
-			if not self.can_cook(r['name'], fridge):
-				recipe_list.remove(r)
-				
+			if self.can_cook(r['name'], fridge):
+				r['can_cook'] = True
+			else:
+				r['can_cook'] = False		
 		return recipe_list
 
-	def rank_recipes(query, recipe_list, fridge):
-		pass
 
-	
+
+
 
 
 

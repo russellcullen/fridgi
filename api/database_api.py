@@ -82,7 +82,14 @@ class DatabaseApi:
 
 	def find_recipe_by_tag(self, tag_list):
 		recipes = self.db.recipes
-		return list(recipes.find({'tags' : {'$all' : tag_list}}))
+		recipe_list = list(recipes.find({'tags' : {'$in' : tag_list}}))
+		
+		tag_set = set(tag_list)
+		for recipe in recipe_list:
+			recipe['relevance'] = len(set(recipe['tags']) & tag_set)
+
+		return sorted(recipe_list, cmp=lambda  x,y: - cmp(x['relevance'],y['relevance']))
+
 
 	def search_recipes(self, query):
 		tag_list = str.split(query)
