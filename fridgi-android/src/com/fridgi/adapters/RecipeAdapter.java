@@ -1,14 +1,17 @@
 package com.fridgi.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.fridgi.RecipeActivity;
 import com.fridgi.models.Recipe;
 
 import java.util.ArrayList;
@@ -18,8 +21,10 @@ public class RecipeAdapter extends BaseAdapter {
     
     private ArrayList<Recipe> mRecipes;
     private LayoutInflater mInflater;
+    private Context mContext;
     
     public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
+        mContext = context;
         mInflater = LayoutInflater.from(context);
         mRecipes = recipes;
     }
@@ -31,7 +36,17 @@ public class RecipeAdapter extends BaseAdapter {
             ((TextView) convertView.findViewById(android.R.id.text1)).setTypeface(null, Typeface.BOLD);
         }
         
-        Recipe recipe = mRecipes.get(position);
+        final Recipe recipe = mRecipes.get(position);
+        convertView.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, RecipeActivity.class);
+                i.putExtra(RecipeActivity.INTENT_EXTRA_RECIPE, recipe);
+                mContext.startActivity(i);
+            }
+        });
+        
         ((TextView) convertView.findViewById(android.R.id.text1)).setText(recipe.getName());
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < recipe.getInstructions().length; i++) {

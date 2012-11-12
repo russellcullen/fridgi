@@ -1,9 +1,22 @@
 package com.fridgi.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 
 public class BaseIngredient extends Ingredient {
+    
+    public BaseIngredient(Parcel in) {
+        super(in);
+        defaultTags = in.createStringArray();
+        price = in.readDouble();
+        calories = in.readInt();
+        upc = in.readLong();
+        shelfLife = in.readLong();
+        unit = in.readString();
+    }
     
     @SerializedName("default_tags") private String[] defaultTags;
     private double price;
@@ -48,5 +61,27 @@ public class BaseIngredient extends Ingredient {
     public void setUnit(String mUnit) {
         this.unit = mUnit;
     }
+    
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeStringArray(defaultTags);
+        dest.writeDouble(price);
+        dest.writeInt(calories);
+        dest.writeLong(upc);
+        dest.writeLong(shelfLife);
+        dest.writeString(unit);
+    }
+    
+    public static final Parcelable.Creator<BaseIngredient> CREATOR = new Parcelable.Creator<BaseIngredient>() {
+        public BaseIngredient createFromParcel(Parcel in) {
+            return new BaseIngredient(in);
+        }
+
+        @Override
+        public BaseIngredient[] newArray(int size) {
+            return new BaseIngredient[size];
+        }
+    };
 
 }

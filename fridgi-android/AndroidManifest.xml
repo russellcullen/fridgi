@@ -30,6 +30,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".IngredientListActivity" />
         </activity>
+        <activity
+            android:name=".RecipeActivity" >
+        </activity>
     </application>
 
 </manifest>
