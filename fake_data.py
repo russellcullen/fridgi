@@ -41,13 +41,21 @@ def insert_some_ingredients(api, c):
 
 def insert_some_recipes(api, c):
 	tomatoes = {'name' :'cherry tomato', 'ingredient' : api.get_ingredient_info_from_name('cherry tomato')['_id'],'quantity' : 36}
+	tomatoes['unit'] = api.get_ingredient_info_from_name('cherry tomato')['unit']
 	olive_oil = {'name' :'olive oil', 'ingredient' : api.get_ingredient_info_from_name('olive oil')['_id'],'quantity' : 2}
+	olive_oil['unit'] = api.get_ingredient_info_from_name('olive oil')['unit']
 	garlic = {'name' :'garlic', 'ingredient' : api.get_ingredient_info_from_name('garlic')['_id'],'quantity' : 5}
+	garlic['unit'] = api.get_ingredient_info_from_name('garlic')['unit']
 	pepper = {'name' :'crushed red pepper', 'ingredient' : api.get_ingredient_info_from_name('crushed red pepper')['_id'],'quantity' : 0.75}
+	pepper['unit'] = api.get_ingredient_info_from_name('crushed red pepper')['unit']
 	chicken = {'name' :'chicken breast', 'ingredient' : api.get_ingredient_info_from_name('chicken breast')['_id'],'quantity' : 2}
+	chicken['unit'] = api.get_ingredient_info_from_name('chicken breast')['unit']
 	penne = {'name' :'penne', 'ingredient' : api.get_ingredient_info_from_name('penne')['_id'],'quantity' : 8}
+	penne['unit'] = api.get_ingredient_info_from_name('penne')['unit']
 	arugula = {'name' :'arugula leaves', 'ingredient' : api.get_ingredient_info_from_name('arugula leaves')['_id'],'quantity' : 6}
+	arugula['unit'] = api.get_ingredient_info_from_name('arugula leaves')['unit']
 	feta = {'name' :'feta cheese', 'ingredient' : api.get_ingredient_info_from_name('feta cheese')['_id'],'quantity' : 0.5}
+	feta['unit'] = api.get_ingredient_info_from_name('feta cheese')['unit']
 
 	ingredients = [tomatoes, olive_oil, garlic, pepper, chicken, penne, arugula, feta]
 

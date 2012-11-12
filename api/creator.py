@@ -33,10 +33,11 @@ class ObjectCreator:
         fridge_ingredient['tags'] = tags
         return fridge_ingredient
 
-    def create_recipe_ingredient(self, ingredient, name = '', quantity = 0):
+    def create_recipe_ingredient(self, ingredient, name = '', quantity = 0, unit = ''):
         recipe_ingredient = {}
         recipe_ingredient['ingredient'] = ingredient
         recipe_ingredient['name'] = name
         recipe_ingredient['quantity'] = quantity
+        recipe_ingredient['unit'] = unit
         return recipe_ingredient
 

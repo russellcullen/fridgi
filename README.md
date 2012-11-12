@@ -24,6 +24,7 @@ JSON Object
   name : string  
   ingredient : ObjectID    
   quantity : float  
+  unit : string  
 }  
 
 ##Documents
