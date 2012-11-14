@@ -166,6 +166,7 @@ def test():
 def test2():
 	# Create fake testing db
 	a = api.database_api.DatabaseApi('test')
+	fridge = api.fridge_api.FridgeApi(a)
 	fake_data.reset_db(a)
 
 	all_ingredients = a.get_all_ingredients()  	
@@ -176,6 +177,13 @@ def test2():
 	recipelist = a.search_recipes(tags)
 	for i in recipelist:
 		print_recipe(i)
+
+	raw_input("Next : ")
+
+	recipe_id = recipelist[0]['_id']
+	new_recipe = fridge.suggest_by_current_recipe(recipe_id, 'fridgi')
+	print_recipe(new_recipe)
+	
 	#tags = raw_input('Search fridge : ')
 	#recipelist2 = fridge.search_fridge_recipes(tags, 'fridgi')
 	#for i in recipelist2:

@@ -95,6 +95,13 @@ class DatabaseApi:
 		tag_list = str.split(query)
 		return self.find_recipe_by_tag(tag_list)
 
+	# untested
+	def search_by_current_recipe(self, recipe_id):
+		recipes = self.db.recipes
+		current_recipe = recipes.find_one({'_id' : recipe_id})
+		current_recipe_tags = current_recipe['tags']
+		return self.find_recipe_by_tag(current_recipe_tags)
+
 	# Functions used for Testing
 
 	def get_all_ingredients(self):

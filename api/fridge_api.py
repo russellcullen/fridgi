@@ -2,6 +2,7 @@ class FridgeApi:
 	def __init__(self, api):
 		self.api = api
 
+	# untested
 	def can_cook(self, recipe_name, fridge_name):
 
 		r = self.api.get_recipe_info(recipe_name)
@@ -21,6 +22,7 @@ class FridgeApi:
 
 		return hasIngredients
 
+	# untested
 	def search_fridge_recipes(self, query, fridge):
 		recipe_list = self.search_recipes(query)
 		for r in recipe_list:
@@ -29,6 +31,17 @@ class FridgeApi:
 			else:
 				r['can_cook'] = False		
 		return recipe_list
+
+	# untested
+	def suggest_by_current_recipe(self, recipe_id, fridge):
+		print recipe_id
+		recipe_list = self.api.search_by_current_recipe(recipe_id)
+		for recipe in recipe_list:
+			if recipe['_id'] == recipe_id:
+				continue
+			if self.can_cook(recipe['name'], fridge):
+				return recipe
+		return {}
 
 
 
