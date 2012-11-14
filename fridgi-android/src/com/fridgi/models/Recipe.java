@@ -19,6 +19,7 @@ public class Recipe implements Parcelable {
     @SerializedName("serving_size") private float servingSize;
     @SerializedName("can_cook") private boolean canCook;
     private int relevance;
+    @SerializedName("_id") private ObjectID id;
     
     public String getName() {
         return name;
@@ -86,6 +87,7 @@ public class Recipe implements Parcelable {
         servingSize = in.readFloat();
         canCook = in.readInt() == 1;
         relevance = in.readInt();
+        id = in.readParcelable(ObjectID.class.getClassLoader());
     }
     
     public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
@@ -110,6 +112,7 @@ public class Recipe implements Parcelable {
         dest.writeFloat(servingSize);
         dest.writeInt(canCook ? 1 : 0);
         dest.writeInt(relevance);
+        dest.writeParcelable(id, flags);
     }
     
     

@@ -6,10 +6,12 @@ import android.os.Parcelable;
 public class RecipeIngredient extends Ingredient {
     
     private String unit;
+    private ObjectID ingredient;
     
     public RecipeIngredient(Parcel in) {
         super(in);
         unit = in.readString();
+        ingredient = in.readParcelable(ObjectID.class.getClassLoader());
     }
     
     public static final Parcelable.Creator<RecipeIngredient> CREATOR = new Parcelable.Creator<RecipeIngredient>() {
@@ -27,6 +29,7 @@ public class RecipeIngredient extends Ingredient {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(unit);
+        dest.writeParcelable(ingredient, flags);
     }
 
     public String getUnit() {
@@ -36,13 +39,13 @@ public class RecipeIngredient extends Ingredient {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+    public ObjectID getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(ObjectID ingredient) {
+        this.ingredient = ingredient;
+    }
     
-//    private String ingredient;
-    
-//    public String getIngredient() {
-//        return ingredient;
-//    }
-//    public void setIngredient(String ingredient) {
-//        this.ingredient = ingredient;
-//    }
 }

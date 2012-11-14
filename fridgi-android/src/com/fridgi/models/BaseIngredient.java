@@ -7,6 +7,14 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class BaseIngredient extends Ingredient {
+
+    @SerializedName("default_tags") private String[] defaultTags;
+    private double price;
+    private int calories;
+    private long upc;
+    private long shelfLife;
+    private String unit;
+    @SerializedName("_id") private ObjectID id;
     
     public BaseIngredient(Parcel in) {
         super(in);
@@ -16,15 +24,17 @@ public class BaseIngredient extends Ingredient {
         upc = in.readLong();
         shelfLife = in.readLong();
         unit = in.readString();
+        id = in.readParcelable(ObjectID.class.getClassLoader());
     }
     
-    @SerializedName("default_tags") private String[] defaultTags;
-    private double price;
-    private int calories;
-    private long upc;
-    private long shelfLife;
-    private String unit;
-    
+    public ObjectID getId() {
+        return id;
+    }
+
+    public void setId(ObjectID id) {
+        this.id = id;
+    }
+
     public String[] getDefaultTags() {
         return defaultTags;
     }
@@ -71,6 +81,7 @@ public class BaseIngredient extends Ingredient {
         dest.writeLong(upc);
         dest.writeLong(shelfLife);
         dest.writeString(unit);
+        dest.writeParcelable(id, flags);
     }
     
     public static final Parcelable.Creator<BaseIngredient> CREATOR = new Parcelable.Creator<BaseIngredient>() {
