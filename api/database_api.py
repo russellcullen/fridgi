@@ -26,7 +26,7 @@ class DatabaseApi:
 	def add_fridge(self, name):
 		""" Adds fridge to Fridge collection """
 		fridges = self.db.fridges
-		fridges.insert({'name': name, 'ingredients' : [], 'favorite_recipes' : []})
+		fridges.insert({'name': name, 'is_inserting' : False, 'ingredients' : [], 'favorite_recipes' : []})
 
 	# User Database Functions
 
