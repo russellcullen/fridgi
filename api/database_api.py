@@ -46,6 +46,11 @@ class DatabaseApi:
 		r = get_recipe_info(recipe_name)
 		return r['ingredients']
 
+	# untested
+	def get_recipe_by_id(self, recipe_id):
+		recipes = self.db.recipes
+		return recipes.find_one({'_id' : recipe_id})
+
 	def get_recipes_by_ingredients(self, ingredient_name):
 		recipes = self.db.recipes
 		return list(recipes.find({'ingredients.name' : ingredient_name}))
@@ -97,8 +102,7 @@ class DatabaseApi:
 
 	# untested
 	def search_by_current_recipe(self, recipe_id):
-		recipes = self.db.recipes
-		current_recipe = recipes.find_one({'_id' : recipe_id})
+		current_recipe = self.get_recipe_by_id(recipe_id)
 		current_recipe_tags = current_recipe['tags']
 		return self.find_recipe_by_tag(current_recipe_tags)
 

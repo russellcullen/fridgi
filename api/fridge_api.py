@@ -12,15 +12,11 @@ class FridgeApi:
 		recipe_ingredients = r['ingredients']
 		fridge_ingredients = self.api.get_current_ingredients(fridge_name)
 
-		hasIngredients = True
 		for r_i in recipe_ingredients:
-			hasIngredient = False
-			for f_i in fridge_ingredients:
-				if (r_i['name'] == f_i['name']) and (f_i['quantity'] >= r_i['quantity']):
-					hasIngredient = True
-			hasIngredients = hasIngredients and hasIngredient
+			if not self.hasIngredient(r_i, fridge_ingredients):
+				return False
 
-		return hasIngredients
+		return True
 
 	# untested
 	def search_fridge_recipes(self, query, fridge):
@@ -46,6 +42,38 @@ class FridgeApi:
 	# untested
 	def add_item_to_grocery_list(self, recipe_ingredient, fridge_name):
 		return self.api.add_item_to_grocery_list(recipe_ingredient, fridge_name)
+
+	# untested
+	def add_recipe_ingredients_to_grocery_list(self, recipe_id, fridge_name):
+		recipe = self.api.get_recipe_by_id(recipe_id)
+		recipe_ingredients = self.api.get_ingredients_by_recipe(recipe['name'])
+		fridge_ingredients = self.api.get_current_ingredients(fridge_name)
+
+		for r_i in recipe_ingredients:
+			if not self.hasIngredient(r_i, fridge_ingredients):
+				self.add_item_to_grocery_list(r_i, fridge_name)
+
+	# untested
+	# maybe add parameters for rating/last_used later
+	def use_recipe(self, recipe_id, fridge_name):
+		recipe = self.api.get_recipe_by_id(recipe_id)
+		recipe_ingredients = self.api.get_ingredients_by_recipe(recipe['name'])
+		fridge_ingredients = self.api.get_current_ingredients(fridge_name)
+
+		for r_i in recipe_ingredients:
+			self.api.remove_ingredient(r_i['name'], fridge_name, r_i['quantity'])
+
+		# self.api.use_recipe(Time.time())
+
+
+
+	# untested, helper
+	def hasIngredient(self, recipe_ingredient, fridge_ingredients):
+		for f_i in fridge_ingredients:
+			if (recipe_ingredient['name'] == f_i['name'] and (f_i['quantity'] >= recipe_ingredient['quantity'])):
+				return True
+		return False
+
 
 
 
