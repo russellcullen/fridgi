@@ -13,6 +13,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.fridgi.dummy.DummyContent;
 import com.fridgi.tasks.SearchFridgeRecipesTask;
+import com.fridgi.util.Globals;
 
 public class SearchRecipeFragment extends Fragment {
 
@@ -48,7 +49,7 @@ public class SearchRecipeFragment extends Fragment {
     }
     
     private void startSearch(String query) {
-        SearchFridgeRecipesTask task = new SearchFridgeRecipesTask(query, "fridgi", getActivity(), mList);
+        SearchFridgeRecipesTask task = new SearchFridgeRecipesTask(query, Globals.getInstance().getFridge().getName(), getActivity(), mList);
         task.execute();
     }
 

@@ -35,6 +35,10 @@ public class IngredientAdapter extends BaseAdapter {
         return convertView;
     }
     
+    public void setIngredients(List<? extends Ingredient> ingredients) {
+        mIngredients = ingredients;
+    }
+    
     @Override
     public int getCount() {
         return mIngredients.size();

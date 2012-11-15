@@ -7,6 +7,7 @@ import android.widget.ListView;
 import com.fridgi.adapters.IngredientAdapter;
 import com.fridgi.api.Api;
 import com.fridgi.models.Fridge;
+import com.fridgi.util.Globals;
 
 public class FridgeIngredientsTask extends AsyncTask<Void, Void, Fridge> {
     
@@ -20,7 +21,9 @@ public class FridgeIngredientsTask extends AsyncTask<Void, Void, Fridge> {
 
     @Override
     protected Fridge doInBackground(Void... params) {
-        return Api.getFridge("fridgi");
+        Fridge fridge = Api.getFridge("fridgi");
+        Globals.getInstance().setFridge(fridge);
+        return fridge;
     }
     
     @Override

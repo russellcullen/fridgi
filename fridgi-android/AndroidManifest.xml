@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         
         <activity
-            android:name=".MainActivity"
+            android:name=".StartActivity"
             android:label="@string/title_ingredient_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +29,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".IngredientListActivity" />
+        </activity>
+        <activity
+            android:name=".MainActivity" >
         </activity>
         <activity
             android:name=".RecipeActivity" >
