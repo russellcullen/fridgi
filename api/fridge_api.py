@@ -43,6 +43,10 @@ class FridgeApi:
 				return recipe
 		return {}
 
+	# untested
+	def add_item_to_grocery_list(self, recipe_ingredient, fridge_name):
+		return self.api.add_item_to_grocery_list(recipe_ingredient, fridge_name)
+
 
 
 

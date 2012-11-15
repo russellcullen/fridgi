@@ -26,7 +26,7 @@ class DatabaseApi:
 	def add_fridge(self, name):
 		""" Adds fridge to Fridge collection """
 		fridges = self.db.fridges
-		fridges.insert({'name': name, 'is_inserting' : False, 'ingredients' : [], 'favorite_recipes' : []})
+		fridges.insert({'name': name, 'is_inserting' : False, 'ingredients' : [], 'favorite_recipes' : [], 'grocery_list' : []})
 
 	# User Database Functions
 
@@ -101,6 +101,20 @@ class DatabaseApi:
 		current_recipe = recipes.find_one({'_id' : recipe_id})
 		current_recipe_tags = current_recipe['tags']
 		return self.find_recipe_by_tag(current_recipe_tags)
+
+	# untested
+	def add_item_to_grocery_list(self, recipe_ingredient, fridge_name):
+		fridge = self.get_fridge(fridge_name)
+		grocery_list = fridge['grocery_list']
+		grocery_list.append(recipe_ingredient)
+		fridges.update({'name' : fridge_name}, {'$push' : {'grocery_list' : grocery_list}})
+
+	#untested
+	def remove_item_from_grocery_list(self, recipe_ingredient, fridge_name):
+		fridge = self.get_fridge(fridge_name)
+		grocery_list = fridge['grocery_list']
+		grocery_list.remove(recipe_ingredient)
+		fridges.update({'name' : fridge_name}, {'$push' : {'grocery_list' : grocery_list}})
 
 	# Functions used for Testing
 

@@ -52,7 +52,8 @@ serving\_size : float
 name : string  
 is_inserting : boolean
 ingredients : "Fridge Ingredient"[]  
-favorite\_recipes : Recipe[]  
+favorite\_recipes : Recipe[]
+grocery\_list : "Recipe Ingredient"[]
 
 Collection Names
 ----------------

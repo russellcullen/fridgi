@@ -52,6 +52,9 @@ class database_api_test(unittest.TestCase):
 	def test_search_recipes(self):
 		pass
 
+	def test_search_by_current_recipe(self):
+		pass
+
 
 if __name__ == '__main__':
 	unittest.main()
