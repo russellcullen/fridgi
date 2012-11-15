@@ -38,7 +38,7 @@ class UpdateHandler(tornado.web.RequestHandler):
 		fridge = apiObj.get_fridge(slug)
 		if (fridge != None):
 			inserting = fridge['is_inserting']
-			if (not inserting):
+			if (inserting):
 				apiObj.insert_ingredient(ingredient['name'], slug)
 			else:
 				apiObj.update_ingredient(ingredient['name'], ingredient['quantity']-1, slug)
