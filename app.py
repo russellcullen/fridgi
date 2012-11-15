@@ -31,13 +31,36 @@ class SuggestRecipeHandler(tornado.web.RequestHandler):
 	def get(self, slug):
 		self.write(dumps(fridgeObj.suggest_by_current_recipe(ObjectId(self.get_argument('recipe')), slug)))
 
+class UpdateHandler(tornado.web.RequestHandler):
+	# Probably should make POST request instead of GET
+	def get(self, slug):
+		ingredient = apiObj.get_ingredient_info_from_upc(long(self.get_argument('upc')))
+		fridge = apiObj.get_fridge(slug)
+		if (fridge != None):
+			inserting = fridge['is_inserting']
+			if (not inserting):
+				apiObj.insert_ingredient(ingredient['name'], slug)
+			else:
+				apiObj.update_ingredient(ingredient['name'], ingredient['quantity']-1, slug)
+			self.write("Success")	# Change this to 200 later
+			return
+		self.write("Failure")		# Change this to 40X later
+
+class ChangeInsertHandler(tornado.web.RequestHandler):
+	def get(self, slug):
+		inserting = bool(int(self.get_argument('inserting')))
+		apiObj.set_is_inserting(slug, inserting)
+		self.write("Set to " + str(inserting))	# Change to 200 later
+
 application = tornado.web.Application([
 	(r"/", MainHandler),
     (r"/ingredients", IngredientHandler),
     (r"/recipes", RecipeHandler),
     (r"/fridge/([^/]+)", FridgeHandler),
     (r"/search", SearchRecipeHandler),
-    (r"/fridge/([^/]+)/suggest", SuggestRecipeHandler)
+    (r"/fridge/([^/]+)/suggest", SuggestRecipeHandler),
+    (r"/fridge/([^/]+)/inserting", ChangeInsertHandler),
+    (r"/fridge/([^/]+)/update", UpdateHandler)
 ])
 
 if __name__ == "__main__":

@@ -55,17 +55,22 @@ class DatabaseApi:
 		fridge = fridges.find_one({'name' : fridge_name})
 		return fridge
 
+	def set_is_inserting(self, fridge_name, inserting):
+		fridges = self.db.fridges
+		fridges.update({'name' : fridge_name}, {'$set' : {'is_inserting' : inserting}})
+
 	def get_current_ingredients(self, fridge_name):
 		fridge = self.get_fridge(fridge_name)
 		return fridge['ingredients']
 
 	def insert_ingredient(self, ingredient_name, fridge_name):
 		fridges = self.db.fridges
+		fridge = fridges.find_one({'name' : fridge_name})
 		f = fridges.find_one({'ingredients.name' : ingredient_name})
 		if (f != None):
 			for ins in f['ingredients']:
 				if (ins['name'] == ingredient_name):
-					self.update_ingredient(ingredient_name, ins['quantity']+1, fridge)
+					self.update_ingredient(ingredient_name, ins['quantity']+1, fridge['name'])
 		else:
 			i = self.get_ingredient_info_from_name(ingredient_name)
 			fridge_ingredient = self.creator.create_fridge_ingredient(i['_id'], i['name'], i['quantity'], time.time(), 0, i['default_tags'])
@@ -78,7 +83,7 @@ class DatabaseApi:
 			if (i['name'] == ingredient_name):
 				i['quantity'] = quantity
 		fridges = self.db.fridges
-		fridges.update({'name' : fridge_name}, {'ingredients' : ingredients})
+		fridges.update({'name' : fridge_name}, {'$set' : {'ingredients' : ingredients}})
 
 	def find_recipe_by_tag(self, tag_list):
 		recipes = self.db.recipes
