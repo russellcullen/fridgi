@@ -2,6 +2,7 @@ package com.fridgi.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public class RecipeAdapter extends BaseAdapter {
         });
         
         ((TextView) convertView.findViewById(android.R.id.text1)).setText(recipe.getName());
+        ((TextView) convertView.findViewById(android.R.id.text1)).setTextColor(recipe.isCanCook() ? Color.GREEN : Color.RED);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < recipe.getInstructions().length; i++) {
             sb.append("\t" + recipe.getInstructions()[i] + "\n\n");

@@ -21,6 +21,12 @@ public class Recipe implements Parcelable {
     private int relevance;
     @SerializedName("_id") private ObjectID id;
     
+    public ObjectID getId() {
+        return id;
+    }
+    public void setId(ObjectID id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }
