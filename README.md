@@ -14,7 +14,7 @@ JSON Object
   name : string  
   ingredient : ObjectID  
   quantity : float  
-  insert\_time : double
+  insert\_time : double  
   count : int  
   tags : string[]  
 }  
@@ -50,7 +50,7 @@ serving\_size : float
 
 #### Fridge
 name : string  
-is_inserting : boolean
+is_inserting : boolean  
 ingredients : "Fridge Ingredient"[]  
 favorite\_recipes : Recipe[]  
 grocery\_list : "Recipe Ingredient"[]
