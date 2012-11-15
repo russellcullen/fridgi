@@ -26,7 +26,7 @@ class DatabaseApi:
 	def add_fridge(self, name):
 		""" Adds fridge to Fridge collection """
 		fridges = self.db.fridges
-		fridges.insert({'name': name, 'is_inserting' : False, 'ingredients' : [], 'favorite_recipes' : [], 'grocery_list' : []})
+		fridges.insert({'name': name, 'ingredients' : [], 'favorite_recipes' : [], 'grocery_list' : []})
 
 	# User Database Functions
 
@@ -66,24 +66,35 @@ class DatabaseApi:
 
 	def insert_ingredient(self, ingredient_name, fridge_name):
 		fridges = self.db.fridges
-		f = fridges.find_one({'ingredients.name' : ingredient_name})
+		i = self.get_ingredient_info_from_name(ingredient_name)
+		f = fridges.find_one({'name' : fridge_name, 'ingredients.name' : ingredient_name})
 		if (f != None):
 			for ins in f['ingredients']:
 				if (ins['name'] == ingredient_name):
-					self.update_ingredient(ingredient_name, ins['quantity']+1, fridge)
+					self.update_ingredient(ingredient_name, ins['quantity']+i['quantity'], fridge_name)
 		else:
-			i = self.get_ingredient_info_from_name(ingredient_name)
 			fridge_ingredient = self.creator.create_fridge_ingredient(i['_id'], i['name'], i['quantity'], time.time(), 0, i['default_tags'])
 			fridges.update({'name' : fridge_name}, {'$push' : {'ingredients' : fridge_ingredient}})
+
+	def remove_ingredient(self, ingredient_name, fridge_name, quantity):
+		fridges = self.db.fridges
+		f = fridges.find_one({'name' : fridge_name, 'ingredients.name' : ingredient_name})
+		if (f != None):
+			for ins in f['ingredients']:
+				if (ins['name'] == ingredient_name):
+					self.update_ingredient(ingredient_name, ins['quantity']-quantity, fridge_name)
 
 	# untested
 	def update_ingredient(self, ingredient_name, quantity, fridge_name):
 		ingredients = self.get_current_ingredients(fridge_name)
 		for i in ingredients:
 			if (i['name'] == ingredient_name):
-				i['quantity'] = quantity
+				if (quantity > 0):
+					i['quantity'] = quantity
+				else:
+					ingredients.remove(i)
 		fridges = self.db.fridges
-		fridges.update({'name' : fridge_name}, {'ingredients' : ingredients})
+		fridges.update({'name' : fridge_name}, {'$set' : {'ingredients' : ingredients}})
 
 	def find_recipe_by_tag(self, tag_list):
 		recipes = self.db.recipes

@@ -31,13 +31,25 @@ class SuggestRecipeHandler(tornado.web.RequestHandler):
 	def get(self, slug):
 		self.write(dumps(fridgeObj.suggest_by_current_recipe(ObjectId(self.get_argument('recipe')), slug)))
 
+class InsertHandler(tornado.web.RequestHandler):
+	# Probably should make POST request instead of GET
+	def get(self, slug):
+		ingredient = apiObj.get_ingredient_info_from_upc(long(self.get_argument('upc')))
+		fridge = apiObj.get_fridge(slug)
+		if (fridge != None):
+			apiObj.insert_ingredient(ingredient['name'], slug)
+			self.write("Success")	# Change this to 200 later
+			return
+		self.write("Failure")		# Change this to 40X later
+
 application = tornado.web.Application([
 	(r"/", MainHandler),
     (r"/ingredients", IngredientHandler),
     (r"/recipes", RecipeHandler),
     (r"/fridge/([^/]+)", FridgeHandler),
     (r"/search", SearchRecipeHandler),
-    (r"/fridge/([^/]+)/suggest", SuggestRecipeHandler)
+    (r"/fridge/([^/]+)/suggest", SuggestRecipeHandler),
+    (r"/fridge/([^/]+)/insert", InsertHandler)
 ])
 
 if __name__ == "__main__":
