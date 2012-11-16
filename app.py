@@ -23,6 +23,10 @@ class SearchRecipeHandler(tornado.web.RequestHandler):
 	def get(self):
 		self.write(dumps(apiObj.search_recipes(str(self.get_argument('tags')))))
 
+class SearchFridgeRecipeHandler(tornado.web.RequestHandler):
+	def get(self, slug):
+		self.write(dumps(fridgeObj.search_fridge_recipes(str(self.get_argument('tags')), slug)))
+
 class FridgeHandler(tornado.web.RequestHandler):
 	def get(self, slug):
 		self.write(dumps(apiObj.get_fridge(slug)))
@@ -48,6 +52,7 @@ application = tornado.web.Application([
     (r"/recipes", RecipeHandler),
     (r"/fridge/([^/]+)", FridgeHandler),
     (r"/search", SearchRecipeHandler),
+    (r"/fridge/([^/]+)/search", SearchFridgeRecipeHandler),
     (r"/fridge/([^/]+)/suggest", SuggestRecipeHandler),
     (r"/fridge/([^/]+)/insert", InsertHandler)
 ])

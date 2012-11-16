@@ -14,7 +14,7 @@ public class MainActivity extends FragmentActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_list);
-
+        
         if (findViewById(R.id.ingredient_detail_container) != null) {
             mTwoPane = true;
             ((MasterListFragment) getSupportFragmentManager()

@@ -20,7 +20,7 @@ class FridgeApi:
 
 	# untested
 	def search_fridge_recipes(self, query, fridge):
-		recipe_list = self.search_recipes(query)
+		recipe_list = self.api.search_recipes(query)
 		for r in recipe_list:
 			if self.can_cook(r['name'], fridge):
 				r['can_cook'] = True

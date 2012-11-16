@@ -1,6 +1,5 @@
 package com.fridgi;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -12,12 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.fridgi.adapters.RecipeAdapter;
-import com.fridgi.api.Api;
 import com.fridgi.dummy.DummyContent;
-import com.fridgi.models.Recipe;
-
-import java.util.ArrayList;
+import com.fridgi.tasks.SearchFridgeRecipesTask;
+import com.fridgi.util.Globals;
 
 public class SearchRecipeFragment extends Fragment {
 
@@ -53,7 +49,7 @@ public class SearchRecipeFragment extends Fragment {
     }
     
     private void startSearch(String query) {
-        SearchTask task = new SearchTask(query);
+        SearchFridgeRecipesTask task = new SearchFridgeRecipesTask(query, Globals.getInstance().getFridge().getName(), getActivity(), mList);
         task.execute();
     }
 
@@ -65,25 +61,4 @@ public class SearchRecipeFragment extends Fragment {
         return rootView;
     }
     
-    public class SearchTask extends AsyncTask<Void, Void, ArrayList<Recipe>> {
-        
-        private String mQuery;
-        
-        public SearchTask(String query) {
-            mQuery = query;
-        }
-
-        @Override
-        protected ArrayList<Recipe> doInBackground(Void... params) {
-            return Api.searchRecipes(mQuery);
-        }
-        
-        @Override
-        protected void onPostExecute(ArrayList<Recipe> result) {
-            RecipeAdapter adapter = new RecipeAdapter(getActivity(), result);
-            mList.setAdapter(adapter);
-        }      
-    }
-
-
 }

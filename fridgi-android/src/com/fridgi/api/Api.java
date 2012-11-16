@@ -20,7 +20,8 @@ public class Api {
     private static final String INGREDIENTS_URL = BASE_URL + "/ingredients";
     private static final String RECIPES_URL = BASE_URL + "/recipes";
     private static final String FRIDGE_URL = BASE_URL + "/fridge/";
-    private static final String SEARCH_URL = BASE_URL + "/search?tags=";
+    private static final String SEARCH_EXTENSION = "/search?tags=";
+    private static final String SEARCH_URL = BASE_URL + SEARCH_EXTENSION;
     
 
     public static ArrayList<BaseIngredient> getIngredients(){
@@ -57,6 +58,17 @@ public class Api {
         String tagsQuery = query.replaceAll(" ", "+");
         try {
             JSONArray recipesJSON = new JSONArray(getHttpResponse(SEARCH_URL + tagsQuery));
+            return Parsers.parseRecipeArray(recipesJSON);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static ArrayList<Recipe> searchFridgeRecipes(String query, String name) {
+        String tagsQuery = query.replaceAll(" ", "+");
+        try {
+            JSONArray recipesJSON = new JSONArray(getHttpResponse(FRIDGE_URL + name + SEARCH_EXTENSION + tagsQuery));
             return Parsers.parseRecipeArray(recipesJSON);
         } catch (JSONException e) {
             e.printStackTrace();
