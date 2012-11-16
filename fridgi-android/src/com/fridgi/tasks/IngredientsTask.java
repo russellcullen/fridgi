@@ -27,7 +27,7 @@ public class IngredientsTask extends AsyncTask<Void, Void, ArrayList<BaseIngredi
     
     @Override
     protected void onPostExecute(ArrayList<BaseIngredient> result) {
-        IngredientAdapter adapter = new IngredientAdapter(mContext, result);
+        IngredientAdapter adapter = new IngredientAdapter(mContext, result, IngredientAdapter.LARGE_LIST);
         mList.setAdapter(adapter);
     }      
 }
