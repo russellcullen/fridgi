@@ -63,7 +63,7 @@ class FridgeApi:
 		for r_i in recipe_ingredients:
 			self.api.remove_ingredient(r_i['name'], fridge_name, r_i['quantity'])
 
-		# self.api.use_recipe(Time.time())
+		self.api.update_recipe_time_by_id(recipe_id)
 
 
 
