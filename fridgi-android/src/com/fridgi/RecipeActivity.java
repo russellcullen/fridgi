@@ -1,14 +1,19 @@
 package com.fridgi;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.commonsware.cwac.merge.MergeAdapter;
-import com.fridgi.adapters.IngredientAdapter;
+import com.fridgi.adapters.RecipeIngredientAdapter;
 import com.fridgi.models.Recipe;
+import com.fridgi.models.RecipeIngredient;
 
 public class RecipeActivity extends FragmentActivity {
     
@@ -31,7 +36,7 @@ public class RecipeActivity extends FragmentActivity {
         
         mAdapter.addView(title);
         
-        IngredientAdapter ingredients = new IngredientAdapter(this, recipe.getIngredients(), IngredientAdapter.SMALL_LIST);
+        RecipeIngredientAdapter ingredients = new RecipeIngredientAdapter(this, recipe.getIngredients());
         mAdapter.addAdapter(ingredients);
         
         StringBuilder sb = new StringBuilder();
@@ -44,7 +49,23 @@ public class RecipeActivity extends FragmentActivity {
         mAdapter.addView(instructionsView);
         
         ListView list = (ListView) findViewById(R.id.list);
+        list.setOnItemClickListener(mOnIngredientClickedListener);
         list.setAdapter(mAdapter);
     }
+    
+    OnItemClickListener mOnIngredientClickedListener = new OnItemClickListener() {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Object obj = mAdapter.getItem(position);
+            if (obj instanceof RecipeIngredient) {
+                RecipeIngredient ingredient = (RecipeIngredient) obj;
+                AlertDialog dialog = new AlertDialog.Builder(RecipeActivity.this)
+                    .setMessage("Are you sure you want to add " + ingredient.getName() + " to your list?")
+                    .create();
+                dialog.show();
+            }
+        }
+    };
 
 }

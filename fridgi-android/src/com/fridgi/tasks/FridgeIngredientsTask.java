@@ -28,7 +28,7 @@ public class FridgeIngredientsTask extends AsyncTask<Void, Void, Fridge> {
     
     @Override
     protected void onPostExecute(Fridge result) {
-        IngredientAdapter adapter = new IngredientAdapter(mContext, result.getIngredients(), IngredientAdapter.LARGE_LIST);
+        IngredientAdapter adapter = new IngredientAdapter(mContext, result.getIngredients());
         mList.setAdapter(adapter);
     }      
 }

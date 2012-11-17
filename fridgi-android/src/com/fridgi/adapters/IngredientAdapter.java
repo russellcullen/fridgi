@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.fridgi.R;
 import com.fridgi.models.Ingredient;
 
 import java.util.List;
@@ -15,27 +14,18 @@ import java.util.List;
 
 public class IngredientAdapter extends BaseAdapter {
     
-    public static int SMALL_LIST = 0;
-    public static int LARGE_LIST = 1;
-    
     private List<? extends Ingredient> mIngredients;
     private LayoutInflater mInflater;
-    private int mSize;
     
-    public IngredientAdapter(Context context, List<? extends Ingredient> ingredients, int size) {
+    public IngredientAdapter(Context context, List<? extends Ingredient> ingredients) {
         mInflater = LayoutInflater.from(context);
         mIngredients = ingredients;
-        mSize = size;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            if (mSize == SMALL_LIST) {
-                convertView = mInflater.inflate(R.layout.small_list_item, null);
-            } else {
-                convertView = mInflater.inflate(android.R.layout.simple_list_item_2, null);
-            }
+            convertView = mInflater.inflate(android.R.layout.simple_list_item_2, null);
         }
         
         Ingredient ingredient = mIngredients.get(position);

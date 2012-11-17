@@ -10,6 +10,7 @@ public class Fridge {
     private List<FridgeIngredient> ingredients;
     @SerializedName("favorite_recipes") private List<Recipe> favoriteRecipes;
     @SerializedName("_id") private ObjectID id;
+    @SerializedName("grocery_list") private List<RecipeIngredient> groceryList;
     
     public String getName() {
         return name;
@@ -34,6 +35,12 @@ public class Fridge {
     }
     public void setId(ObjectID id) {
         this.id = id;
+    }
+    public List<RecipeIngredient> getGroceryList() {
+        return groceryList;
+    }
+    public void setGroceryList(List<RecipeIngredient> groceryList) {
+        this.groceryList = groceryList;
     }
     
 }
