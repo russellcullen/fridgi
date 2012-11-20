@@ -124,7 +124,7 @@ class DatabaseApi:
 					ingredients.remove(i)
 		fridges = self.db.fridges
 		fridges.update({'name' : fridge_name}, {'$set' : {'ingredients' : ingredients}})
-
+ 
 	# untested
 	def add_item_to_grocery_list(self, recipe_ingredient, fridge_name):
 		fridges = self.db.fridges
