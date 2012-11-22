@@ -21,6 +21,7 @@ public class Api {
     private static final String RECIPES_URL = BASE_URL + "/recipes";
     private static final String FRIDGE_URL = BASE_URL + "/fridge/";
     private static final String SEARCH_EXTENSION = "/search?tags=";
+    private static final String ADD_EXTENSION = "/add";
     private static final String SEARCH_URL = BASE_URL + SEARCH_EXTENSION;
     
 
@@ -52,6 +53,16 @@ public class Api {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public static void addIngredientToGroceryList(String fridge, String ingredientId, double quantity) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(FRIDGE_URL + fridge);
+        sb.append(ADD_EXTENSION);
+        sb.append("?ingredient=" + ingredientId);
+        sb.append("&quantity=");
+        sb.append(quantity);
+        getHttpResponse(sb.toString());
     }
     
     public static ArrayList<Recipe> searchRecipes(String query) {
