@@ -1,6 +1,9 @@
+import creator
+
 class FridgeApi:
 	def __init__(self, api):
 		self.api = api
+		self.create = creator.ObjectCreator()
 
 	# untested
 	def can_cook(self, recipe_name, fridge_name):
@@ -40,7 +43,9 @@ class FridgeApi:
 		return {}
 
 	# untested
-	def add_item_to_grocery_list(self, recipe_ingredient, fridge_name):
+	def add_item_to_grocery_list(self, ingredient_id, quantity, fridge_name):
+		ingredient = self.api.get_ingredient_info_from_id(ingredient_id)
+		recipe_ingredient = self.create.create_recipe_ingredient(ingredient_id, ingredient['name'], quantity, ingredient['unit'])
 		return self.api.add_item_to_grocery_list(recipe_ingredient, fridge_name)
 
 	# untested
@@ -51,7 +56,7 @@ class FridgeApi:
 
 		for r_i in recipe_ingredients:
 			if not self.hasIngredient(r_i, fridge_ingredients):
-				self.add_item_to_grocery_list(r_i, fridge_name)
+				self.add_item_to_grocery_list(r_i['_id'], r_i['name'], fridge_name)
 
 	# untested
 	# maybe add parameters for rating/last_used later

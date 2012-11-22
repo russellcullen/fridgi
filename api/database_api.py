@@ -30,6 +30,10 @@ class DatabaseApi:
 
 	# Ingredient functions
 
+	def get_ingredient_info_from_id(self, ingredient_id):
+		ingredients = self.db.ingredients
+		return ingredients.find_one({'_id' : ingredient_id})
+
 	def get_ingredient_info_from_name(self, ingredient_name):
 		ingredients = self.db.ingredients
 		return ingredients.find_one({'name' : ingredient_name})

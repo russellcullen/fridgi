@@ -46,6 +46,18 @@ class InsertHandler(tornado.web.RequestHandler):
 			return
 		self.write("Failure")		# Change this to 40X later
 
+class UseRecipeHandler(tornado.web.RequestHandler):
+	def get(self, slug):
+		fridgeObj.use_recipe(ObjectId(self.get_argument('recipe')), slug)
+		self.write("Success")
+
+class AddToGroceryListHandler(tornado.web.RequestHandler):
+	def get(self, slug):
+		ingredient_id = ObjectId(self.get_argument('ingredient'))
+		quantity = float(self.get_argument('quantity'))
+		fridgeObj.add_item_to_grocery_list(ingredient_id, quantity, slug)
+		self.write("Success")
+
 application = tornado.web.Application([
 	(r"/", MainHandler),
     (r"/ingredients", IngredientHandler),
@@ -54,7 +66,9 @@ application = tornado.web.Application([
     (r"/search", SearchRecipeHandler),
     (r"/fridge/([^/]+)/search", SearchFridgeRecipeHandler),
     (r"/fridge/([^/]+)/suggest", SuggestRecipeHandler),
-    (r"/fridge/([^/]+)/insert", InsertHandler)
+    (r"/fridge/([^/]+)/insert", InsertHandler),
+    (r"/fridge/([^/]+)/use", UseRecipeHandler),
+    (r"/fridge/([^/]+)/add", AddToGroceryListHandler)
 ])
 
 if __name__ == "__main__":
