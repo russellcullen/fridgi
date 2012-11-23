@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.fridgi.adapters.IngredientAdapter;
 import com.fridgi.dummy.DummyContent;
 import com.fridgi.tasks.FridgeIngredientsTask;
 import com.fridgi.tasks.IngredientsTask;
 import com.fridgi.tasks.RecipesTask;
+import com.fridgi.util.Globals;
 
 public class IngredientFragment extends Fragment {
 
@@ -35,9 +37,8 @@ public class IngredientFragment extends Fragment {
         if (getArguments().getString(ARG_ITEM_ID).equals("1")) {
             IngredientsTask task = new IngredientsTask(getActivity(), mList);
             task.execute();
-        } else if (getArguments().getString(ARG_ITEM_ID).equals("2")) {
-            RecipesTask task = new RecipesTask(getActivity(), mList);
-            task.execute();
+        } else if (getArguments().getString(ARG_ITEM_ID).equals("4")) {
+            mList.setAdapter(new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getGroceryList()));
         } else {
             FridgeIngredientsTask task = new FridgeIngredientsTask(getActivity(), mList);
             task.execute();

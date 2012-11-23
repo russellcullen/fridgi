@@ -30,6 +30,7 @@ public class DummyContent {
         addItem(new DummyItem("1", "Ingredients"));
         addItem(new DummyItem("2", "Recipes"));
         addItem(new DummyItem("3", "My Fridge"));
+        addItem(new DummyItem("4", "Grocery List"));
     }
 
     private static void addItem(DummyItem item) {
