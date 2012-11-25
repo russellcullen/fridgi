@@ -43,7 +43,7 @@ class DatabaseApi:
 		return ingredients.find_one({'upc' : upc})
 
 	def get_ingredients_by_recipe(self, recipe_name):
-		r = get_recipe_info(recipe_name)
+		r = self.get_recipe_info(recipe_name)
 		return r['ingredients']
 
 	# Recipe functions
