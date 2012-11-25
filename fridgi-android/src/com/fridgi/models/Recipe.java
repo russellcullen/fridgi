@@ -15,7 +15,7 @@ public class Recipe implements Parcelable {
     private String[] instructions;
     private float rating;
     private String[] tags;
-    @SerializedName("last_used") private long lastUsed;
+    @SerializedName("last_used") private double lastUsed;
     @SerializedName("serving_size") private float servingSize;
     @SerializedName("can_cook") private boolean canCook;
     private int relevance;
@@ -57,10 +57,10 @@ public class Recipe implements Parcelable {
     public void setTags(String[] tags) {
         this.tags = tags;
     }
-    public long getLastUsed() {
+    public double getLastUsed() {
         return lastUsed;
     }
-    public void setLastUsed(long lastUsed) {
+    public void setLastUsed(double lastUsed) {
         this.lastUsed = lastUsed;
     }
     public float getServingSize() {
@@ -89,7 +89,7 @@ public class Recipe implements Parcelable {
         instructions = in.createStringArray();
         rating = in.readFloat();
         tags = in.createStringArray();
-        lastUsed = in.readLong();
+        lastUsed = in.readDouble();
         servingSize = in.readFloat();
         canCook = in.readInt() == 1;
         relevance = in.readInt();
@@ -114,7 +114,7 @@ public class Recipe implements Parcelable {
         dest.writeStringArray(instructions);
         dest.writeFloat(rating);
         dest.writeStringArray(tags);
-        dest.writeLong(lastUsed);
+        dest.writeDouble(lastUsed);
         dest.writeFloat(servingSize);
         dest.writeInt(canCook ? 1 : 0);
         dest.writeInt(relevance);
