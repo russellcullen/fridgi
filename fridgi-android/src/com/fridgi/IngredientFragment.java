@@ -9,17 +9,18 @@ import android.widget.ListView;
 
 import com.fridgi.adapters.IngredientAdapter;
 import com.fridgi.dummy.DummyContent;
-import com.fridgi.tasks.FridgeIngredientsTask;
+import com.fridgi.tasks.FridgeTask;
+import com.fridgi.tasks.FridgeTask.FridgeCallback;
 import com.fridgi.tasks.IngredientsTask;
-import com.fridgi.tasks.RecipesTask;
 import com.fridgi.util.Globals;
 
-public class IngredientFragment extends Fragment {
+public class IngredientFragment extends Fragment implements FridgeCallback {
 
     public static final String ARG_ITEM_ID = "item_id";
 
     DummyContent.DummyItem mItem;
     ListView mList;
+    IngredientAdapter mAdapter;
 
     public IngredientFragment() {
     }
@@ -38,10 +39,23 @@ public class IngredientFragment extends Fragment {
             IngredientsTask task = new IngredientsTask(getActivity(), mList);
             task.execute();
         } else if (getArguments().getString(ARG_ITEM_ID).equals("4")) {
-            mList.setAdapter(new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getGroceryList()));
-        } else {
-            FridgeIngredientsTask task = new FridgeIngredientsTask(getActivity(), mList);
+            mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getGroceryList());
+            mList.setAdapter(mAdapter);
+            FridgeTask task = new FridgeTask(this);
             task.execute();
+        } else {
+            mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getIngredients());
+            mList.setAdapter(mAdapter);
+            FridgeTask task = new FridgeTask(this);
+            task.execute();
+        }
+    }
+    
+    public void onPostExecute() {
+        if (getArguments().getString(ARG_ITEM_ID).equals("4")) {
+            mAdapter.setIngredients(Globals.getInstance().getFridge().getGroceryList());
+        } else {
+            mAdapter.setIngredients(Globals.getInstance().getFridge().getIngredients());
         }
     }
 

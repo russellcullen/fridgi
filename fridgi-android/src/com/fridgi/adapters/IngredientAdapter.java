@@ -37,6 +37,7 @@ public class IngredientAdapter extends BaseAdapter {
     
     public void setIngredients(List<? extends Ingredient> ingredients) {
         mIngredients = ingredients;
+        notifyDataSetChanged();
     }
     
     @Override
