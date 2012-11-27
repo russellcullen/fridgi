@@ -33,12 +33,12 @@ class FridgeApi:
 
 	# untested
 	def suggest_by_current_recipe(self, recipe_id, fridge):
-		print recipe_id
 		recipe_list = self.api.search_by_current_recipe(recipe_id)
 		for recipe in recipe_list:
 			if recipe['_id'] == recipe_id:
 				continue
 			if self.can_cook(recipe['name'], fridge):
+				recipe['can_cook'] = True
 				return recipe
 		return {}
 
