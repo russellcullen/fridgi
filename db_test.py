@@ -183,15 +183,43 @@ def test2():
 	recipe_id = recipelist[0]['_id']
 	new_recipe = fridge.suggest_by_current_recipe(recipe_id, 'fridgi')
 	print_recipe(new_recipe)
-	
+
 	#tags = raw_input('Search fridge : ')
 	#recipelist2 = fridge.search_fridge_recipes(tags, 'fridgi')
 	#for i in recipelist2:
 	#	print_recipe(i) 
 
+def test3():
+
+	# Create fake testing db
+	a = api.database_api.DatabaseApi('test')
+	fridge = api.fridge_api.FridgeApi(a)
+	fake_data.reset_db(a)
+
+	all_ingredients = a.get_all_ingredients()  	
+	all_recipes = a.get_all_recipes()
+	fridge_ingredients = a.get_current_ingredients('fridgi')
+
+	print '\nINGREDIENT DATABASE\n'
+	for i in fridge_ingredients:
+		print_f_ingredient(i)
+	print '\n'
+
+	raw_input("Testing recent recipes : ")
+	print fridge.can_cook("chicken penne pasta", 'fridgi')
+	pasta = a.get_recipe_info("chicken penne pasta")
+	use_chicken = fridge.use_recipe(pasta['_id'], 'fridgi')
+	
+	print '\nINGREDIENT DATABASE\n'
+	fridge_ingredients = a.get_current_ingredients('fridgi')
+	for i in fridge_ingredients:
+		print_f_ingredient(i)
+	print '\n'
+
+	print a.get_recent_recipes('fridgi')
 
 if __name__ == "__main__":
-	print test2()
+	print test3()
 	#print test()
 
 

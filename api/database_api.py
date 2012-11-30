@@ -6,6 +6,8 @@ import os
 
 class DatabaseApi:
 
+	RECENT_RECIPE_SIZE = 30
+
 	# Administrative Database Functions
 
 	def __init__(self, db = 'heroku_app8911714'):
@@ -26,7 +28,7 @@ class DatabaseApi:
 	def add_fridge(self, name):
 		""" Adds fridge to Fridge collection """
 		fridges = self.db.fridges
-		fridges.insert({'name': name, 'ingredients' : [], 'favorite_recipes' : [], 'grocery_list' : []})
+		fridges.insert({'name': name, 'ingredients' : [], 'grocery_list' : [], 'recent_recipes' : []})
 
 	# Ingredient functions
 
@@ -96,6 +98,19 @@ class DatabaseApi:
 	def get_current_ingredients(self, fridge_name):
 		fridge = self.get_fridge(fridge_name)
 		return fridge['ingredients']
+
+	def get_recent_recipes(self, fridge_name):
+		fridge = self.get_fridge(fridge_name)
+		return fridge['recent_recipes']
+
+	def update_recent_recipes(self, recipe, fridge_name):
+		RECENT_RECIPE_SIZE = 30
+		fridges = self.db.fridges
+		recent_recipes = self.get_recent_recipes(fridge_name)
+		recent_recipes.insert(0, recipe)
+		if (len(recent_recipes) >= RECENT_RECIPE_SIZE):
+			recent_recipes.pop()
+		fridges.update({'name' : fridge_name}, {'$set' : {'recent_recipes' : recent_recipes}})	
 
 	def insert_ingredient(self, ingredient_name, fridge_name):
 		fridges = self.db.fridges

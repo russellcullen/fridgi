@@ -69,6 +69,7 @@ class FridgeApi:
 			self.api.remove_ingredient(r_i['name'], fridge_name, r_i['quantity'])
 
 		self.api.update_recipe_time_by_id(recipe_id)
+		self.api.update_recent_recipes(recipe, fridge_name)
 
 
 
