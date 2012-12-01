@@ -9,7 +9,7 @@
     android:showDividers="middle"
     tools:context=".IngredientListActivity">
 
-    <fragment android:name="com.fridgi.IngredientListFragment"
+    <fragment android:name="com.fridgi.MasterListFragment"
         android:id="@+id/ingredient_list"
         android:layout_width="0dp"
         android:layout_height="match_parent"
