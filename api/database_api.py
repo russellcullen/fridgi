@@ -107,6 +107,9 @@ class DatabaseApi:
 		RECENT_RECIPE_SIZE = 30
 		fridges = self.db.fridges
 		recent_recipes = self.get_recent_recipes(fridge_name)
+		for r in recent_recipes:
+			if r['name'] == recipe['name']:
+				recent_recipes.remove(r)
 		recent_recipes.insert(0, recipe)
 		if (len(recent_recipes) >= RECENT_RECIPE_SIZE):
 			recent_recipes.pop()

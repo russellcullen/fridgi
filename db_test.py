@@ -216,7 +216,19 @@ def test3():
 		print_f_ingredient(i)
 	print '\n'
 
-	print a.get_recent_recipes('fridgi')
+	print 'LAST USED'
+	recent_recipes = a.get_recent_recipes('fridgi')
+	for recipe in recent_recipes:
+		print(recipe['name'])
+
+	raw_input('testing duplicates:')
+	smoothie = a.get_recipe_info("sweet peach smoothie")
+	use_chicken = fridge.use_recipe(smoothie['_id'], 'fridgi')
+	use_chicken = fridge.use_recipe(smoothie['_id'], 'fridgi')
+	print 'LAST USED'
+	recent_recipes = a.get_recent_recipes('fridgi')
+	for recipe in recent_recipes:
+		print(recipe['name'])
 
 if __name__ == "__main__":
 	print test3()
