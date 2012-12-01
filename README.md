@@ -50,9 +50,8 @@ serving\_size : float
 
 #### Fridge
 name : string  
-ingredients : "Fridge Ingredient"[]  
-favorite\_recipes : Recipe[]  
-grocery\_list : "Recipe Ingredient"[]
+ingredients : "Fridge Ingredient"[]   
+grocery\_list : "Recipe Ingredient"[]  
 recent\_recipes : Recipe[]  
 
 Collection Names
