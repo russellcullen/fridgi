@@ -29,8 +29,5 @@ public class FridgeTask extends AsyncTask<Void, Void, Fridge> {
     protected void onPostExecute(Fridge result) {
         Globals.getInstance().setFridge(result);
         mCallback.onPostExecute();
-//        Intent i = new Intent(mActivity, MainActivity.class);
-//        mActivity.startActivity(i);
-//        mActivity.finish();
     }      
 }

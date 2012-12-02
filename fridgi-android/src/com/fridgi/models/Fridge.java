@@ -8,7 +8,7 @@ public class Fridge {
     
     private String name;
     private List<FridgeIngredient> ingredients;
-    @SerializedName("favorite_recipes") private List<Recipe> favoriteRecipes;
+    @SerializedName("recent_recipes") private List<Recipe> recentRecipes;
     @SerializedName("_id") private ObjectID id;
     @SerializedName("grocery_list") private List<RecipeIngredient> groceryList;
     
@@ -24,11 +24,11 @@ public class Fridge {
     public void setIngredients(List<FridgeIngredient> ingredients) {
         this.ingredients = ingredients;
     }
-    public List<Recipe> getFavoriteRecipes() {
-        return favoriteRecipes;
+    public List<Recipe> getRecentRecipes() {
+        return recentRecipes;
     }
-    public void setFavoriteRecipes(List<Recipe> favoriteRecipes) {
-        this.favoriteRecipes = favoriteRecipes;
+    public void setRecentRecipes(List<Recipe> recentRecipes) {
+        this.recentRecipes = recentRecipes;
     }
     public ObjectID getId() {
         return id;

@@ -11,10 +11,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.fridgi.adapters.RecipeAdapter;
+import com.fridgi.models.Recipe;
+import com.fridgi.tasks.FridgeTask;
+import com.fridgi.tasks.FridgeTask.FridgeCallback;
 import com.fridgi.tasks.SearchFridgeRecipesTask;
 import com.fridgi.util.Globals;
 
-public class SearchRecipeFragment extends Fragment {
+import java.util.List;
+
+public class SearchRecipeFragment extends Fragment implements FridgeCallback {
 
     public static final String ARG_ITEM_ID = "item_id";
 
@@ -37,6 +43,20 @@ public class SearchRecipeFragment extends Fragment {
                 return true;
             }
         });
+        
+        List<Recipe> recipes = Globals.getInstance().getFridge().getRecentRecipes();
+        if (recipes != null) {
+            RecipeAdapter adapter = new RecipeAdapter(getActivity(), recipes);
+            mList.setAdapter(adapter);
+        }
+        
+        FridgeTask task = new FridgeTask(this);
+        task.execute();
+    }
+    
+    public void onPostExecute() {
+        RecipeAdapter adapter = new RecipeAdapter(getActivity(), Globals.getInstance().getFridge().getRecentRecipes());
+        mList.setAdapter(adapter);
     }
     
     @Override

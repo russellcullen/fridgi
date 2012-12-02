@@ -15,19 +15,19 @@ import android.widget.TextView;
 import com.fridgi.RecipeActivity;
 import com.fridgi.models.Recipe;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class RecipeAdapter extends BaseAdapter {
     
-    private ArrayList<Recipe> mRecipes;
+    private List<Recipe> mRecipes;
     private LayoutInflater mInflater;
     private Context mContext;
     
-    public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
+    public RecipeAdapter(Context context, List<Recipe> list) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mRecipes = recipes;
+        mRecipes = list;
     }
 
     @Override
