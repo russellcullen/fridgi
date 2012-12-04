@@ -1,48 +1,115 @@
 package com.fridgi;
 
-import android.content.Intent;
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.widget.TextView;
 
-public class MainActivity extends FragmentActivity
-        implements MasterListFragment.Callbacks {
+public class MainActivity extends FragmentActivity implements
+    ActionBar.TabListener {
 
-    private boolean mTwoPane;
+    
+    FridgiPagerAdapter mFridgiPagerAdapter;
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    ViewPager mViewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient_list);
-        
-        if (findViewById(R.id.ingredient_detail_container) != null) {
-            mTwoPane = true;
-            ((MasterListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.ingredient_list))
-                    .setActivateOnItemClick(true);
+
+        mFridgiPagerAdapter = new FridgiPagerAdapter(
+                getSupportFragmentManager());
+
+        // Set up the action bar.
+        final ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mFridgiPagerAdapter);
+        mViewPager.setOffscreenPageLimit(0);
+
+        // When swiping between different sections, select the corresponding tab.
+        // We can also use ActionBar.Tab#select() to do this if we have a reference
+        // to the
+        // Tab.
+        mViewPager
+            .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+              @Override
+              public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+              }
+            });
+
+        // For each of the sections in the app, add a tab to the action bar.
+        for (int i = 0; i < mFridgiPagerAdapter.getCount(); i++) {
+            actionBar.addTab(actionBar.newTab()
+              .setText(mFridgiPagerAdapter.getPageTitle(i))
+              .setTabListener(this));
         }
+    }
+    
+    public class FridgiPagerAdapter extends FragmentPagerAdapter {
+        
+        public FridgiPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int pos) {
+            switch (pos) {
+                case 0:
+                    return new IngredientFragment(IngredientFragment.TYPE_FRIDGE);
+                case 1:
+                    return new SearchRecipeFragment();
+                case 2:
+                    return new IngredientFragment(IngredientFragment.TYPE_GROCERY);
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+        
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Ingredients";
+                case 1:
+                    return "Recipes";
+                case 2:
+                    return "Grocery";
+            }
+            return "NO TITLE";
+        }
+    
     }
 
     @Override
-    public void onItemSelected(String id) {
-        if (mTwoPane) {
-            Bundle arguments = new Bundle();
-            arguments.putString(IngredientFragment.ARG_ITEM_ID, id);
-            Fragment fragment;
-            if (id.equals("2")) {
-                fragment = new SearchRecipeFragment();
-            } else {
-                fragment = new IngredientFragment();
-            }
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.ingredient_detail_container, fragment)
-                    .commit();
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    }
 
-        } else {
-            Intent detailIntent = new Intent(this, DetailActivity.class);
-            detailIntent.putExtra(IngredientFragment.ARG_ITEM_ID, id);
-            startActivity(detailIntent);
-        }
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
 }

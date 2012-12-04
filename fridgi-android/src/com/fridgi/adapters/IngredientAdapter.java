@@ -30,7 +30,7 @@ public class IngredientAdapter extends BaseAdapter {
         
         Ingredient ingredient = mIngredients.get(position);
         ((TextView) convertView.findViewById(android.R.id.text1)).setText(ingredient.getName());
-        ((TextView) convertView.findViewById(android.R.id.text2)).setText("" + ingredient.getQuantity());
+        ((TextView) convertView.findViewById(android.R.id.text2)).setText("" + ingredient.getQuantity() + " " + ingredient.getUnit());
         
         return convertView;
     }

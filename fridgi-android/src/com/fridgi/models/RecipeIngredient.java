@@ -5,12 +5,10 @@ import android.os.Parcelable;
 
 public class RecipeIngredient extends Ingredient {
     
-    private String unit;
     private ObjectID ingredient;
     
     public RecipeIngredient(Parcel in) {
         super(in);
-        unit = in.readString();
         ingredient = in.readParcelable(ObjectID.class.getClassLoader());
     }
     
@@ -28,16 +26,7 @@ public class RecipeIngredient extends Ingredient {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeString(unit);
         dest.writeParcelable(ingredient, flags);
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
     public ObjectID getIngredient() {

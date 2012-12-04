@@ -13,7 +13,6 @@ public class BaseIngredient extends Ingredient {
     private int calories;
     private long upc;
     private long shelfLife;
-    private String unit;
     @SerializedName("_id") private ObjectID id;
     
     public BaseIngredient(Parcel in) {
@@ -23,7 +22,6 @@ public class BaseIngredient extends Ingredient {
         calories = in.readInt();
         upc = in.readLong();
         shelfLife = in.readLong();
-        unit = in.readString();
         id = in.readParcelable(ObjectID.class.getClassLoader());
     }
     
@@ -65,12 +63,6 @@ public class BaseIngredient extends Ingredient {
     public void setShelfLife(long mShelfLife) {
         this.shelfLife = mShelfLife;
     }
-    public String getUnit() {
-        return unit;
-    }
-    public void setUnit(String mUnit) {
-        this.unit = mUnit;
-    }
     
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -80,7 +72,6 @@ public class BaseIngredient extends Ingredient {
         dest.writeInt(calories);
         dest.writeLong(upc);
         dest.writeLong(shelfLife);
-        dest.writeString(unit);
         dest.writeParcelable(id, flags);
     }
     

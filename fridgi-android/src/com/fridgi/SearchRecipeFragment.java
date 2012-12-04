@@ -22,8 +22,6 @@ import java.util.List;
 
 public class SearchRecipeFragment extends Fragment implements FridgeCallback {
 
-    public static final String ARG_ITEM_ID = "item_id";
-
     private ListView mList;
     private EditText mSearchBox;
     private String mQuery;
