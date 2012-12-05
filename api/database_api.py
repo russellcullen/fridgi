@@ -124,7 +124,7 @@ class DatabaseApi:
 				if (ins['name'] == ingredient_name):
 					self.update_ingredient(ingredient_name, ins['quantity']+i['quantity'], fridge_name)
 		else:
-			fridge_ingredient = self.creator.create_fridge_ingredient(i['_id'], i['name'], i['quantity'], time.time(), 0, i['default_tags'])
+			fridge_ingredient = self.creator.create_fridge_ingredient(i['_id'], i['name'], i['quantity'], i['unit'], time.time(), 0, i['default_tags'])
 			fridges.update({'name' : fridge_name}, {'$push' : {'ingredients' : fridge_ingredient}})
 
 	def remove_ingredient(self, ingredient_name, fridge_name, quantity):
