@@ -16,8 +16,26 @@ def insert_ingredients_into_fridge(api):
 	api.insert_ingredient('garlic', 'fridgi')
 	api.insert_ingredient('crushed red pepper', 'fridgi')
 
-
 def insert_some_ingredients(api, c):  
+
+	cup = 'cup'
+	oz = 'ounce'
+	na = ''
+	tsp = 'teaspoon'
+	clove = 'clove'
+
+	d_i(c, 1, 'chicken breast', 5, cup)
+	d_i(c, 2, 'onion', na)
+	d_i(c, 3, 'mushroom', 5, na)
+	d_i(c, 4, 'penne', 12, oz)
+	d_i(c, 5, 'cherry tomato', 50, cup)
+	d_i(c, 6, 'arugula leaves', 20, cup)
+	d_i(c, 7, 'feta cheese', 10, cup)
+	d_i(c, 8, 'olive oil', 8, tsp)
+	d_i(c, 7, 'garlic', 50, clove)
+	d_i(c, 7, 'red pepper', 20, tsp)
+
+
 	chicken_breast = c.create_ingredient(upc = 41244001514, name = 'chicken breast', quantity = 5, default_tags = ['meat', 'white'], unit = 'cup')
 	onion = c.create_ingredient(upc = 62567, name = 'onion', quantity = 2, default_tags = ['vegetable'])
 	mushroom = c.create_ingredient(upc = 17847, name = 'mushroom', quantity = 5)
@@ -39,6 +57,21 @@ def insert_some_ingredients(api, c):
 	api.add_ingredient(olive_oil)
 	api.add_ingredient(garlic)
 	api.add_ingredient(red_pepper)
+
+def d_i(c, upc, name, quantity, unit):
+	ingredient = c.create_ingredient(upc = upc, name = name, quantity = quantity, unit = unit)
+	api.add_ingredient(ingredient)
+
+def r_i(api, name, quantity):
+	ingredient = {}
+	ingredient['name'] = name
+	ingredient['ingredient'] = api.get_ingredient_info_from_name(name)['_id']
+	ingredient ['quantity'] = quantity
+	ingredient['unit'] = api.get_ingredient_info_from_name(name)['unit']
+	return ingredient
+
+def f_i(api, fridge, name):
+	api.insert_ingredient(name, fridge)
 
 def insert_some_recipes(api, c):
 	tomatoes = {'name' :'cherry tomato', 'ingredient' : api.get_ingredient_info_from_name('cherry tomato')['_id'],'quantity' : 36}
@@ -231,8 +264,8 @@ def test3():
 		print(recipe['name'])
 
 if __name__ == "__main__":
-	print test3()
-	#print test()
+	#print test3()
+	print test()
 
 
 
