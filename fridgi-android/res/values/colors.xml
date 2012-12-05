@@ -1,0 +1,6 @@
+<resources>
+
+    <color name="bg">#8C9DAE</color>
+    <color name="fg">@android:color/background_light</color>
+
+</resources>

@@ -34,12 +34,12 @@ public class IngredientFragment extends Fragment implements FridgeCallback {
         if (mType == TYPE_GROCERY) {
             mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getGroceryList());
             mList.setAdapter(mAdapter);
-            FridgeTask task = new FridgeTask(this);
+            FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
             task.execute();
         } else if (mType == TYPE_FRIDGE) {
             mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getIngredients());
             mList.setAdapter(mAdapter);
-            FridgeTask task = new FridgeTask(this);
+            FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
             task.execute();
         }
     }

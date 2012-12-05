@@ -1,12 +1,15 @@
 package com.fridgi;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -38,15 +41,22 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe);
         
+        ActionBar ab = getActionBar();
+        ab.setHomeButtonEnabled(true);
+        ab.setDisplayHomeAsUpEnabled(true);
+        
         mRecipe = getIntent().getParcelableExtra(INTENT_EXTRA_RECIPE);
         
         mAdapter = new MergeAdapter();
         
         LayoutInflater inflater = getLayoutInflater();
-        TextView title = (TextView) inflater.inflate(R.layout.title, null);
+        View titleParent = inflater.inflate(R.layout.title, null);
+        TextView title = (TextView) titleParent.findViewById(R.id.title);
         title.setText(mRecipe.getName());
         
-        mAdapter.addView(title);
+        setTitle(mRecipe.getName());
+        
+        mAdapter.addView(titleParent);
         
         RecipeIngredientAdapter ingredients = new RecipeIngredientAdapter(this, mRecipe.getIngredients());
         mAdapter.addAdapter(ingredients);
@@ -56,26 +66,25 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
         for (int i = 0; i < instructions.length; i++) {
             sb.append(instructions[i] + "\n\n");
         }
-        TextView instructionsView = (TextView) inflater.inflate(R.layout.text, null);
-        instructionsView.setText(sb.toString());
-        mAdapter.addView(instructionsView);
+        View textParent = inflater.inflate(R.layout.text, null);
+        TextView text = (TextView) textParent.findViewById(R.id.text);
+        text.setText(sb.toString());
+        mAdapter.addView(textParent);
         
-        Button useRecipeBtn = new Button(this);
-        useRecipeBtn.setOnClickListener(new View.OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                UseRecipeTask task = new UseRecipeTask(Globals.getInstance().getFridge().getName(), mRecipe.getId().getId());
-                task.execute();
-                finish();
-            }
-        });
-        useRecipeBtn.setText("USE THIS RECIPE");
-        mAdapter.addView(useRecipeBtn);
-        
-        if (!mRecipe.isCanCook()) {
-            Button suggestBtn = new Button(this);
-            suggestBtn.setOnClickListener(new View.OnClickListener() {
+        Button btn = (Button) inflater.inflate(R.layout.button, null);
+        if (mRecipe.isCanCook()) {
+            btn.setOnClickListener(new View.OnClickListener() {
+                
+                @Override
+                public void onClick(View v) {
+                    UseRecipeTask task = new UseRecipeTask(Globals.getInstance().getFridge().getName(), mRecipe.getId().getId());
+                    task.execute();
+                    finish();
+                }
+            });
+            btn.setText("USE THIS RECIPE");
+        } else {
+            btn.setOnClickListener(new View.OnClickListener() {
                 
                 @Override
                 public void onClick(View v) {
@@ -86,10 +95,10 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
                     task.execute();
                 }
             });
-            suggestBtn.setText("SUGGEST");
-            mAdapter.addView(suggestBtn);
+            btn.setText("SUGGEST");
+           
         }
-        
+        mAdapter.addView(btn);
         ListView list = (ListView) findViewById(R.id.list);
         list.setOnItemClickListener(mOnIngredientClickedListener);
         list.setAdapter(mAdapter);
@@ -128,5 +137,17 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
             task.execute();
         }
     };
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // This is called when the Home (Up) button is pressed
+                // in the Action Bar.
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

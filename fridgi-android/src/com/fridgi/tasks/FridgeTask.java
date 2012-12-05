@@ -8,7 +8,7 @@ import com.fridgi.util.Globals;
 
 public class FridgeTask extends AsyncTask<Void, Void, Fridge> {
     
-    private static String FRIDGE = "fridgi";
+    private String mFridge;
     
     public interface FridgeCallback {
         public void onPostExecute();
@@ -16,13 +16,14 @@ public class FridgeTask extends AsyncTask<Void, Void, Fridge> {
     
     private FridgeCallback mCallback;
     
-    public FridgeTask(FridgeCallback callback) {
+    public FridgeTask(String fridge, FridgeCallback callback) {
+        mFridge = fridge;
         mCallback = callback;
     }
 
     @Override
     protected Fridge doInBackground(Void... params) {
-        return Api.getFridge(FRIDGE);
+        return Api.getFridge(mFridge);
     }
     
     @Override
