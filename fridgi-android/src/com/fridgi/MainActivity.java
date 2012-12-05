@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements
     ActionBar.TabListener {
@@ -41,10 +40,6 @@ public class MainActivity extends FragmentActivity implements
         mViewPager.setAdapter(mFridgiPagerAdapter);
         mViewPager.setOffscreenPageLimit(0);
 
-        // When swiping between different sections, select the corresponding tab.
-        // We can also use ActionBar.Tab#select() to do this if we have a reference
-        // to the
-        // Tab.
         mViewPager
             .setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
               @Override
@@ -69,15 +64,23 @@ public class MainActivity extends FragmentActivity implements
 
         @Override
         public Fragment getItem(int pos) {
+            Fragment frag = null;
+            Bundle args = new Bundle();
             switch (pos) {
                 case 0:
-                    return new IngredientFragment(IngredientFragment.TYPE_FRIDGE);
+                    args.putInt(IngredientFragment.TYPE, IngredientFragment.TYPE_FRIDGE);
+                    frag = new IngredientFragment();
+                    break;
                 case 1:
-                    return new SearchRecipeFragment();
+                    frag = new SearchRecipeFragment();
+                    break;
                 case 2:
-                    return new IngredientFragment(IngredientFragment.TYPE_GROCERY);
+                    args.putInt(IngredientFragment.TYPE, IngredientFragment.TYPE_GROCERY);
+                    frag = new IngredientFragment();
+                    break;
             }
-            return null;
+            frag.setArguments(args);
+            return frag;
         }
 
         @Override

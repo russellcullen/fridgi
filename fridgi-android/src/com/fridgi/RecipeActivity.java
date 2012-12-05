@@ -26,6 +26,7 @@ import com.fridgi.tasks.SuggestRecipeTask;
 import com.fridgi.tasks.SuggestRecipeTask.SuggestRecipeHandler;
 import com.fridgi.tasks.UseRecipeTask;
 import com.fridgi.util.Globals;
+import com.fridgi.util.Util;
 
 public class RecipeActivity extends FragmentActivity implements SuggestRecipeHandler {
     
@@ -52,9 +53,9 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
         LayoutInflater inflater = getLayoutInflater();
         View titleParent = inflater.inflate(R.layout.title, null);
         TextView title = (TextView) titleParent.findViewById(R.id.title);
-        title.setText(mRecipe.getName());
+        title.setText(Util.titleCase(mRecipe.getName()));
         
-        setTitle(mRecipe.getName());
+        setTitle(Util.titleCase(mRecipe.getName()));
         
         mAdapter.addView(titleParent);
         
