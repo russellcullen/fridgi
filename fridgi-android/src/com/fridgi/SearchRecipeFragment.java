@@ -48,7 +48,7 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
             mList.setAdapter(adapter);
         }
         
-        FridgeTask task = new FridgeTask(this);
+        FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
         task.execute();
     }
     

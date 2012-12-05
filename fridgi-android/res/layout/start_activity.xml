@@ -5,13 +5,20 @@
     android:orientation="vertical"
     android:background="@color/bg">
     
-    <ListView 
-        android:id="@+id/list"
+    <EditText 
+        android:id="@+id/fridge"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginRight="10dip"
 	    android:layout_marginLeft="10dip"
-	    android:background="@color/fg">
-    </ListView>
+	    android:hint="Enter Fridge Name"
+	    android:background="@color/fg"/>
+    <Button 
+        android:id="@+id/start"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="Go"
+	    android:layout_marginRight="10dip"
+	    android:layout_marginLeft="10dip"/>
 
 </LinearLayout>
