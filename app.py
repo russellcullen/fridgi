@@ -66,8 +66,9 @@ class RemoveFromGroceryListHandler(tornado.web.RequestHandler):
 
 # FOR TESTING. REMOVE LATER
 class ResetListHandler(tornado.web.RequestHandler):
-	def get(self, slug):
+	def get(self):
 		fake_data.reset_db(apiObj)
+		self.write("Database Reset!")
 
 application = tornado.web.Application([
 	(r"/", MainHandler),
