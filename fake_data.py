@@ -66,7 +66,7 @@ def insert_some_recipes(api, c):
 	feta = all_i(api, c, 'feta cheese', 1, cup, 10)
 	olive_oil = all_i(api, c, 'olive oil', 8, tsp, 2)
 	garlic = all_i(api, c, 'garlic', 2, clove, 25)
-	crushed_red_pepper = all_i(api, c, 'crushed red pepper', 20, tsp, 1)
+	crushed_red_pepper = all_i(api, c, 'crushed red pepper', 1, tsp, 20)
 	apple_juice = all_i(api, c, 'apple juice', 10, cup, 1)
 	peach = all_i(api, c, 'peach', 1, na, 1)
 	banana = all_i(api, c, 'banana', 1, na, 1)
