@@ -92,7 +92,7 @@ def insert_some_recipes(api, c):
 	parsley = all_i(api, c, 'parsley', 0.5, cup, 1)
 	romaine = all_i(api, c, 'romaine hearts', 1, lb, 1)
 
-	parmigiano_reggiano = all_i_upc(api, c, 'mexican cheese', 1, cup, 0, 2100060151)
+	mexican_cheese = all_i_upc(api, c, 'mexican cheese', 1, cup, 0, 21000601516)
 
 	potato = all_i(api, c, 'potatoes', 2, lb, 3)
 	salt = all_i(api, c, 'salt', 1.5, tsp, 20)
@@ -180,7 +180,7 @@ def insert_some_recipes(api, c):
 	api.add_recipe(peach_sangria)
 
 	# basil caesar salad
-	ingredients = [baguette, egg, lemon_juice, anchovy_paste, basil, parsley, romaine, parmigiano_reggiano]
+	ingredients = [baguette, egg, lemon_juice, anchovy_paste, basil, parsley, romaine, mexican_cheese]
 	step1 = "Preheat oven to 375F with rack in middle."
 	step2 = "Toss bread with 2 tablespoons oil and 1/4 teaspoon each of salt and pepper in a large 4-sided sheet pan, then spread out in 1 layer. Toast in oven, stirring halfway through, until golden, 12 to 15 minutes."
 	step3 = " Meanwhile, with motor running, drop garlic into a food processor and finely chop. Add egg, lemon juice, anchovy paste, and 1/2 teaspoon pepper and pulse until combined. With motor running, add remaining 6 tablespoons oil in a slow stream, blending until emulsified. Add herbs and blend until dressing turns green and herbs are finely chopped."
