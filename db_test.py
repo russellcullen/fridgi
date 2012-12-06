@@ -277,10 +277,32 @@ def test4():
 	for recipe in recent_recipes:
 		print(recipe['name'])
 
+def test5():
+	# Create fake testing db
+	a = api.database_api.DatabaseApi('test')
+	fridge = api.fridge_api.FridgeApi(a)
+
+	fake_data.reset_db(a)
+
+	all_ingredients = a.get_all_ingredients()  	
+	all_recipes = a.get_all_recipes()
+	fridge_ingredients = a.get_current_ingredients('fridgi')
+
+	print '\nFRIDGE\n'
+	for i in fridge_ingredients:
+		print_f_ingredient(i)
+	print '\n'
+
+	recipe = raw_input("Enter Recipe: ")
+
+	print_can_cook(fridge.can_cook(recipe, 'fridgi'))
+
+
 if __name__ == "__main__":
 	#print test3()
 	#print test()
-	print test4()
+	#print test4()
+	print test5()
 
 
 

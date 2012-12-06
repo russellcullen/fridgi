@@ -77,12 +77,12 @@ def insert_some_recipes(api, c):
 	baguette = all_i(api, c, 'baguette', 1, na, 1)
 	egg = all_i(api, c, 'egg', 1, na, 24)
 	lemon_juice = all_i(api, c, 'lemon juice', 2, tbsp, 10)
-	anchovy_paste = all_i(api, c, 'anchovy_paste', 1, tbsp, 0)
+	anchovy_paste = all_i(api, c, 'anchovy paste', 1, tbsp, 0)
 	basil = all_i(api, c, 'basil leaves', 1, cup, 1)
 	parsley = all_i(api, c, 'parsley', 0.5, cup, 1)
 	romaine = all_i(api, c, 'romaine hearts', 1, lb, 1)
 	parmigiano_reggiano = all_i(api, c, 'parmigiano-reggiano', 1, cup, 0)
-	potato = all_i(api, c, 'potato', 2, lb, 3)
+	potato = all_i(api, c, 'potatoes', 2, lb, 3)
 	salt = all_i(api, c, 'salt', 1.5, tsp, 20)
 	white_pepper = all_i(api, c, 'white pepper', 0.25, tsp, 30)
 	sherry_vinegar = all_i(api, c, 'sherry vinegar', 2, tsp, 1)
@@ -90,7 +90,7 @@ def insert_some_recipes(api, c):
 	dijon_mustard = all_i(api, c, 'dijon mustard', 0.5, tsp, 1)
 	mixed_salad_greens = all_i(api, c, 'mixed salad greens', 7, oz, 1)
 	peach_schnapps = all_i(api, c, 'peach schnapps', 0.5, cup, 1)
-	sugar = all_i(api, c, 'sugar', 0.333, cup, 1)
+	sugar = all_i(api, c, 'sugar', 0.5, cup, 1)
 	chilled_rose_wine = all_i(api, c, 'chilled rose wine', 3, cup, 0)
 	chilled_sparkling_water = all_i(api, c, 'chilled sparkling water', 2, cup, 0)
 	gruyere = all_i(api, c, 'gruyere', 4, oz, 1)
@@ -98,8 +98,20 @@ def insert_some_recipes(api, c):
 	instant_espresso_powder = all_i(api, c, 'instant espresso powder', 2, tsp, 0)
 	vanilla_extract = all_i(api, c, 'vanilla extract', 1, tsp, 1)
 	cinnamon = all_i(api, c, 'cinnamon', 1, tbsp, 1)
-
 	chocolate_chips = all_i(api, c, 'chocolate chips', 0.75, cup, 1)
+	watermelon = all_i(api, c, 'watermelon', 2, cup, 1)
+	lemonade_concentrate = all_i(api, c, 'lemonade concentrate', 0.75, cup, 1)
+	strawberries = all_i(api, c, 'strawberries', 2, cup, 1)
+	balsamic_vinegar = all_i(api, c, 'balsamic vinegar', 2.5, tbsp, 1)
+	bacon = all_i(api, c, 'bacon', 8, 'slices', 1)
+
+	campanelle = all_i(api, c, 'campanelle', 1, lb, 1)
+	zucchini = all_i(api, c, 'zucchini', 2, lb, 1)
+	oregano = all_i(api, c, 'oregano', 2, tbsp, 1)
+	pecorino_cheese = all_i(api, c, 'pecorino cheese', 0.5, cup, 1)
+
+	green_beans = all_i(api, c, 'green beans', 2, lb, 1)
+	lemon = all_i(api, c, 'lemon', 1, na, 1)
 
 	# chicken penne pasta
 	ingredients = [tomatoes, olive_oil, garlic, crushed_red_pepper, chicken, penne, arugula, feta]
@@ -119,6 +131,25 @@ def insert_some_recipes(api, c):
 	steps = [step1, step2, step3, step4]
 	baked_mushroom_penne_pasta = c.create_recipe(name = 'baked mushroom penne pasta', ingredients = ingredients, instructions = steps)
 	api.add_recipe(baked_mushroom_penne_pasta)
+
+	# scrambled egg pasta
+	ingredients = [egg, parmesan_cheese, bacon, onion, penne]
+	s1 = "1. In a small bowl, beat together the eggs and cheese; set aside."
+	s2 = "2. In a large skillet, fry the bacon and onion together until the meat is browned and crispy and the onion has begun to caramelize."
+	s3 = "3. Add the pasta (if using cold day-old pasta, cook until it's just warmed through, about 1 minute)."
+	s4 = "4. Pour the egg-and-cheese mixture into the skillet and reduce heat to low. Stir continuously until the pasta is coated with the eggs and they have begun to solidify."
+	s5 = "5. Season with the salt and pepper, then serve immediately, with extra grated Parmesan on the side."
+	steps = [s1, s2, s3, s4, s5]
+	scrambled_egg_pasta = c.create_recipe(name = 'scrambled egg pasta', ingredients = ingredients, instructions = steps)
+	api.add_recipe(scrambled_egg_pasta)
+
+	# zucchini and oregano pasta
+	ingredients = [campanelle, olive_oil, zucchini, garlic, oregano, pecorino_cheese]
+	s1 = "Cook pasta in large pot of boiling salted water until tender but still firm to bite, stirring occasionally. Drain, reserving 1 cup cooking liquid. Return pasta to pot."
+	s2 = "Heat 2 tablespoons oil in heavy large skillet over high heat. Add zucchini; saute until tender and beginning to brown, about 8 minutes. Mix in garlic and oregano; remove from heat. Add zucchini mixture to pasta, adding reserved pasta cooking liquid by 1/4 cupfuls as needed to moisten. Add 1/2 cup cheese; stir until melted. Transfer to large bowl. Serve, passing additional cheese for sprinkling."
+	steps = [s1, s2]
+	zucchini_and_oregano_pasta = c.create_recipe(name = 'zucchini and oregano pasta', ingredients = ingredients, instructions = steps)
+	api.add_recipe(zucchini_and_oregano_pasta)
 
 	# sweet peach smoothie
 	ingredients = [apple_juice, peach, banana, vanilla_yogurt, ice_cubes, honey, flaxseed_oil]
@@ -194,6 +225,33 @@ def insert_some_recipes(api, c):
 	steps = [s1, s2, s3, s4, s5]
 	double_chocolate_mocha_brownies = c.create_recipe(name = 'double chocolate mocha brownies', ingredients = ingredients, instructions = steps)
 	api.add_recipe(double_chocolate_mocha_brownies)
+
+	# watermelon-lemonade ice pops
+	ingredients = [watermelon, lemonade_concentrate, sugar]
+	steps = ["Combine all ingredients in processor. Puree until very smooth. Divide mixture among 8 ice pop molds (each about 1/4 to 1/3 cup capacity). Cover and freeze until firm, at least 4 hours and up to 5 days."]	
+	watermelon_lemonade_ice_pops = c.create_recipe(name = 'watermelon-lemonade ice pops', ingredients = ingredients, instructions = steps)
+	api.add_recipe(watermelon_lemonade_ice_pops)
+
+	# balsamic-strawberry pops
+	ingredients = [strawberries, sugar, balsamic_vinegar]
+	s1 = "Place the strawberries and sugar in a food processor and pulse just until the mixture is finely chopped and juicy but still chunky; you don't want a smooth puree. Transfer to a bowl and stir in the balsamic vinegar and a few grinds of pepper."
+	s2 = "Spoon the mixture into ice pop molds and insert sticks. Freeze until firm, at least 6 hours or up to 1 week."
+	s3 = "To unmold the pops, run hot water over the outsides of the molds for a few seconds, then gently pull the sticks."
+	steps = [s1, s2, s3]
+	balsamic_strawberry_pops = c.create_recipe(name = 'balsamic-strawberry pops', ingredients = ingredients, instructions = steps)
+	api.add_recipe(balsamic_strawberry_pops)
+
+	# green bean and lemon casserole
+	ingredients = [green_beans, butter, olive_oil, lemon]
+	s1 = "Bring a big pot of water to the boil, while you top and tail (trim) the beans. Once the water has come to the boil, salt it and cook the beans until they have lost their rawness (about 6 minutes after the water comes back to the boil), but retain a bit of crunch."
+	s2 = "Strain them, and put the pot back on the stove over a low heat with the butter and olive oil. While the butter melts, chop up the lemon. Put it on a chopping board, cut a slice off each end, just enough to remove skin and pith, and then cut downwards, turning the lemon as you go, to peel the fruit fully. Don't worry if in order to remove all the pith you cut into the fruit a bit: just take the pieces of fruity peel over to the pan and squeeze in any juice you can. Then cut the lemon up on the board: I just slice and let each slice tumble into bits on its own. Add the lemon pieces and all the juice that collects to the melted butter and stir well with a wooden spoon, adding the drained beans."
+	s3 = "Swirl the pan vigorously and turn the beans in the lemony butter. Add salt to taste and lots of freshly ground pepper. I love white pepper (out of deference to my mother's taste and practice) or the much-abominated 1980s restaurant-style mixed pepper, but neither is crucial."
+	s4 = "Remove to a warmed casserole making sure you don't leave any lemony, buttery juices behind."
+	steps = [s1, s2, s3, s4]
+	green_bean_and_lemon_casserole = c.create_recipe(name = 'green bean and lemon casserole', ingredients = ingredients, instructions = steps)
+	api.add_recipe(green_bean_and_lemon_casserole)
+
+
 
 
 def insert_recent_recipes(api):
