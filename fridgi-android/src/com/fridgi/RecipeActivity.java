@@ -24,13 +24,14 @@ import com.fridgi.models.Recipe;
 import com.fridgi.models.RecipeIngredient;
 import com.fridgi.tasks.AddToGroceryTask;
 import com.fridgi.tasks.SuggestRecipeTask;
+import com.fridgi.tasks.FridgeTask.FridgeCallback;
 import com.fridgi.tasks.SuggestRecipeTask.SuggestRecipeHandler;
 import com.fridgi.tasks.UseRecipeTask;
 import com.fridgi.util.Globals;
 import com.fridgi.util.Util;
 
 public class RecipeActivity extends FragmentActivity implements 
-    SuggestRecipeHandler {
+    SuggestRecipeHandler, FridgeCallback {
     
     public static String INTENT_EXTRA_RECIPE = "INTENT_EXTRA_RECIPE";
     
@@ -82,9 +83,11 @@ public class RecipeActivity extends FragmentActivity implements
                 public void onClick(View v) {
                     UseRecipeTask task = new UseRecipeTask(Globals.getInstance().getFridge().getName(), mRecipe.getId().getId());
                     task.execute();
-                    Util.refreshFridge();
-                    setResult(Activity.RESULT_OK);
-                    finish();
+                    mDialog = new ProgressDialog(RecipeActivity.this);
+                    mDialog.setCancelable(false);
+                    mDialog.setMessage("Using Recipe...");
+                    mDialog.show();
+                    Util.refreshFridge(RecipeActivity.this);
                 }
             });
             btn.setText("USE THIS RECIPE");
@@ -94,6 +97,7 @@ public class RecipeActivity extends FragmentActivity implements
                 @Override
                 public void onClick(View v) {
                     mDialog = new ProgressDialog(RecipeActivity.this);
+                    mDialog.setCancelable(false);
                     mDialog.setMessage("Loading Recipe...");
                     mDialog.show();
                     SuggestRecipeTask task = new SuggestRecipeTask(Globals.getInstance().getFridge().getName(), mRecipe.getId().getId(), RecipeActivity.this);
@@ -115,6 +119,12 @@ public class RecipeActivity extends FragmentActivity implements
         setResult(Activity.RESULT_CANCELED);
     }
     
+    @Override
+    public void onPostExecute() {
+        mDialog.dismiss();
+        setResult(Activity.RESULT_OK);
+        finish();
+    }
     
     public void handleRecipe(Recipe recipe) {
         mDialog.dismiss();
@@ -147,7 +157,7 @@ public class RecipeActivity extends FragmentActivity implements
                     mSelected.getIngredient().getId(), 
                     mSelected.getQuantity());
             task.execute();
-            Util.refreshFridge();
+            Util.refreshFridge(null);
         }
     };
     

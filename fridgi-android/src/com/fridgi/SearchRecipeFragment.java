@@ -79,6 +79,9 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
     }
     
     private void refresh() {
+        if (mSearchBox != null) {
+            mSearchBox.setText("");
+        }
         List<Recipe> recipes = Globals.getInstance().getFridge().getRecentRecipes();
         if (recipes != null) {
             RecipeAdapter adapter = new RecipeAdapter(getActivity(), recipes);

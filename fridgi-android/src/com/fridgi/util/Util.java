@@ -41,11 +41,8 @@ public class Util {
         return false;
     }
     
-    public static void refreshFridge() {
-        FridgeTask fridge = new FridgeTask(Globals.getInstance().getFridge().getName(), new FridgeCallback() {
-            @Override
-            public void onPostExecute() {}
-        });
+    public static void refreshFridge(FridgeCallback callback) {
+        FridgeTask fridge = new FridgeTask(Globals.getInstance().getFridge().getName(), callback);
         fridge.execute();
     }
 
