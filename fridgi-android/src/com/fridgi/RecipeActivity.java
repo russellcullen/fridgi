@@ -1,6 +1,7 @@
 package com.fridgi;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -23,12 +24,14 @@ import com.fridgi.models.Recipe;
 import com.fridgi.models.RecipeIngredient;
 import com.fridgi.tasks.AddToGroceryTask;
 import com.fridgi.tasks.SuggestRecipeTask;
+import com.fridgi.tasks.FridgeTask.FridgeCallback;
 import com.fridgi.tasks.SuggestRecipeTask.SuggestRecipeHandler;
 import com.fridgi.tasks.UseRecipeTask;
 import com.fridgi.util.Globals;
 import com.fridgi.util.Util;
 
-public class RecipeActivity extends FragmentActivity implements SuggestRecipeHandler {
+public class RecipeActivity extends FragmentActivity implements 
+    SuggestRecipeHandler, FridgeCallback {
     
     public static String INTENT_EXTRA_RECIPE = "INTENT_EXTRA_RECIPE";
     
@@ -80,7 +83,11 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
                 public void onClick(View v) {
                     UseRecipeTask task = new UseRecipeTask(Globals.getInstance().getFridge().getName(), mRecipe.getId().getId());
                     task.execute();
-                    finish();
+                    mDialog = new ProgressDialog(RecipeActivity.this);
+                    mDialog.setCancelable(false);
+                    mDialog.setMessage("Using Recipe...");
+                    mDialog.show();
+                    Util.refreshFridge(RecipeActivity.this);
                 }
             });
             btn.setText("USE THIS RECIPE");
@@ -90,6 +97,7 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
                 @Override
                 public void onClick(View v) {
                     mDialog = new ProgressDialog(RecipeActivity.this);
+                    mDialog.setCancelable(false);
                     mDialog.setMessage("Loading Recipe...");
                     mDialog.show();
                     SuggestRecipeTask task = new SuggestRecipeTask(Globals.getInstance().getFridge().getName(), mRecipe.getId().getId(), RecipeActivity.this);
@@ -103,6 +111,19 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
         ListView list = (ListView) findViewById(R.id.list);
         list.setOnItemClickListener(mOnIngredientClickedListener);
         list.setAdapter(mAdapter);
+    }
+    
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(Activity.RESULT_CANCELED);
+    }
+    
+    @Override
+    public void onPostExecute() {
+        mDialog.dismiss();
+        setResult(Activity.RESULT_OK);
+        finish();
     }
     
     public void handleRecipe(Recipe recipe) {
@@ -136,6 +157,7 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
                     mSelected.getIngredient().getId(), 
                     mSelected.getQuantity());
             task.execute();
+            Util.refreshFridge(null);
         }
     };
     

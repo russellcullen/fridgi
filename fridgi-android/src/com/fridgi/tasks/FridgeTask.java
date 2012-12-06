@@ -29,6 +29,8 @@ public class FridgeTask extends AsyncTask<Void, Void, Fridge> {
     @Override
     protected void onPostExecute(Fridge result) {
         Globals.getInstance().setFridge(result);
-        mCallback.onPostExecute();
+        if (mCallback != null) {
+            mCallback.onPostExecute();
+        }
     }      
 }

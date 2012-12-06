@@ -35,6 +35,8 @@ public class StartActivity extends Activity implements FridgeCallback {
         }
         setContentView(R.layout.start_activity);
         
+        getActionBar().hide();
+        
         mName = (EditText) findViewById(R.id.fridge);
         
         Button go = (Button) findViewById(R.id.start);
