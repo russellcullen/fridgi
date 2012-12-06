@@ -64,6 +64,11 @@ class RemoveFromGroceryListHandler(tornado.web.RequestHandler):
 		apiObj.remove_item_from_grocery_list(ingredient_id, slug)
 		self.write("Success")
 
+# FOR TESTING. REMOVE LATER
+class ResetListHandler(tornado.web.RequestHandler):
+	def get(self, slug):
+		fake_data.reset_db(apiObj)
+
 application = tornado.web.Application([
 	(r"/", MainHandler),
     (r"/ingredients", IngredientHandler),
@@ -75,7 +80,8 @@ application = tornado.web.Application([
     (r"/fridge/([^/]+)/insert", InsertHandler),
     (r"/fridge/([^/]+)/use", UseRecipeHandler),
     (r"/fridge/([^/]+)/add", AddToGroceryListHandler),
-    (r"/fridge/([^/]+)/remove", RemoveFromGroceryListHandler)
+    (r"/fridge/([^/]+)/remove", RemoveFromGroceryListHandler),
+    (r"/reset", ResetListHandler),
 ])
 
 if __name__ == "__main__":
