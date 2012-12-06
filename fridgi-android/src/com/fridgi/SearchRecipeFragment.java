@@ -1,6 +1,7 @@
 package com.fridgi;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -48,7 +51,16 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
             
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                startSearch(v.getText().toString());
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    if (v.getText().toString().length() > 0) {
+                        // Perform action on key press
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(),
+                                0);
+                        startSearch(v.getText().toString().toLowerCase());
+                    }
+                }
                 return true;
             }
         });
