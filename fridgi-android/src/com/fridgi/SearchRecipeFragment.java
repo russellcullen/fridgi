@@ -22,11 +22,13 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.fridgi.adapters.RecipeAdapter;
+import com.fridgi.models.Ingredient;
 import com.fridgi.models.Recipe;
 import com.fridgi.tasks.FridgeTask;
 import com.fridgi.tasks.FridgeTask.FridgeCallback;
 import com.fridgi.tasks.SearchFridgeRecipesTask;
 import com.fridgi.util.Globals;
+import com.fridgi.util.Util;
 
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
         
         List<Recipe> recipes = Globals.getInstance().getFridge().getRecentRecipes();
         if (recipes != null) {
-            RecipeAdapter adapter = new RecipeAdapter(getActivity(), recipes);
+            RecipeAdapter adapter = new RecipeAdapter(getActivity(), setCanCook(recipes));
             mList.setAdapter(adapter);
         }
         
@@ -78,7 +80,8 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
     }
     
     public void onPostExecute() {
-        RecipeAdapter adapter = new RecipeAdapter(getActivity(), Globals.getInstance().getFridge().getRecentRecipes());
+        List<Recipe> recipes = Globals.getInstance().getFridge().getRecentRecipes();
+        RecipeAdapter adapter = new RecipeAdapter(getActivity(), setCanCook(recipes));
         mList.setAdapter(adapter);
         if (mRefresh != null) {
             mRefresh.setActionView(null);
@@ -104,11 +107,24 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
         }
         List<Recipe> recipes = Globals.getInstance().getFridge().getRecentRecipes();
         if (recipes != null) {
-            RecipeAdapter adapter = new RecipeAdapter(getActivity(), recipes);
+            RecipeAdapter adapter = new RecipeAdapter(getActivity(), setCanCook(recipes));
             mList.setAdapter(adapter);
         }
         FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
         task.execute();
+    }
+    
+    private List<Recipe> setCanCook(List<Recipe> recipes) {
+        for (Recipe recipe : recipes) {
+            recipe.setCanCook(true);
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                if (!Util.hasIngredient(ingredient)) {
+                    recipe.setCanCook(false);
+                    break;
+                }
+            }
+        }
+        return recipes;
     }
     
     private void refreshQuery() {
