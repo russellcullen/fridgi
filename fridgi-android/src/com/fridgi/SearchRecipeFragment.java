@@ -128,6 +128,10 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
     }
     
     private void refreshQuery() {
+        if (mQuery == null || mQuery.isEmpty()) {
+            refresh();
+            return;
+        }
         startSearch(mQuery);
     }
     
