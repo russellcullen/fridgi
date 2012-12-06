@@ -33,6 +33,7 @@ import com.fridgi.util.Util;
 public class RecipeActivity extends FragmentActivity implements 
     SuggestRecipeHandler, FridgeCallback {
     
+    public static int REQUEST_CODE_SUGGEST = 501; 
     public static String INTENT_EXTRA_RECIPE = "INTENT_EXTRA_RECIPE";
     
     private MergeAdapter mAdapter;
@@ -130,8 +131,18 @@ public class RecipeActivity extends FragmentActivity implements
         mDialog.dismiss();
         Intent i = new Intent(this, RecipeActivity.class);
         i.putExtra(RecipeActivity.INTENT_EXTRA_RECIPE, recipe);
-        startActivity(i);
+        startActivityForResult(i, REQUEST_CODE_SUGGEST);
     }
+    
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case Activity.RESULT_OK:
+                setResult(Activity.RESULT_OK);
+                finish();
+                break;
+        }
+    };
     
     OnItemClickListener mOnIngredientClickedListener = new OnItemClickListener() {
 
