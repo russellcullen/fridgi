@@ -10,7 +10,9 @@
 	    android:id="@+id/search"
 	    android:hint="Search Recipes"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"/>
+	    android:layout_height="wrap_content"
+	    android:singleLine="true"
+	    android:imeOptions="actionDone"/>
 
 	<ListView
 	    android:id="@+id/recipes"
