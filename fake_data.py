@@ -61,11 +61,11 @@ def insert_some_recipes(api, c):
 	chicken = all_i(api, c, 'chicken breast', 5, cup, 2)
 	onion = all_i(api, c, 'onion', 2, na, 1)
 	penne = all_i(api, c, 'penne', 12, oz, 1)
-	tomatoes = all_i(api, c, 'cherry tomato', 50, cup, 1)
-	arugula = all_i(api, c, 'arugula leaves', 20, cup, 1)
-	feta = all_i(api, c, 'feta cheese', 10, cup, 1)
+	tomatoes = all_i(api, c, 'cherry tomato', 2, cup, 25)
+	arugula = all_i(api, c, 'arugula leaves', 2, cup, 10)
+	feta = all_i(api, c, 'feta cheese', 1, cup, 10)
 	olive_oil = all_i(api, c, 'olive oil', 8, tsp, 2)
-	garlic = all_i(api, c, 'garlic', 50, clove, 2)
+	garlic = all_i(api, c, 'garlic', 2, clove, 25)
 	crushed_red_pepper = all_i(api, c, 'crushed red pepper', 20, tsp, 1)
 	apple_juice = all_i(api, c, 'apple juice', 10, cup, 1)
 	peach = all_i(api, c, 'peach', 1, na, 1)
@@ -224,7 +224,7 @@ def insert_some_recipes(api, c):
 	s3 = "Whisk together flour, cinnamon, and salt, then whisk into chocolate mixture."
 	s4 = "Spread batter in pan and bake until a wooden pick inserted in center comes out with crumbs adhering, 25 to 30 minutes. Cool completely before cutting."
 	steps = [s1, s2, s3, s4]
-	fudge_coffee_brownies = c.create_recipe(name = 'fudge coffee brownies', ingredients = ingredients, instructions = steps)
+	fudge_coffee_brownies = c.create_recipe(name = 'fudge coffee brownies', ingredients = ingredients, instructions = steps, tags = ['dessert'])
 	api.add_recipe(fudge_coffee_brownies)
 
 	# double chocolate mocha brownies
@@ -235,13 +235,13 @@ def insert_some_recipes(api, c):
 	s4 = "Spread batter evenly in baking pan and bake in middle of oven until top is firm and edges just begin to pull away from sides of pan, about 20 minutes (do not overbake)."
 	s5 = "Cool in pan on a rack 5 minutes, then carefully lift brownies from pan by grasping both ends of foil and transfer to rack to cool 10 minutes more. Cut into 32 squares and lift brownies off foil with a spatula."
 	steps = [s1, s2, s3, s4, s5]
-	double_chocolate_mocha_brownies = c.create_recipe(name = 'double chocolate mocha brownies', ingredients = ingredients, instructions = steps)
+	double_chocolate_mocha_brownies = c.create_recipe(name = 'double chocolate mocha brownies', ingredients = ingredients, instructions = steps, tags = ['dessert'])
 	api.add_recipe(double_chocolate_mocha_brownies)
 
 	# watermelon-lemonade ice pops
 	ingredients = [watermelon, lemonade_concentrate, sugar]
 	steps = ["Combine all ingredients in processor. Puree until very smooth. Divide mixture among 8 ice pop molds (each about 1/4 to 1/3 cup capacity). Cover and freeze until firm, at least 4 hours and up to 5 days."]	
-	watermelon_lemonade_ice_pops = c.create_recipe(name = 'watermelon-lemonade ice pops', ingredients = ingredients, instructions = steps)
+	watermelon_lemonade_ice_pops = c.create_recipe(name = 'watermelon-lemonade ice pops', ingredients = ingredients, instructions = steps, tags = ['dessert'])
 	api.add_recipe(watermelon_lemonade_ice_pops)
 
 	# balsamic-strawberry pops
@@ -250,7 +250,7 @@ def insert_some_recipes(api, c):
 	s2 = "Spoon the mixture into ice pop molds and insert sticks. Freeze until firm, at least 6 hours or up to 1 week."
 	s3 = "To unmold the pops, run hot water over the outsides of the molds for a few seconds, then gently pull the sticks."
 	steps = [s1, s2, s3]
-	balsamic_strawberry_pops = c.create_recipe(name = 'balsamic-strawberry pops', ingredients = ingredients, instructions = steps)
+	balsamic_strawberry_pops = c.create_recipe(name = 'balsamic-strawberry pops', ingredients = ingredients, instructions = steps, tags = ['dessert'])
 	api.add_recipe(balsamic_strawberry_pops)
 
 	# green bean and lemon casserole
