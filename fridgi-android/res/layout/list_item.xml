@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:background="@color/fg"
+    android:background="@drawable/list_item_selector"
     android:mode="twoLine">
     
 	<TextView android:id="@android:id/text1"
