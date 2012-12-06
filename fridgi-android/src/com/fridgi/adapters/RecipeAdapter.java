@@ -2,7 +2,6 @@ package com.fridgi.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.fridgi.R;
 import com.fridgi.RecipeActivity;
 import com.fridgi.models.Recipe;
+import com.fridgi.util.Util;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class RecipeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInflater.inflate(android.R.layout.simple_list_item_2, null);
+            convertView = mInflater.inflate(R.layout.list_item, null);
             ((TextView) convertView.findViewById(android.R.id.text1)).setTypeface(null, Typeface.BOLD);
         }
         
@@ -48,8 +49,10 @@ public class RecipeAdapter extends BaseAdapter {
             }
         });
         
-        ((TextView) convertView.findViewById(android.R.id.text1)).setText(recipe.getName());
-        ((TextView) convertView.findViewById(android.R.id.text1)).setTextColor(recipe.isCanCook() ? Color.GREEN : Color.RED);
+        ((TextView) convertView.findViewById(android.R.id.text1)).setText(Util.titleCase(recipe.getName()));
+        int green = mContext.getResources().getColor(R.color.can_cook);
+        int red = mContext.getResources().getColor(R.color.cannot_cook);
+        ((TextView) convertView.findViewById(android.R.id.text1)).setTextColor(recipe.isCanCook() ? green : red);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < recipe.getInstructions().length; i++) {
             sb.append("\t" + recipe.getInstructions()[i] + "\n\n");

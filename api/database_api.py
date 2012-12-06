@@ -153,11 +153,13 @@ class DatabaseApi:
 		fridges.update({'name' : fridge_name}, {'$push' : {'grocery_list' : recipe_ingredient}})
 
 	#untested
-	def remove_item_from_grocery_list(self, recipe_ingredient, fridge_name):
+	def remove_item_from_grocery_list(self, recipe_ingredient_id, fridge_name):
 		fridges = self.db.fridges
 		fridge = self.get_fridge(fridge_name)
 		grocery_list = fridge['grocery_list']
-		grocery_list.remove(recipe_ingredient)
+		for item in grocery_list:
+			if item['ingredient'] == recipe_ingredient_id:
+				grocery_list.remove(item)
 		fridges.update({'name' : fridge_name}, {'$set' : {'grocery_list' : grocery_list}})
 
 	# Functions used for Testing

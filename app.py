@@ -58,6 +58,12 @@ class AddToGroceryListHandler(tornado.web.RequestHandler):
 		fridgeObj.add_item_to_grocery_list(ingredient_id, quantity, slug)
 		self.write("Success")
 
+class RemoveFromGroceryListHandler(tornado.web.RequestHandler):
+	def get(self, slug):
+		ingredient_id = ObjectId(self.get_argument('ingredient'))
+		apiObj.remove_item_from_grocery_list(ingredient_id, slug)
+		self.write("Success")
+
 application = tornado.web.Application([
 	(r"/", MainHandler),
     (r"/ingredients", IngredientHandler),
@@ -68,7 +74,8 @@ application = tornado.web.Application([
     (r"/fridge/([^/]+)/suggest", SuggestRecipeHandler),
     (r"/fridge/([^/]+)/insert", InsertHandler),
     (r"/fridge/([^/]+)/use", UseRecipeHandler),
-    (r"/fridge/([^/]+)/add", AddToGroceryListHandler)
+    (r"/fridge/([^/]+)/add", AddToGroceryListHandler),
+    (r"/fridge/([^/]+)/remove", RemoveFromGroceryListHandler)
 ])
 
 if __name__ == "__main__":

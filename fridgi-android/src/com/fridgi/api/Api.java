@@ -22,6 +22,7 @@ public class Api {
     private static final String FRIDGE_URL = BASE_URL + "/fridge/";
     private static final String SEARCH_EXTENSION = "/search?tags=";
     private static final String ADD_EXTENSION = "/add";
+    private static final String REMOVE_EXTENSION = "/remove";
     private static final String USE_EXTENSION = "/use";
     private static final String SUGGEST_EXTENSION = "/suggest";
     private static final String SEARCH_URL = BASE_URL + SEARCH_EXTENSION;
@@ -64,6 +65,14 @@ public class Api {
         sb.append("?ingredient=" + ingredientId);
         sb.append("&quantity=");
         sb.append(quantity);
+        getHttpResponse(sb.toString());
+    }
+    
+    public static void removeIngredientFromGroceryList(String fridge, String ingredientId) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(FRIDGE_URL + fridge);
+        sb.append(REMOVE_EXTENSION);
+        sb.append("?ingredient=" + ingredientId);
         getHttpResponse(sb.toString());
     }
     

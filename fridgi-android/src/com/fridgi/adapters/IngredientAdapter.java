@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.fridgi.R;
 import com.fridgi.models.Ingredient;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class IngredientAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInflater.inflate(android.R.layout.simple_list_item_2, null);
+            convertView = mInflater.inflate(R.layout.list_item, null);
         }
         
         Ingredient ingredient = mIngredients.get(position);

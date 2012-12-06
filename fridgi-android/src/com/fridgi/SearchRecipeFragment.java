@@ -33,6 +33,7 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mSearchBox = (EditText) getActivity().findViewById(R.id.search);
+//        mSearchBox.setHintTextColor(getResources().getColor(R.color.fg));
         mSearchBox.setOnEditorActionListener(new OnEditorActionListener() {
             
             @Override

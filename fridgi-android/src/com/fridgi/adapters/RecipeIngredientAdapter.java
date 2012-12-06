@@ -1,7 +1,6 @@
 package com.fridgi.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +18,10 @@ public class RecipeIngredientAdapter extends BaseAdapter {
     
     private List<RecipeIngredient> mIngredients;
     private LayoutInflater mInflater;
+    private Context mContext;
     
     public RecipeIngredientAdapter(Context context, List<RecipeIngredient> ingredients) {
+        mContext = context;
         mInflater = LayoutInflater.from(context);
         mIngredients = ingredients;
     }
@@ -35,9 +36,9 @@ public class RecipeIngredientAdapter extends BaseAdapter {
         TextView name = ((TextView) convertView.findViewById(R.id.name));
         name.setText(ingredient.getName());
         if (Util.hasIngredient(ingredient)) {
-            name.setTextColor(Color.GREEN);
+            name.setTextColor(mContext.getResources().getColor(R.color.can_cook));
         } else {
-            name.setTextColor(Color.RED);
+            name.setTextColor(mContext.getResources().getColor(R.color.cannot_cook));
         }
         ((TextView) convertView.findViewById(R.id.quantity)).setText(Util.formatIngredientQuantity(ingredient, ingredient.getUnit()));
         
