@@ -2,6 +2,8 @@ package com.fridgi.util;
 
 import com.fridgi.models.FridgeIngredient;
 import com.fridgi.models.Ingredient;
+import com.fridgi.tasks.FridgeTask;
+import com.fridgi.tasks.FridgeTask.FridgeCallback;
 
 import java.util.List;
 
@@ -37,6 +39,14 @@ public class Util {
             }
         }
         return false;
+    }
+    
+    public static void refreshFridge() {
+        FridgeTask fridge = new FridgeTask(Globals.getInstance().getFridge().getName(), new FridgeCallback() {
+            @Override
+            public void onPostExecute() {}
+        });
+        fridge.execute();
     }
 
 }

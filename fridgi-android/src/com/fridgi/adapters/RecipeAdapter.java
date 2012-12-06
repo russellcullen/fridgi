@@ -1,5 +1,6 @@
 package com.fridgi.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.fridgi.R;
 import com.fridgi.RecipeActivity;
+import com.fridgi.SearchRecipeFragment;
 import com.fridgi.models.Recipe;
 import com.fridgi.util.Util;
 
@@ -39,15 +41,15 @@ public class RecipeAdapter extends BaseAdapter {
         }
         
         final Recipe recipe = mRecipes.get(position);
-        convertView.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(mContext, RecipeActivity.class);
-                i.putExtra(RecipeActivity.INTENT_EXTRA_RECIPE, recipe);
-                mContext.startActivity(i);
-            }
-        });
+//        convertView.setOnClickListener(new OnClickListener() {
+//            
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(mContext, RecipeActivity.class);
+//                i.putExtra(RecipeActivity.INTENT_EXTRA_RECIPE, recipe);
+//                ((Activity) mContext).startActivityForResult(i, SearchRecipeFragment.REQUEST_CODE_RECIPE);
+//            }
+//        });
         
         ((TextView) convertView.findViewById(android.R.id.text1)).setText(Util.titleCase(recipe.getName()));
         int green = mContext.getResources().getColor(R.color.can_cook);

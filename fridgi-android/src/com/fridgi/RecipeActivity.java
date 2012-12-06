@@ -1,6 +1,7 @@
 package com.fridgi;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -28,7 +29,8 @@ import com.fridgi.tasks.UseRecipeTask;
 import com.fridgi.util.Globals;
 import com.fridgi.util.Util;
 
-public class RecipeActivity extends FragmentActivity implements SuggestRecipeHandler {
+public class RecipeActivity extends FragmentActivity implements 
+    SuggestRecipeHandler {
     
     public static String INTENT_EXTRA_RECIPE = "INTENT_EXTRA_RECIPE";
     
@@ -80,6 +82,8 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
                 public void onClick(View v) {
                     UseRecipeTask task = new UseRecipeTask(Globals.getInstance().getFridge().getName(), mRecipe.getId().getId());
                     task.execute();
+                    Util.refreshFridge();
+                    setResult(Activity.RESULT_OK);
                     finish();
                 }
             });
@@ -104,6 +108,13 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
         list.setOnItemClickListener(mOnIngredientClickedListener);
         list.setAdapter(mAdapter);
     }
+    
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(Activity.RESULT_CANCELED);
+    }
+    
     
     public void handleRecipe(Recipe recipe) {
         mDialog.dismiss();
@@ -136,6 +147,7 @@ public class RecipeActivity extends FragmentActivity implements SuggestRecipeHan
                     mSelected.getIngredient().getId(), 
                     mSelected.getQuantity());
             task.execute();
+            Util.refreshFridge();
         }
     };
     

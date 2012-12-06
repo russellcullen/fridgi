@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.fridgi.R;
 import com.fridgi.models.Ingredient;
+import com.fridgi.util.Util;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class IngredientAdapter extends BaseAdapter {
         }
         
         Ingredient ingredient = mIngredients.get(position);
-        ((TextView) convertView.findViewById(android.R.id.text1)).setText(ingredient.getName());
+        ((TextView) convertView.findViewById(android.R.id.text1)).setText(Util.titleCase(ingredient.getName()));
         ((TextView) convertView.findViewById(android.R.id.text2)).setText("" + ingredient.getQuantity() + " " + ingredient.getUnit());
         
         return convertView;
@@ -39,6 +40,10 @@ public class IngredientAdapter extends BaseAdapter {
     public void setIngredients(List<? extends Ingredient> ingredients) {
         mIngredients = ingredients;
         notifyDataSetChanged();
+    }
+    
+    public void removeIngredient(Ingredient ingredient) {
+        mIngredients.remove(ingredient);
     }
     
     @Override

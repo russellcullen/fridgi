@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,22 +30,22 @@ public class IngredientFragment extends ListFragment implements FridgeCallback {
     int mType;
     IngredientAdapter mAdapter;
     private RecipeIngredient mSelected;
+    private MenuItem mRefresh;
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
         mType = getArguments().getInt(TYPE);
         if (mType == TYPE_GROCERY) {
             mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getGroceryList());
             getListView().setAdapter(mAdapter);
             getListView().setOnItemClickListener(mOnIngredientClickedListener);
-            FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
-            task.execute();
         } else if (mType == TYPE_FRIDGE) {
             mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getIngredients());
             getListView().setAdapter(mAdapter);
-            FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
-            task.execute();
         }
+        FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
+        task.execute();
     }
     
     public void onPostExecute() {
@@ -51,11 +54,31 @@ public class IngredientFragment extends ListFragment implements FridgeCallback {
         } else {
             mAdapter.setIngredients(Globals.getInstance().getFridge().getIngredients());
         }
+        if (mRefresh != null) {
+            mRefresh.setActionView(null);
+        }
     }
     
     public void refresh() {
         FridgeTask fridge = new FridgeTask(Globals.getInstance().getFridge().getName(), IngredientFragment.this);
         fridge.execute();
+    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_refresh, menu);
+        mRefresh = menu.getItem(0);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                item.setActionView(R.layout.refresh_menuitem);
+                refresh();
+        }
+        return true;
     }
 
     @Override
@@ -87,6 +110,7 @@ public class IngredientFragment extends ListFragment implements FridgeCallback {
             RemoveFromGroceryTask task = new RemoveFromGroceryTask(Globals.getInstance().getFridge().getName(), 
                     mSelected.getIngredient().getId());
             task.execute();
+            mAdapter.removeIngredient(mSelected);
             refresh();
         }
     };

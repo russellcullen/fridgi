@@ -55,7 +55,7 @@ public class MainActivity extends FragmentActivity implements
               .setTabListener(this));
         }
     }
-    
+
     public class FridgiPagerAdapter extends FragmentPagerAdapter {
         
         public FridgiPagerAdapter(FragmentManager fm) {
