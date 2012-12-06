@@ -263,9 +263,24 @@ def test3():
 	for recipe in recent_recipes:
 		print(recipe['name'])
 
+def test4():
+	# Create fake testing db
+	a = api.database_api.DatabaseApi('test')
+	fridge = api.fridge_api.FridgeApi(a)
+	fake_data.reset_db(a)
+
+	all_ingredients = a.get_all_ingredients()  	
+	all_recipes = a.get_all_recipes()
+	fridge_ingredients = a.get_current_ingredients('fridgi')
+
+	recent_recipes = a.get_recent_recipes('fridgi')
+	for recipe in recent_recipes:
+		print(recipe['name'])
+
 if __name__ == "__main__":
 	#print test3()
-	print test()
+	#print test()
+	print test4()
 
 
 

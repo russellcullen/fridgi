@@ -194,17 +194,24 @@ def insert_some_recipes(api, c):
 	steps = [s1, s2, s3, s4, s5]
 	double_chocolate_mocha_brownies = c.create_recipe(name = 'double chocolate mocha brownies', ingredients = ingredients, instructions = steps)
 	api.add_recipe(double_chocolate_mocha_brownies)
+
+
+def insert_recent_recipes(api):
+	fridgi = 'fridgi'
+	chicken_penne_pasta = api.get_recipe_info('chicken penne pasta')
+	sweet_peach_smoothie = api.get_recipe_info('sweet peach smoothie')
 	
-
-
-
+	api.update_recent_recipes(chicken_penne_pasta, fridgi)
+	api.update_recent_recipes(sweet_peach_smoothie, fridgi)	
+	
 def reset_db(apiInstance):
 	c = api.creator.ObjectCreator()
+
 	# Clear previous test data
 	apiInstance.clear_db()
-	# Put tests here
-	# insert_some_ingredients(apiInstance, c)
+
 	insert_some_recipes(apiInstance, c)
 	insert_ingredients_into_fridge(apiInstance)
+	insert_recent_recipes(apiInstance)
 
 
