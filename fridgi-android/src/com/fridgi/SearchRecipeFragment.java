@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,6 +34,7 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
     private ListView mList;
     private EditText mSearchBox;
     private String mQuery;
+    private MenuItem mRefresh;
 
     public SearchRecipeFragment() {
     }
@@ -38,6 +42,7 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
         mSearchBox = (EditText) getActivity().findViewById(R.id.search);
         mSearchBox.setOnEditorActionListener(new OnEditorActionListener() {
             
@@ -63,6 +68,9 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
     public void onPostExecute() {
         RecipeAdapter adapter = new RecipeAdapter(getActivity(), Globals.getInstance().getFridge().getRecentRecipes());
         mList.setAdapter(adapter);
+        if (mRefresh != null) {
+            mRefresh.setActionView(null);
+        }
     }
     
     @Override
@@ -87,6 +95,8 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
             RecipeAdapter adapter = new RecipeAdapter(getActivity(), recipes);
             mList.setAdapter(adapter);
         }
+        FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);
+        task.execute();
     }
     
     private void refreshQuery() {
@@ -98,6 +108,30 @@ public class SearchRecipeFragment extends Fragment implements FridgeCallback {
         mQuery = query;
         SearchFridgeRecipesTask task = new SearchFridgeRecipesTask(query, Globals.getInstance().getFridge().getName(), getActivity(), mList);
         task.execute();
+        if (mRefresh != null) {
+            mRefresh.setActionView(null);
+        }
+    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_refresh, menu);
+        mRefresh = menu.getItem(0);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                item.setActionView(R.layout.refresh_menuitem);
+                if (mSearchBox.getText().length() == 0) {
+                    refresh();
+                } else {
+                    refreshQuery();
+                }
+        }
+        return true;
     }
 
     @Override
