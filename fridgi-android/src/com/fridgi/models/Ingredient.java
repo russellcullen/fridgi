@@ -3,7 +3,8 @@ package com.fridgi.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Ingredient implements Parcelable {
+public class Ingredient implements 
+    Parcelable, Comparable<Ingredient> {
     
     private String name;
     private double quantity;
@@ -55,6 +56,10 @@ public class Ingredient implements Parcelable {
         dest.writeString(name);
         dest.writeDouble(quantity);
         dest.writeString(unit);
+    }
+    @Override
+    public int compareTo(Ingredient another) {
+        return name.compareTo(another.getName());
     }
 
 }

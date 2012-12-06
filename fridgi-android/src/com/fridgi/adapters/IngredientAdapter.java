@@ -11,6 +11,7 @@ import com.fridgi.R;
 import com.fridgi.models.Ingredient;
 import com.fridgi.util.Util;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -30,6 +31,7 @@ public class IngredientAdapter extends BaseAdapter {
         mInflater = LayoutInflater.from(context);
         mIngredients = ingredients;
         mHasSelector = hasSelector;
+        Collections.sort(mIngredients);
     }
 
     @Override
@@ -54,6 +56,7 @@ public class IngredientAdapter extends BaseAdapter {
     
     public void setIngredients(List<? extends Ingredient> ingredients) {
         mIngredients = ingredients;
+        Collections.sort(mIngredients);
         notifyDataSetChanged();
     }
     
