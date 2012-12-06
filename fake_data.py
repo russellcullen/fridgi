@@ -39,6 +39,8 @@ def insert_ingredients_into_fridge(api):
 
 def insert_some_recipes(api, c):
 	
+	global count
+
 	api.add_fridge('fridgi')
 	cup = 'cup'
 	oz = 'ounce'
@@ -119,7 +121,7 @@ def insert_some_recipes(api, c):
 	step2 = "Meanwhile, cook pasta in large pot of boiling salted water until just tender but still firm to bite, stirring occasionally. Ladle out 1/4 cup pasta cooking water and reserve. Drain pasta; return to pot."
 	step3 = "Add tomato mixture, arugula, and reserved 1/4 cup pasta cooking water to pasta; toss over medium heat just until arugula begins to wilt, about 30 seconds. Season to taste with salt and pepper. Transfer pasta to bowl. Sprinkle with feta cheese and serve."
 	steps = [step1, step2, step3]
-	chicken_pasta = c.create_recipe(name = 'chicken penne pasta', ingredients = ingredients, instructions = steps, tags = ['delicious'], serving_size = 4)
+	chicken_pasta = c.create_recipe(name = 'chicken penne pasta', ingredients = ingredients, instructions = steps, tags = [], serving_size = 4)
 	api.add_recipe(chicken_pasta)
 
 	# baked mushroom penne pasta
@@ -156,7 +158,7 @@ def insert_some_recipes(api, c):
 	step1 = "Combine the apple juice, peach, banana, yogurt, and ice in a blender and puree until smooth. Add the honey and flaxseed oil and puree briefly to incorporate."
 	step2 = "Pour into glasses and serve right away."
 	steps = [step1, step2]
-	sweet_peach_smoothie = c.create_recipe(name = 'sweet peach smoothie', ingredients = ingredients, instructions = steps, tags = ['delicious'])
+	sweet_peach_smoothie = c.create_recipe(name = 'sweet peach smoothie', ingredients = ingredients, instructions = steps, tags = [])
 	api.add_recipe(sweet_peach_smoothie)
 
 	# peach sangria
@@ -251,17 +253,21 @@ def insert_some_recipes(api, c):
 	green_bean_and_lemon_casserole = c.create_recipe(name = 'green bean and lemon casserole', ingredients = ingredients, instructions = steps)
 	api.add_recipe(green_bean_and_lemon_casserole)
 
-
+	count = 0
 
 
 def insert_recent_recipes(api):
 	fridgi = 'fridgi'
 	chicken_penne_pasta = api.get_recipe_info('chicken penne pasta')
 	sweet_peach_smoothie = api.get_recipe_info('sweet peach smoothie')
+	fudge_coffee_brownies = api.get_recipe_info('fudge coffee brownies')
+	watermelon_lemonade_ice_pops = api.get_recipe_info('watermelon-lemonade ice pops')
 	
 	api.update_recent_recipes(chicken_penne_pasta, fridgi)
 	api.update_recent_recipes(sweet_peach_smoothie, fridgi)	
-	
+	api.update_recent_recipes(fudge_coffee_brownies, fridgi)
+	api.update_recent_recipes(watermelon_lemonade_ice_pops, fridgi)
+
 def reset_db(apiInstance):
 	c = api.creator.ObjectCreator()
 
