@@ -82,11 +82,24 @@ def insert_some_recipes(api, c):
 	parsley = all_i(api, c, 'parsley', 0.5, cup, 1)
 	romaine = all_i(api, c, 'romaine hearts', 1, lb, 1)
 	parmigiano_reggiano = all_i(api, c, 'parmigiano-reggiano', 1, cup, 0)
-
-	potato = all_i(api, c, 'potato', 2, lb, 1)
+	potato = all_i(api, c, 'potato', 2, lb, 3)
 	salt = all_i(api, c, 'salt', 1.5, tsp, 20)
 	white_pepper = all_i(api, c, 'white pepper', 0.25, tsp, 30)
+	sherry_vinegar = all_i(api, c, 'sherry vinegar', 2, tsp, 1)
+	sea_salt = all_i(api, c, 'sea salt', 0.25, tsp, 1)
+	dijon_mustard = all_i(api, c, 'dijon mustard', 0.5, tsp, 1)
+	mixed_salad_greens = all_i(api, c, 'mixed salad greens', 7, oz, 1)
+	peach_schnapps = all_i(api, c, 'peach schnapps', 0.5, cup, 1)
+	sugar = all_i(api, c, 'sugar', 0.333, cup, 1)
+	chilled_rose_wine = all_i(api, c, 'chilled rose wine', 3, cup, 0)
+	chilled_sparkling_water = all_i(api, c, 'chilled sparkling water', 2, cup, 0)
+	gruyere = all_i(api, c, 'gruyere', 4, oz, 1)
+	chocolate = all_i(api, c, 'chocolate', 5, oz, 1)
+	instant_espresso_powder = all_i(api, c, 'instant espresso powder', 2, tsp, 0)
+	vanilla_extract = all_i(api, c, 'vanilla extract', 1, tsp, 1)
+	cinnamon = all_i(api, c, 'cinnamon', 1, tbsp, 1)
 
+	chocolate_chips = all_i(api, c, 'chocolate chips', 0.75, cup, 1)
 
 	# chicken penne pasta
 	ingredients = [tomatoes, olive_oil, garlic, crushed_red_pepper, chicken, penne, arugula, feta]
@@ -96,14 +109,6 @@ def insert_some_recipes(api, c):
 	steps = [step1, step2, step3]
 	chicken_pasta = c.create_recipe(name = 'chicken penne pasta', ingredients = ingredients, instructions = steps, tags = ['delicious'], serving_size = 4)
 	api.add_recipe(chicken_pasta)
-
-	# sweet peach smoothie
-	ingredients = [apple_juice, peach, banana, vanilla_yogurt, ice_cubes, honey, flaxseed_oil]
-	step1 = "Combine the apple juice, peach, banana, yogurt, and ice in a blender and puree until smooth. Add the honey and flaxseed oil and puree briefly to incorporate."
-	step2 = "Pour into glasses and serve right away."
-	steps = [step1, step2]
-	sweet_peach_smoothie = c.create_recipe(name = 'sweet peach smoothie', ingredients = ingredients, instructions = steps, tags = ['delicious'])
-	api.add_recipe(sweet_peach_smoothie)
 
 	# baked mushroom penne pasta
 	ingredients = [porcini_mushroom, butter, shiitake_mushroom, flour, whole_milk, parmesan_cheese, chives, breadcrumbs]
@@ -115,6 +120,22 @@ def insert_some_recipes(api, c):
 	baked_mushroom_penne_pasta = c.create_recipe(name = 'baked mushroom penne pasta', ingredients = ingredients, instructions = steps)
 	api.add_recipe(baked_mushroom_penne_pasta)
 
+	# sweet peach smoothie
+	ingredients = [apple_juice, peach, banana, vanilla_yogurt, ice_cubes, honey, flaxseed_oil]
+	step1 = "Combine the apple juice, peach, banana, yogurt, and ice in a blender and puree until smooth. Add the honey and flaxseed oil and puree briefly to incorporate."
+	step2 = "Pour into glasses and serve right away."
+	steps = [step1, step2]
+	sweet_peach_smoothie = c.create_recipe(name = 'sweet peach smoothie', ingredients = ingredients, instructions = steps, tags = ['delicious'])
+	api.add_recipe(sweet_peach_smoothie)
+
+	# peach sangria
+	ingredients = [peach, peach_schnapps, sugar, chilled_rose_wine, chilled_sparkling_water]
+	s1 = "Stir together peaches, schnapps, and sugar in a large pitcher until sugar is dissolved and let stand 1 hour."
+	s2 = "Stir in wine, sparkling water, and some ice."
+	steps = [s1, s2]
+	peach_sangria = c.create_recipe(name = 'peach sangria', ingredients = ingredients, instructions = steps)
+	api.add_recipe(peach_sangria)
+
 	# basil caesar salad
 	ingredients = [baguette, egg, lemon_juice, anchovy_paste, basil, parsley, romaine, parmigiano_reggiano]
 	step1 = "Preheat oven to 375F with rack in middle."
@@ -125,6 +146,14 @@ def insert_some_recipes(api, c):
 	basil_caesar_salad = c.create_recipe(name = 'basil caesar salad', ingredients = ingredients, instructions = steps)
 	api.add_recipe(basil_caesar_salad)
 
+	# green salad with oil and vinegar dressing
+	ingredients = [sherry_vinegar, sea_salt, dijon_mustard, garlic, olive_oil, mixed_salad_greens]
+	s1 = "1. Place the vinegar, salt, pepper, mustard, and garlic in a medium-size bowl and whisk together until blended. Slowly add the olive oil, whisking constantly, until the dressing is emulsified."
+	s2 = "2. Add the greens and toss well until they are coated with the dressing. Season with pepper to taste and serve the salad immediately."
+	steps = [s1, s2]
+	green_salad_with_oil_and_vinegar_dressing = c.create_recipe(name = 'green salad with oil and vinegar dressing', ingredients = ingredients, instructions = steps)
+	api.add_recipe(green_salad_with_oil_and_vinegar_dressing)
+
 	# light and silky mashed potatoes
 	ingredients = [potato, salt, whole_milk, butter, white_pepper]
 	s1 = "Peel potatoes and cut into 1-inch cubes. Transfer to a 3-quart heavy saucepan and add 5 cups cold water and 1 teaspoon salt, then bring to a boil. Reduce heat and simmer, partially covered, until potatoes are tender, 10 to 15 minutes."
@@ -133,6 +162,40 @@ def insert_some_recipes(api, c):
 	steps = [s1, s2, s3]
 	light_and_silky_mashed_potatoes = c.create_recipe(name = 'light and silky mashed potatoes', ingredients = ingredients, instructions = steps)
 	api.add_recipe(light_and_silky_mashed_potatoes)
+
+	# golden scalloped potatoes
+	ingredients = [potato, butter, flour, whole_milk, gruyere]
+	s1 = "Heat oven to 375F with rack in middle. Butter baking dish."
+	s2 = "Peel and thinly slice potatoes into a large bowl and toss with butter. Spread potatoes in an even layer in the baking dish."
+	s3 = "Put flour, 1 teaspoon salt, and 1/4 teaspoon pepper in a heavy medium saucepan and slowly whisk in milk until the mixture is smooth."
+	s4 = "Bring milk mixture just to a boil over medium heat, whisking constantly (it will thicken slightly), and pour it over the potatoes. Cover pan tightly with foil and bake in oven until potatoes are tender, 35 to 40 minutes."
+	s5 = "Remove foil and sprinkle with cheese, if using. Reset oven to broil and broil potatoes, about 4 to 5 inches from heat, until browned and bubbling, 2 to 3 minutes."
+	steps = [s1, s2, s3, s4, s5]
+	golden_scalloped_potatoes = c.create_recipe(name = 'golden scalloped potatoes', ingredients = ingredients, instructions = steps)
+	api.add_recipe(golden_scalloped_potatoes)
+
+	# fudge coffee brownies
+	ingredients = [butter, chocolate, instant_espresso_powder, sugar, vanilla_extract, egg, flour, cinnamon, salt]
+	s1 = "Preheat oven to 350F with rack in middle. Butter and flour a 13- by 9-inch baking pan."
+	s2 = "Melt butter and chocolate with espresso powder in a 3-quart heavy saucepan over low heat, whisking until smooth. Remove from heat and cool to lukewarm. Whisk in sugar and vanilla. Whisk in eggs 1 at a time until mixture is glossy and smooth."
+	s3 = "Whisk together flour, cinnamon, and salt, then whisk into chocolate mixture."
+	s4 = "Spread batter in pan and bake until a wooden pick inserted in center comes out with crumbs adhering, 25 to 30 minutes. Cool completely before cutting."
+	steps = [s1, s2, s3, s4]
+	fudge_coffee_brownies = c.create_recipe(name = 'fudge coffee brownies', ingredients = ingredients, instructions = steps)
+	api.add_recipe(fudge_coffee_brownies)
+
+	# double chocolate mocha brownies
+	ingredients = [butter, chocolate, sugar, instant_espresso_powder, vanilla_extract, salt, egg, flour, chocolate_chips]
+	s1 = "Preheat oven to 375F. Line a 15- by 10- by 1-inch baking pan with foil, allowing 2 inches of foil to hang over ends of pan, and grease foil well (except overhang) with 1 tablespoon butter."
+	s2 = "Melt remaining 11 tablespoons butter with unsweetened chocolate in a large metal bowl set over a pan of barely simmering water, stirring until smooth. Remove bowl from heat and whisk in sugar, espresso powder, vanilla, and salt (mixture will be grainy), then add eggs 1 at a time, whisking after each addition until batter is smooth."
+	s3 = "Toss together flour and chocolate chips in another bowl and add to batter, stirring until just combined."
+	s4 = "Spread batter evenly in baking pan and bake in middle of oven until top is firm and edges just begin to pull away from sides of pan, about 20 minutes (do not overbake)."
+	s5 = "Cool in pan on a rack 5 minutes, then carefully lift brownies from pan by grasping both ends of foil and transfer to rack to cool 10 minutes more. Cut into 32 squares and lift brownies off foil with a spatula."
+	steps = [s1, s2, s3, s4, s5]
+	double_chocolate_mocha_brownies = c.create_recipe(name = 'double chocolate mocha brownies', ingredients = ingredients, instructions = steps)
+	api.add_recipe(double_chocolate_mocha_brownies)
+	
+
 
 
 def reset_db(apiInstance):
