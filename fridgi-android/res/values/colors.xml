@@ -3,7 +3,7 @@
 <!--     <color name="bg">#8C9DAE</color> -->
     <color name="bg">#E8F2F2</color>
     <color name="fg">@android:color/background_light</color>
-    <color name="can_cook">#00FF00</color>
+    <color name="can_cook">#40893F</color>
     <color name="cannot_cook">#FF0000</color>
 
 </resources>

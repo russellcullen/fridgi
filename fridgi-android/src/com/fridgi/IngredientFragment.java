@@ -41,7 +41,7 @@ public class IngredientFragment extends ListFragment implements FridgeCallback {
             getListView().setAdapter(mAdapter);
             getListView().setOnItemClickListener(mOnIngredientClickedListener);
         } else if (mType == TYPE_FRIDGE) {
-            mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getIngredients());
+            mAdapter = new IngredientAdapter(getActivity(), Globals.getInstance().getFridge().getIngredients(), false);
             getListView().setAdapter(mAdapter);
         }
         FridgeTask task = new FridgeTask(Globals.getInstance().getFridge().getName(), this);

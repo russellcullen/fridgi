@@ -4,21 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@color/bg">
+    android:background="@drawable/list_item_selector">
 	<TextView
 	    android:id="@+id/quantity"
 	    android:paddingLeft="5dip"
 	    android:paddingTop="5dip"
 	    android:paddingBottom="5dip"
+	    android:textSize="16sp"
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
-		android:background="@color/fg"/>
+		android:background="@drawable/list_item_selector"/>
 	<TextView
 	    android:id="@+id/name"
 	    android:paddingTop="5dip"
 	    android:paddingBottom="5dip"
+	    android:textSize="16sp"
 		android:layout_width="fill_parent"
 		android:layout_height="match_parent"
-		android:background="@color/fg"/>
+		android:background="@drawable/list_item_selector"/>
 
 </LinearLayout>

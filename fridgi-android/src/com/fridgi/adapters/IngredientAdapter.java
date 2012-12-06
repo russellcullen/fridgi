@@ -18,16 +18,27 @@ public class IngredientAdapter extends BaseAdapter {
     
     private List<? extends Ingredient> mIngredients;
     private LayoutInflater mInflater;
+    private Context mContext;
+    private boolean mHasSelector;
     
     public IngredientAdapter(Context context, List<? extends Ingredient> ingredients) {
+        this(context, ingredients, true);
+    }
+    
+    public IngredientAdapter(Context context, List<? extends Ingredient> ingredients, boolean hasSelector) {
+        mContext = context;
         mInflater = LayoutInflater.from(context);
         mIngredients = ingredients;
+        mHasSelector = hasSelector;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.list_item, null);
+            if (!mHasSelector) {
+                convertView.setBackgroundColor(mContext.getResources().getColor(R.color.fg));
+            }
         }
         
         Ingredient ingredient = mIngredients.get(position);
@@ -35,6 +46,10 @@ public class IngredientAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(android.R.id.text2)).setText("" + ingredient.getQuantity() + " " + ingredient.getUnit());
         
         return convertView;
+    }
+    
+    public void setHasSlector(boolean hasSelector) {
+        mHasSelector = hasSelector;
     }
     
     public void setIngredients(List<? extends Ingredient> ingredients) {
