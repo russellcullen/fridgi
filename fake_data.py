@@ -31,6 +31,12 @@ def all_i(api, c, name, quantity, unit, number_to_insert_into_fridge):
 	f_i(api, name, number_to_insert_into_fridge)
 	return r_i(api, name, quantity)
 
+def all_i_upc(api, c, name, quantity, unit, number_to_insert_into_fridge, upc):
+	d_i(api, c, upc, name, quantity, unit)
+	f_i(api, name, number_to_insert_into_fridge)
+	return r_i(api, name, quantity)
+
+
 
 
 def insert_ingredients_into_fridge(api):
@@ -79,11 +85,15 @@ def insert_some_recipes(api, c):
 	baguette = all_i(api, c, 'baguette', 1, na, 1)
 	egg = all_i(api, c, 'egg', 1, na, 24)
 	lemon_juice = all_i(api, c, 'lemon juice', 2, tbsp, 10)
-	anchovy_paste = all_i(api, c, 'anchovy paste', 1, tbsp, 0)
+
+	anchovy_paste = all_i_upc(api, c, 'anchovy paste', 1, tbsp, 0, 48000002624)
+	
 	basil = all_i(api, c, 'basil leaves', 1, cup, 1)
 	parsley = all_i(api, c, 'parsley', 0.5, cup, 1)
 	romaine = all_i(api, c, 'romaine hearts', 1, lb, 1)
-	parmigiano_reggiano = all_i(api, c, 'parmigiano-reggiano', 1, cup, 0)
+
+	parmigiano_reggiano = all_i_upc(api, c, 'mexican cheese', 1, cup, 0, 2100060151)
+
 	potato = all_i(api, c, 'potatoes', 2, lb, 3)
 	salt = all_i(api, c, 'salt', 1.5, tsp, 20)
 	white_pepper = all_i(api, c, 'white pepper', 0.25, tsp, 30)
@@ -260,11 +270,13 @@ def insert_recent_recipes(api):
 	fridgi = 'fridgi'
 	chicken_penne_pasta = api.get_recipe_info('chicken penne pasta')
 	sweet_peach_smoothie = api.get_recipe_info('sweet peach smoothie')
+	basil_caesar_salad = api.get_recipe_info('basil caesar salad')
 	fudge_coffee_brownies = api.get_recipe_info('fudge coffee brownies')
 	watermelon_lemonade_ice_pops = api.get_recipe_info('watermelon-lemonade ice pops')
 	
 	api.update_recent_recipes(chicken_penne_pasta, fridgi)
-	api.update_recent_recipes(sweet_peach_smoothie, fridgi)	
+	api.update_recent_recipes(sweet_peach_smoothie, fridgi)
+	api.update_recent_recipes(basil_caesar_salad, fridgi)	
 	api.update_recent_recipes(fudge_coffee_brownies, fridgi)
 	api.update_recent_recipes(watermelon_lemonade_ice_pops, fridgi)
 
