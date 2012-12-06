@@ -80,6 +80,12 @@ public class IngredientFragment extends ListFragment implements FridgeCallback {
         }
         return true;
     }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        onPostExecute();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
