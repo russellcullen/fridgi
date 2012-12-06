@@ -46,6 +46,7 @@ def insert_some_recipes(api, c):
 	tsp = 'teaspoon'
 	tbsp = 'tablespoon'
 	clove = 'clove'
+	lb = 'pound'
 	t = True
 	f = False
 
@@ -55,9 +56,9 @@ def insert_some_recipes(api, c):
 	tomatoes = all_i(api, c, 'cherry tomato', 50, cup, 1)
 	arugula = all_i(api, c, 'arugula leaves', 20, cup, 1)
 	feta = all_i(api, c, 'feta cheese', 10, cup, 1)
-	olive_oil = all_i(api, c, 'olive oil', 8, tsp, 1)
-	garlic = all_i(api, c, 'garlic', 50, clove, 1)
-	pepper = all_i(api, c, 'crushed red pepper', 20, tsp, 1)
+	olive_oil = all_i(api, c, 'olive oil', 8, tsp, 2)
+	garlic = all_i(api, c, 'garlic', 50, clove, 2)
+	crushed_red_pepper = all_i(api, c, 'crushed red pepper', 20, tsp, 1)
 	apple_juice = all_i(api, c, 'apple juice', 10, cup, 1)
 	peach = all_i(api, c, 'peach', 1, na, 1)
 	banana = all_i(api, c, 'banana', 1, na, 1)
@@ -66,17 +67,29 @@ def insert_some_recipes(api, c):
 	honey = all_i(api, c, 'honey', 2, tsp, 1)
 	flaxseed_oil = all_i(api, c, 'flaxseed oil', 2, tsp, 1)
 	porcini_mushroom = all_i(api, c, 'porcini mushroom', 0.5, oz, 1)
-	butter = all_i(api, c, 'butter', 6, tsp, 1)
+	butter = all_i(api, c, 'butter', 6, tsp, 3)
 	shiitake_mushroom = all_i(api, c, 'shiitake mushroom', 6, oz, 1)
 	flour = all_i(api, c, 'flour', 2.5, tbsp, 1)
-	whole_milk = all_i(api, c, 'whole milk', 2.5, cup, 1)
+	whole_milk = all_i(api, c, 'whole milk', 2.5, cup, 10)
 	parmesan_cheese = all_i(api, c, 'parmesan cheese', 0.75, cup, 1)
 	chives = all_i(api, c, 'chives', 0.5, cup, 1)
 	breadcrumbs = all_i(api, c, 'breadcrumbs', 0.5, cup, 1)
+	baguette = all_i(api, c, 'baguette', 1, na, 1)
+	egg = all_i(api, c, 'egg', 1, na, 24)
+	lemon_juice = all_i(api, c, 'lemon juice', 2, tbsp, 10)
+	anchovy_paste = all_i(api, c, 'anchovy_paste', 1, tbsp, 0)
+	basil = all_i(api, c, 'basil leaves', 1, cup, 1)
+	parsley = all_i(api, c, 'parsley', 0.5, cup, 1)
+	romaine = all_i(api, c, 'romaine hearts', 1, lb, 1)
+	parmigiano_reggiano = all_i(api, c, 'parmigiano-reggiano', 1, cup, 0)
+
+	potato = all_i(api, c, 'potato', 2, lb, 1)
+	salt = all_i(api, c, 'salt', 1.5, tsp, 20)
+	white_pepper = all_i(api, c, 'white pepper', 0.25, tsp, 30)
 
 
 	# chicken penne pasta
-	ingredients = [tomatoes, olive_oil, garlic, pepper, chicken, penne, arugula, feta]
+	ingredients = [tomatoes, olive_oil, garlic, crushed_red_pepper, chicken, penne, arugula, feta]
 	step1 = "Preheat oven to 475F. Mix cherry tomatoes, oil, garlic, and crushed red pepper on rimmed baking sheet. Sprinkle with salt and pepper. Bake until tomatoes are soft and beginning to brown in spots, stirring occasionally, about 20 minutes. Transfer tomato mixture, including any juices, from sheet to large skillet. Add chicken to skillet and simmer until heated through, about 5 minutes."
 	step2 = "Meanwhile, cook pasta in large pot of boiling salted water until just tender but still firm to bite, stirring occasionally. Ladle out 1/4 cup pasta cooking water and reserve. Drain pasta; return to pot."
 	step3 = "Add tomato mixture, arugula, and reserved 1/4 cup pasta cooking water to pasta; toss over medium heat just until arugula begins to wilt, about 30 seconds. Season to taste with salt and pepper. Transfer pasta to bowl. Sprinkle with feta cheese and serve."
@@ -101,6 +114,26 @@ def insert_some_recipes(api, c):
 	steps = [step1, step2, step3, step4]
 	baked_mushroom_penne_pasta = c.create_recipe(name = 'baked mushroom penne pasta', ingredients = ingredients, instructions = steps)
 	api.add_recipe(baked_mushroom_penne_pasta)
+
+	# basil caesar salad
+	ingredients = [baguette, egg, lemon_juice, anchovy_paste, basil, parsley, romaine, parmigiano_reggiano]
+	step1 = "Preheat oven to 375F with rack in middle."
+	step2 = "Toss bread with 2 tablespoons oil and 1/4 teaspoon each of salt and pepper in a large 4-sided sheet pan, then spread out in 1 layer. Toast in oven, stirring halfway through, until golden, 12 to 15 minutes."
+	step3 = " Meanwhile, with motor running, drop garlic into a food processor and finely chop. Add egg, lemon juice, anchovy paste, and 1/2 teaspoon pepper and pulse until combined. With motor running, add remaining 6 tablespoons oil in a slow stream, blending until emulsified. Add herbs and blend until dressing turns green and herbs are finely chopped."
+	step4 = "Toss romaine with dressing, croutons, and half of cheese in a large bowl. Sprinkle with remaining cheese."
+	steps = [step1, step2, step3, step4]
+	basil_caesar_salad = c.create_recipe(name = 'basil caesar salad', ingredients = ingredients, instructions = steps)
+	api.add_recipe(basil_caesar_salad)
+
+	# light and silky mashed potatoes
+	ingredients = [potato, salt, whole_milk, butter, white_pepper]
+	s1 = "Peel potatoes and cut into 1-inch cubes. Transfer to a 3-quart heavy saucepan and add 5 cups cold water and 1 teaspoon salt, then bring to a boil. Reduce heat and simmer, partially covered, until potatoes are tender, 10 to 15 minutes."
+	s2 = "Drain potatoes in a colander, then return to pan and cook over moderate heat, shaking pan occasionally, until dry, 1 to 2 minutes. Transfer potatoes to a bowl and keep hot, covered. Heat milk, butter, white pepper, and remaining 1/2 teaspoon salt in saucepan over moderate heat until butter is melted."
+	s3 = "Force potatoes through food mill or ricer into hot milk mixture in pan and gently stir with a large heatproof rubber spatula just until combined."
+	steps = [s1, s2, s3]
+	light_and_silky_mashed_potatoes = c.create_recipe(name = 'light and silky mashed potatoes', ingredients = ingredients, instructions = steps)
+	api.add_recipe(light_and_silky_mashed_potatoes)
+
 
 def reset_db(apiInstance):
 	c = api.creator.ObjectCreator()
