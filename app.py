@@ -1,3 +1,5 @@
+## Creates endpoints for android device to access database operations ##
+
 import tornado.ioloop
 import tornado.web
 import os
@@ -86,7 +88,7 @@ application = tornado.web.Application([
 ])
 
 if __name__ == "__main__":
-	# Create fake testing db
+	# Create testing db
 	apiObj = api.database_api.DatabaseApi()
 	fridgeObj = api.fridge_api.FridgeApi(apiObj)
 	fake_data.reset_db(apiObj)

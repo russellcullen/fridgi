@@ -1,3 +1,4 @@
+## Class for creating JSON objects (dictionaries) to place in data table ##
 class ObjectCreator:
 
     def create_ingredient(self, upc = 0, name = '', quantity = 0, unit = '', shelf_life = 0, price = 0, calories = 0, default_tags = []):

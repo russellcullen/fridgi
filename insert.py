@@ -1,3 +1,5 @@
+## Takes input from stdout (barcode scanner) and inserts into database ##
+
 import urllib, urllib2
 
 def getJSONResponse(url):

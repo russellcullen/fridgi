@@ -1,6 +1,16 @@
 fridgi
 ======
 
+Description
+-----------
+
+Assumptions
+-----------
+
+Future
+------
+
+
 How to run app locally:
 
     $ ./run.sh

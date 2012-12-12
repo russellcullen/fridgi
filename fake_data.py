@@ -1,4 +1,4 @@
-### Used to populate our DB ###
+## Used to populate our DB ##
 
 import api.database_api
 import api.creator
@@ -23,7 +23,6 @@ def f_i(api, name, number):
 		api.insert_ingredient(name, 'fridgi')
 		i += 1
 
-
 def all_i(api, c, name, quantity, unit, number_to_insert_into_fridge):
 	global count
 	count += 1
@@ -35,13 +34,6 @@ def all_i_upc(api, c, name, quantity, unit, number_to_insert_into_fridge, upc):
 	d_i(api, c, upc, name, quantity, unit)
 	f_i(api, name, number_to_insert_into_fridge)
 	return r_i(api, name, quantity)
-
-
-
-
-def insert_ingredients_into_fridge(api):
-	# f_i(api, 'chicken breast')
-	pass
 
 def insert_some_recipes(api, c):
 	
@@ -282,12 +274,9 @@ def insert_recent_recipes(api):
 
 def reset_db(apiInstance):
 	c = api.creator.ObjectCreator()
-
 	# Clear previous test data
 	apiInstance.clear_db()
-
 	insert_some_recipes(apiInstance, c)
-	insert_ingredients_into_fridge(apiInstance)
 	insert_recent_recipes(apiInstance)
 
 

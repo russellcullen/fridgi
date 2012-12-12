@@ -1,4 +1,5 @@
-## Updating the global ingredients and recipes database
+## Directly accesses and performs operations on the MongoDB database ##
+
 import pymongo
 import creator
 import time
@@ -54,12 +55,10 @@ class DatabaseApi:
 		recipes = self.db.recipes
 		return recipes.find_one({'name' : recipe_name})
 
-	# untested
 	def get_recipe_by_id(self, recipe_id):
 		recipes = self.db.recipes
 		return recipes.find_one({'_id' : recipe_id})
 
-	# untested
 	def update_recipe_time_by_id(self, recipe_id):
 		recipes = self.db.recipes
 		recipes.update({'_id' : recipe_id}, {'$set' : {'last_used' : time.time()}})
@@ -82,7 +81,6 @@ class DatabaseApi:
 		tag_list = str.split(query)
 		return self.find_recipe_by_tag(tag_list)
 
-	# untested
 	def search_by_current_recipe(self, recipe_id):
 		current_recipe = self.get_recipe_by_id(recipe_id)
 		current_recipe_tags = current_recipe['tags']
@@ -135,7 +133,6 @@ class DatabaseApi:
 				if (ins['name'] == ingredient_name):
 					self.update_ingredient(ingredient_name, ins['quantity']-quantity, fridge_name)
 
-	# untested
 	def update_ingredient(self, ingredient_name, quantity, fridge_name):
 		ingredients = self.get_current_ingredients(fridge_name)
 		for i in ingredients:
@@ -147,12 +144,10 @@ class DatabaseApi:
 		fridges = self.db.fridges
 		fridges.update({'name' : fridge_name}, {'$set' : {'ingredients' : ingredients}})
  
-	# untested
 	def add_item_to_grocery_list(self, recipe_ingredient, fridge_name):
 		fridges = self.db.fridges
 		fridges.update({'name' : fridge_name}, {'$push' : {'grocery_list' : recipe_ingredient}})
 
-	#untested
 	def remove_item_from_grocery_list(self, recipe_ingredient_id, fridge_name):
 		fridges = self.db.fridges
 		fridge = self.get_fridge(fridge_name)
