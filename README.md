@@ -27,7 +27,7 @@ It's that simple!
 
 JSON Objects and MongoDB Documents
 ----------------------------------
-"Fridge Ingredient"  
+#### Fridge Ingredient
 {  
   name : string  
   ingredient : ObjectID  
@@ -38,7 +38,7 @@ JSON Objects and MongoDB Documents
   tags : string[]  
 }  
 
-"Recipe Ingredient"  
+#### Recipe Ingredient
 {  
   name : string  
   ingredient : ObjectID    
