@@ -10,15 +10,23 @@ Assumptions
 Future
 ------
 
+## Authors
 
-How to run app locally:
+* Norbert Chu
+* Russell Cullen
+* Jonathan Hsu
+* Wilson Sa
+
+How to Run Locally
+------------------
+Type into command line :
 
     $ ./run.sh
 
 It's that simple!
 
-JSON Object
------------
+JSON Objects and MongoDB Documents
+----------------------------------
 "Fridge Ingredient"  
 {  
   name : string  
@@ -37,8 +45,6 @@ JSON Object
   quantity : float  
   unit : string  
 }  
-
-##Documents
 
 #### Ingredient
 upc : long  
@@ -65,8 +71,7 @@ ingredients : "Fridge Ingredient"[]
 grocery\_list : "Recipe Ingredient"[]  
 recent\_recipes : Recipe[]  
 
-Collection Names
-----------------
+#### Collection Names
 Ingredients  
 Recipes  
 Fridges  
