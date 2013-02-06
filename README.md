@@ -20,9 +20,24 @@ This will start the fridgi server which can then be pointed to by the android co
 [Fridge](#fridge)
 
 
+<a id="base-ingredient"></a>  
+#### Base Ingredient
+```JavaScript
+{
+  'upc' : long  
+  'name' : string  
+  'quantity' : float  
+  'unit' : string   
+  'shelf\_life' : long  
+  'price' : int  
+  'calories' : int 
+  'default_tags' : string[]  
+}
+```
+
 <a id="fridge-ingredient"></a>  
 #### Fridge Ingredient
-```JSON
+```JavaScript
 {  
   'name' : string,  
   'ingredient' : ObjectID,   
@@ -30,50 +45,42 @@ This will start the fridgi server which can then be pointed to by the android co
   'unit' : string,  
   'insert\_time' : double,  
   'count' : int,  
-  tags : string[],  
+  'tags' : string[],  
 }  
 ```
 
+<a id="recipe-ingredient"></a>  
 #### Recipe Ingredient
+```JavaScript
 {  
-  name : string  
-  ingredient : ObjectID    
-  quantity : float  
-  unit : string  
-}  
+  'name' : string,  
+  'ingredient' : ObjectID,    
+  'quantity' : float,  
+  'unit' : string,  
+}
+```
 
-#### Ingredient
-upc : long  
-name : string  
-quantity : float  
-unit : string   
-shelf\_life : long  
-price : int  
-calories : int  
-default_tags : string[]  
-
+<a id="recipe"></a>  
 #### Recipe
-name : string  
-ingredients : "Recipe Ingredient"[]  
-instructions : string[]  
-rating : float  
-tags : string[]  
-last\_used : long  
-serving\_size : float  
+```JavaScript
+{  
+  'name' : string  
+  'ingredients' : "Recipe Ingredient"[]  
+  'instructions' : string[]  
+  'rating' : float  
+  'tags' : string[]  
+  'last\_used' : long  
+  'serving\_size' : float  
+}
+```
 
+<a id="fridge"></a>  
 #### Fridge
-name : string  
-ingredients : "Fridge Ingredient"[]   
-grocery\_list : "Recipe Ingredient"[]  
-recent\_recipes : Recipe[]  
-
-#### Collection Names
-Ingredients  
-Recipes  
-Fridges  
-
-
-
-
-
-
+```JavaScript
+{  
+  'name' : string 
+  'ingredients' : "Fridge Ingredient"[]   
+  'grocery\_list' : "Recipe Ingredient"[]  
+  'recent\_recipes' : Recipe[]  
+}
+``` 
