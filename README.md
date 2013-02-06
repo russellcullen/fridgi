@@ -21,18 +21,41 @@ This will start the fridgi server which can then be pointed to by the android co
 
 ### Requests
 
+All requests are GET requests
+
     /search?tags=<tag1>+<tag2>+....
     
 Returns array of [Recipes](#recipe) that contain one or more given tags. Sorted by relevance.  
 
+---
     /fridge/<name>
     
-Returns [Fridge](#fridge) with given name or 404 if none exists. 
+Returns the [Fridge](#fridge) with given name.  
 
+---
     /fridge/<name>/search?tags=<tag1>+<tag2>
     
-Identical to normal search, except these [Recipes](#recipe) includes a 'can_cook' boolean field based on the provided fridge name
+Identical to normal search, except these [Recipes](#recipe) includes a 'can_cook' boolean field based on the provided fridge name.
 
+---
+    /fridge/<name>/suggest?recipe=<RecipeID>
+    
+Returns the closest [Recipe](#recipe) to the one given that can be cooked with the ingredients in the fridge provided.
+
+---
+    /fridge/<name>/use?recipe=<RecipeID>
+    
+Can only be called on recipes that can be cooked with the given fridge. Uses the recipe provided. This subtracts recipe quantities from ingredients in the fridge given. 
+
+---
+    /fridge/<name>/add?ingredient=<RecipeID>&quantity=<qty>
+    
+Adds a [Recipe Ingredient](#recipe-ingredient) with the given base ingredient id and quantity to the grocery list of the provided fridge.  
+
+---
+    /fridge/<name>/remove?ingredient=<RecipeID>
+    
+Removes the [Recipe Ingredient](#recipe-ingredient) with the given id from the grocery list of the provided fridge.  
 
 <a id="base-ingredient"></a>  
 #### Base Ingredient
