@@ -1,9 +1,6 @@
 # fridgi : The Smart Fridge
 
-
 Fridgi is an android app that keeps track of the ingredients in your fridge to make cooking and shopping easier. Frigi can search recipes based on your current ingredients and you can even add ingredients to a grocery list to take with you on the go. 
->>>>>>> Stashed changes
-
 
 # Run fridgi server
 
@@ -16,8 +13,8 @@ This will start the fridgi server which can then be pointed to by the android co
 ### Objects
 
 [Base Ingredient](#base-ingredient)  
-*[Fridge Ingredient](#fridge-ingredient)  
-*[Recipe Ingredient](#recipe-ingredient)  
+* [Fridge Ingredient](#fridge-ingredient)  
+* [Recipe Ingredient](#recipe-ingredient)  
 [Recipe](#recipe)
 [Fridge](#fridge)
 
@@ -26,7 +23,7 @@ JSON Objects and MongoDB Documents
 ----------------------------------
 <a id="fridge-ingredient"></a>  
 #### Fridge Ingredient
-'''JSON
+```JSON
 {  
   name : string  
   ingredient : ObjectID  
@@ -36,7 +33,7 @@ JSON Objects and MongoDB Documents
   count : int  
   tags : string[]  
 }  
-'''
+```
 
 #### Recipe Ingredient
 {  
