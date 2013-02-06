@@ -15,23 +15,22 @@ This will start the fridgi server which can then be pointed to by the android co
 [Base Ingredient](#base-ingredient)  
 * [Fridge Ingredient](#fridge-ingredient)  
 * [Recipe Ingredient](#recipe-ingredient)  
-[Recipe](#recipe)
+
+[Recipe](#recipe)  
 [Fridge](#fridge)
 
 
-JSON Objects and MongoDB Documents
-----------------------------------
 <a id="fridge-ingredient"></a>  
 #### Fridge Ingredient
 ```JSON
 {  
-  name : string  
-  ingredient : ObjectID  
-  quantity : float  
-  unit : string  
-  insert\_time : double  
-  count : int  
-  tags : string[]  
+  'name' : string,  
+  'ingredient' : ObjectID,   
+  'quantity' : float,  
+  'unit' : string,  
+  'insert\_time' : double,  
+  'count' : int,  
+  tags : string[],  
 }  
 ```
 
