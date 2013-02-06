@@ -19,6 +19,20 @@ This will start the fridgi server which can then be pointed to by the android co
 [Recipe](#recipe)  
 [Fridge](#fridge)
 
+### Requests
+
+    /search?tags=<tag1>+<tag2>+....
+    
+Returns array of [Recipes](#recipe) that contain one or more given tags. Sorted by relevance.  
+
+    /fridge/<name>
+    
+Returns [Fridge](#fridge) with given name or 404 if none exists. 
+
+    /fridge/<name>/search?tags=<tag1>+<tag2>
+    
+Identical to normal search, except these [Recipes](#recipe) includes a 'can_cook' boolean field based on the provided fridge name
+
 
 <a id="base-ingredient"></a>  
 #### Base Ingredient
