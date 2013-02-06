@@ -8,6 +8,8 @@ Fridgi is an android app that keeps track of the ingredients in your fridge to m
 
 This will start the fridgi server which can then be pointed to by the android component. 
 
+There is currently a sample server running on [fridgi.herokuapp.com](https://fridgi.herokuapp.com)
+
 # API
 
 ### Objects
@@ -23,6 +25,7 @@ This will start the fridgi server which can then be pointed to by the android co
 
 All requests are GET requests
 
+---
     /search?tags=<tag1>+<tag2>+....
     
 Returns array of [Recipes](#recipe) that contain one or more given tags. Sorted by relevance.  
@@ -121,3 +124,9 @@ Removes the [Recipe Ingredient](#recipe-ingredient) with the given id from the g
   'recent\_recipes' : Recipe[]  
 }
 ``` 
+
+## Authors
+* [Norbert Chu](https://github.com/Burbles)
+* [Russell Cullen](https://github.com/coolbrow)
+* [Jonathan Hsu](https://github.com/jreucy)
+* [Wilson Sa](https://github.com/wilsonsa)
